@@ -1,0 +1,681 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  OWNER
+  ADMIN
+  CASHIER
+}
+
+enum ProductType {
+  MENU
+  MERCHANDISE
+}
+
+enum StockMovementType {
+  PURCHASE
+  RECIPE_USAGE
+  ADJUSTMENT_IN
+  ADJUSTMENT_OUT
+  WASTE
+  RETURN
+}
+
+enum TransactionStatus {
+  COMPLETED
+  CANCELLED
+  REFUNDED
+}
+
+enum PurchaseType {
+  PO
+  DIRECT
+}
+
+// DRAFT      -> baru dibuat, belum dikirim ke supplier (khusus PO)
+// ORDERED    -> PO sudah dikirim/disetujui, menunggu barang datang
+// PARTIAL    -> sebagian item sudah diterima (sebagian atau sebagian qty)
+// RECEIVED   -> semua item sudah diterima penuh (stok sudah masuk semua)
+// COMPLETED  -> proses selesai (biasanya dipakai setelah RECEIVED + admin close)
+// CANCELLED  -> dibatalkan
+enum PurchaseStatus {
+  DRAFT
+  ORDERED
+  PARTIAL
+  RECEIVED
+  COMPLETED
+  CANCELLED
+}
+
+enum PurchasePaymentStatus {
+  UNPAID
+  PARTIAL
+  PAID
+}
+
+enum AdjustmentType {
+  PERCENTAGE
+  FIXED
+}
+
+// Menentukan di konteks mana sebuah metode pembayaran boleh dipakai
+enum PaymentMethodUsage {
+  PURCHASE    // hanya untuk pembayaran ke supplier
+  TRANSACTION // hanya untuk kasir/transaksi penjualan
+  BOTH        // dua-duanya
+}
+
+enum AuditLogAction {
+  CREATE
+  UPDATE
+  DELETE
+  REGISTER
+  LOGIN
+  LOGIN_FAILED
+  LOGOUT
+}
+
+model Tenant {
+  id     String  @id @default(uuid())
+  name   String  @db.VarChar(150)
+  slug   String  @unique @db.VarChar(100)
+  status Boolean @default(true)
+
+  users User[]
+
+  categories   Category[]
+  products     Product[]
+  rawMaterials RawMaterial[]
+  paymentMethods PaymentMethod[]
+
+  purchases    Purchase[]
+  transactions Transaction[]
+
+  stockMovements StockMovement[]
+
+  suppliers Supplier[]
+
+  auditLogs AuditLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
+}
+
+model User {
+  id String @id @default(uuid())
+
+  tenantId String?
+  tenant   Tenant? @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  name     String @db.VarChar(150)
+  username String @db.VarChar(100)
+  email    String @unique @db.VarChar(150)
+  password String
+
+  role   UserRole @default(CASHIER)
+  status Boolean  @default(true)
+
+  refreshTokens RefreshToken[]
+
+  auditLogs AuditLog[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // username unik dalam satu tenant
+  @@unique([tenantId, username])
+
+  @@index([tenantId])
+  @@index([role])
+  @@index([status])
+}
+
+model Category {
+  id String @id @default(uuid())
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  name   String  @db.VarChar(100)
+  status Boolean @default(true)
+
+  products Product[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([tenantId, name])
+
+  @@index([tenantId])
+  @@index([status])
+}
+
+model Product {
+  id String @id @default(uuid())
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  name String @db.VarChar(150)
+
+  type ProductType
+
+  sku String? @db.VarChar(100)
+
+  // MENU        -> portion
+  // MERCHANDISE -> pcs
+  unit String @db.VarChar(30)
+
+  sellingPrice Int @default(0)
+
+  status Boolean @default(true)
+
+  recipeItems RecipeItem[]
+
+  transactionItems TransactionItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Nama produk unik dalam tenant
+  @@unique([tenantId, name])
+
+  // SKU juga unik dalam tenant
+  @@unique([tenantId, sku])
+
+  @@index([tenantId])
+  @@index([categoryId])
+  @@index([type])
+  @@index([status])
+}
+
+
+model RawMaterial {
+  id String @id @default(uuid())
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  name String @db.VarChar(150)
+
+  sku String? @db.VarChar(100)
+
+  // Base unit
+  unitId String
+  unit   Unit @relation(fields: [unitId], references: [id])
+
+  // HPP rata-rata per base unit
+  averageCost Int @default(0)
+
+  status Boolean @default(true)
+
+  stock Stock?
+
+  recipeItems    RecipeItem[]
+  purchaseItems  PurchaseItem[]
+  stockMovements StockMovement[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([tenantId, name])
+  @@unique([tenantId, sku])
+
+  @@index([tenantId])
+  @@index([unitId])
+  @@index([status])
+}
+
+model Stock {
+  id String @id @default(uuid())
+
+  rawMaterialId String      @unique
+  rawMaterial   RawMaterial @relation(fields: [rawMaterialId], references: [id], onDelete: Cascade)
+
+  // Selalu base unit
+  quantity Decimal @default(0) @db.Decimal(15, 3)
+
+  minimumStock Decimal @default(0) @db.Decimal(15, 3)
+
+  updatedAt DateTime @updatedAt
+}
+
+model RecipeItem {
+  id String @id @default(uuid())
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  rawMaterialId String
+  rawMaterial   RawMaterial @relation(fields: [rawMaterialId], references: [id], onDelete: Restrict)
+
+
+  // Jumlah bahan yang diperlukan untuk menghasilkan 1 unit Product
+  quantity Decimal @db.Decimal(15, 3)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([productId, rawMaterialId])
+  @@index([productId])
+  @@index([rawMaterialId])
+}
+
+
+model Supplier {
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  code String @db.VarChar(50)
+  name String @db.VarChar(150)
+
+  phone   String? @db.VarChar(30)
+  email   String? @db.VarChar(150)
+  address String? @db.Text
+
+  status Boolean @default(true)
+
+  purchases Purchase[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([tenantId, code])
+  @@index([tenantId])
+  @@index([status])
+}
+
+model Purchase {
+  id String @id @default(uuid())
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  supplierId String
+  supplier   Supplier @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+
+  purchaseNumber String  @db.VarChar(50)
+  invoiceNumber  String? @db.VarChar(100)
+
+  purchaseType PurchaseType
+  status       PurchaseStatus @default(DRAFT)
+
+  purchaseDate DateTime @default(now())
+
+  subtotal Int @default(0)
+
+  discountType  AdjustmentType?
+  discountValue Decimal? @db.Decimal(15, 2)
+  discount      Int @default(0)
+
+  taxType  AdjustmentType?
+  taxValue Decimal? @db.Decimal(15, 2)
+  tax      Int @default(0)
+
+  totalAmount Int @default(0)
+
+  paymentStatus PurchasePaymentStatus @default(UNPAID)
+
+  items      PurchaseItem[]
+  receivings PurchaseReceiving[]
+  payments   PurchasePayment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([tenantId, purchaseNumber])
+
+  @@index([tenantId])
+  @@index([supplierId])
+  @@index([purchaseDate])
+  @@index([status])
+  @@index([purchaseType])
+  @@index([paymentStatus])
+}
+
+model PurchaseItem {
+  id String @id @default(uuid())
+
+  purchaseId String
+  purchase   Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+
+  rawMaterialId String
+  rawMaterial   RawMaterial @relation(fields: [rawMaterialId], references: [id], onDelete: Restrict)
+
+  // Qty yang dibeli dalam unit pembelian
+  quantity Decimal @db.Decimal(15, 3)
+
+  // Unit pembelian
+  unitId String
+  unit   Unit @relation(fields: [unitId], references: [id], onDelete: Restrict)
+
+  // Qty setelah konversi ke base unit
+  baseQuantity Decimal @db.Decimal(15, 3)
+
+  // Total qty yang sudah diterima
+  receivedBaseQuantity Decimal @default(0) @db.Decimal(15, 3)
+
+  // Harga total item
+  subtotal Int @default(0)
+
+  createdAt DateTime @default(now())
+
+  receivingItems PurchaseReceivingItem[]
+
+  @@index([purchaseId])
+  @@index([rawMaterialId])
+  @@index([unitId])
+}
+
+// Header penerimaan barang. Satu Purchase (khusus PO) bisa punya banyak
+// PurchaseReceiving jika barang datang bertahap (parsial).
+// Untuk PurchaseType DIRECT, biasanya cukup 1 PurchaseReceiving yang dibuat
+// otomatis bersamaan dengan Purchase-nya (qty diterima = qty dibeli).
+model PurchaseReceiving {
+  id String @id @default(uuid())
+
+  purchaseId String
+  purchase   Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+
+  receivingNumber String   @db.VarChar(50)
+  receivingDate   DateTime @default(now())
+
+  note String? @db.Text
+
+  items PurchaseReceivingItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([purchaseId, receivingNumber])
+  @@index([purchaseId])
+  @@index([receivingDate])
+}
+
+// Detail per item yang diterima dalam satu event penerimaan.
+// Setiap baris di sini akan:
+// 1. Menambah receivedBaseQuantity di PurchaseItem terkait
+// 2. Membuat StockMovement (type PURCHASE) sebesar baseQuantity
+// 3. Menambah Stock.quantity milik RawMaterial terkait
+model PurchaseReceivingItem {
+  id String @id @default(uuid())
+
+  purchaseReceivingId String
+  purchaseReceiving   PurchaseReceiving @relation(fields: [purchaseReceivingId], references: [id], onDelete: Cascade)
+
+  purchaseItemId String
+  purchaseItem   PurchaseItem @relation(fields: [purchaseItemId], references: [id], onDelete: Restrict)
+
+  // Qty dalam unit pembelian
+  quantity Decimal @db.Decimal(15, 3)
+
+  // Qty dalam base unit
+  baseQuantity Decimal @db.Decimal(15, 3)
+
+  createdAt DateTime @default(now())
+
+  @@index([purchaseReceivingId])
+  @@index([purchaseItemId])
+}
+
+// Histori pembayaran ke supplier untuk satu Purchase. Bisa dicicil (parsial),
+// jumlah amount di-total lalu dibandingkan ke totalAmount Purchase untuk
+// menentukan paymentStatus (UNPAID/PARTIAL/PAID).
+model PurchasePayment {
+  id String @id @default(uuid())
+
+  purchaseId String
+  purchase   Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+
+  paymentMethodId String
+  paymentMethod   PaymentMethod @relation(fields: [paymentMethodId], references: [id])
+
+  amount Int
+
+  paidAt DateTime @default(now())
+
+  note String? @db.Text
+
+  createdAt DateTime @default(now())
+
+  @@index([purchaseId])
+  @@index([paymentMethodId])
+}
+
+model StockMovement {
+  id String @id @default(uuid())
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  rawMaterialId String
+  rawMaterial   RawMaterial @relation(fields: [rawMaterialId], references: [id], onDelete: Restrict)
+
+  type StockMovementType
+
+  // Selalu positif
+  quantity Decimal @db.Decimal(15, 3)
+
+  // HPP per base unit saat movement
+  unitCost Int @default(0)
+
+  referenceId   String?
+  referenceType String?
+
+  note String?
+
+  createdAt DateTime @default(now())
+
+  @@index([tenantId])
+  @@index([rawMaterialId])
+  @@index([type])
+  @@index([createdAt])
+  @@index([referenceId])
+}
+
+model Transaction {
+  id String @id @default(uuid())
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  invoiceNumber String @db.VarChar(100)
+
+  status TransactionStatus @default(COMPLETED)
+
+  subtotal Int @default(0)
+  discount Int @default(0)
+  tax      Int @default(0)
+  total    Int @default(0)
+
+  // Total HPP semua item
+  totalHpp Int @default(0)
+
+  // Total keuntungan
+  profit Int @default(0)
+
+  items    TransactionItem[]
+  payments Payment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([tenantId, invoiceNumber])
+  @@index([tenantId])
+  @@index([createdAt])
+  @@index([status])
+}
+
+model TransactionItem {
+  id String @id @default(uuid())
+
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  // Snapshot nama produk saat transaksi
+  productName String @db.VarChar(150)
+
+  quantity Decimal @db.Decimal(15, 3)
+
+  // Snapshot harga jual saat transaksi
+  sellingPrice Int
+
+  // Snapshot HPP per unit saat transaksi
+  hpp Int
+
+  subtotal Int
+
+  // Profit total untuk item ini
+  profit Int
+
+  createdAt DateTime @default(now())
+
+  @@index([transactionId])
+  @@index([productId])
+}
+
+// Master metode pembayaran. usageType menentukan di modul mana metode ini
+// boleh muncul/dipilih:
+// - PURCHASE    -> hanya tersedia di form PurchasePayment (bayar ke supplier)
+// - TRANSACTION -> hanya tersedia di form Payment (kasir/POS)
+// - BOTH        -> tersedia di keduanya
+model PaymentMethod {
+  id String @id @default(uuid())
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  code String @unique @db.VarChar(50)
+  name String @db.VarChar(150)
+
+  usageType PaymentMethodUsage @default(BOTH)
+
+  status Boolean @default(true)
+
+  payments         Payment[]
+  purchasePayments PurchasePayment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([usageType])
+  @@index([status])
+}
+
+model Payment {
+  id String @id @default(uuid())
+
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+
+  paymentMethodId String
+  paymentMethod   PaymentMethod @relation(fields: [paymentMethodId], references: [id], onDelete: Cascade)
+
+  amount Int
+
+  paidAt DateTime @default(now())
+
+  createdAt DateTime @default(now())
+
+  @@index([transactionId])
+  @@index([paymentMethodId])
+}
+
+model RefreshToken {
+  id String @id @default(cuid())
+
+  tokenHash String @unique
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  expiresAt DateTime
+  revokedAt DateTime?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Unit {
+  id String @id @default(uuid())
+
+  name String @unique @db.VarChar(50)
+  code String @unique @db.VarChar(20)
+
+  conversionsFrom UnitConversion[] @relation("FromUnit")
+  conversionsTo   UnitConversion[] @relation("ToUnit")
+
+  rawMaterials  RawMaterial[]
+  purchaseItems PurchaseItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model UnitConversion {
+  id String @id @default(uuid())
+
+  fromUnitId String
+  fromUnit   Unit   @relation("FromUnit", fields: [fromUnitId], references: [id])
+
+  toUnitId String
+  toUnit   Unit   @relation("ToUnit", fields: [toUnitId], references: [id])
+
+  // Contoh:
+  // 1 KG = 1000 GRAM
+  // factor = 1000
+  factor Decimal @db.Decimal(15, 6)
+
+  createdAt DateTime @default(now())
+
+  @@unique([fromUnitId, toUnitId])
+}
+
+model AuditLog {
+  id String @id @default(uuid())
+
+  tenantId String?
+  tenant   Tenant? @relation(fields: [tenantId], references: [id])
+
+  userId String?
+  user   User? @relation(fields: [userId], references: [id])
+
+  action AuditLogAction
+  module String @db.VarChar(50)
+
+  entityType String @db.VarChar(100)
+  entityId   String?
+
+  description String? @db.Text
+
+  oldData Json?
+  newData Json?
+
+  ipAddress String? @db.VarChar(45)
+  userAgent String? @db.Text
+
+  createdAt DateTime @default(now())
+
+  @@index([tenantId])
+  @@index([userId])
+  @@index([module])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}
