@@ -27,8 +27,8 @@ export type AggregateTenant = {
 export type TenantMinAggregateOutputType = {
   id: string | null
   name: string | null
-  slug: string | null
-  status: boolean | null
+  code: string | null
+  isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -36,8 +36,8 @@ export type TenantMinAggregateOutputType = {
 export type TenantMaxAggregateOutputType = {
   id: string | null
   name: string | null
-  slug: string | null
-  status: boolean | null
+  code: string | null
+  isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -45,8 +45,8 @@ export type TenantMaxAggregateOutputType = {
 export type TenantCountAggregateOutputType = {
   id: number
   name: number
-  slug: number
-  status: number
+  code: number
+  isActive: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -56,8 +56,8 @@ export type TenantCountAggregateOutputType = {
 export type TenantMinAggregateInputType = {
   id?: true
   name?: true
-  slug?: true
-  status?: true
+  code?: true
+  isActive?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -65,8 +65,8 @@ export type TenantMinAggregateInputType = {
 export type TenantMaxAggregateInputType = {
   id?: true
   name?: true
-  slug?: true
-  status?: true
+  code?: true
+  isActive?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -74,8 +74,8 @@ export type TenantMaxAggregateInputType = {
 export type TenantCountAggregateInputType = {
   id?: true
   name?: true
-  slug?: true
-  status?: true
+  code?: true
+  isActive?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -156,8 +156,8 @@ export type TenantGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 export type TenantGroupByOutputType = {
   id: string
   name: string
-  slug: string
-  status: boolean
+  code: string
+  isActive: boolean
   createdAt: Date
   updatedAt: Date
   _count: TenantCountAggregateOutputType | null
@@ -186,75 +186,78 @@ export type TenantWhereInput = {
   NOT?: Prisma.TenantWhereInput | Prisma.TenantWhereInput[]
   id?: Prisma.StringFilter<"Tenant"> | string
   name?: Prisma.StringFilter<"Tenant"> | string
-  slug?: Prisma.StringFilter<"Tenant"> | string
-  status?: Prisma.BoolFilter<"Tenant"> | boolean
+  code?: Prisma.StringFilter<"Tenant"> | string
+  isActive?: Prisma.BoolFilter<"Tenant"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Tenant"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Tenant"> | Date | string
   users?: Prisma.UserListRelationFilter
+  modules?: Prisma.TenantModuleListRelationFilter
   categories?: Prisma.CategoryListRelationFilter
   products?: Prisma.ProductListRelationFilter
   rawMaterials?: Prisma.RawMaterialListRelationFilter
-  paymentMethods?: Prisma.PaymentMethodListRelationFilter
-  purchases?: Prisma.PurchaseListRelationFilter
-  transactions?: Prisma.TransactionListRelationFilter
-  stockMovements?: Prisma.StockMovementListRelationFilter
   suppliers?: Prisma.SupplierListRelationFilter
+  purchases?: Prisma.PurchaseListRelationFilter
+  stockMovements?: Prisma.StockMovementListRelationFilter
+  transactions?: Prisma.TransactionListRelationFilter
+  paymentMethods?: Prisma.PaymentMethodListRelationFilter
+  refreshTokens?: Prisma.RefreshTokenListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
-  modules?: Prisma.TenantModuleListRelationFilter
   transactionSetting?: Prisma.XOR<Prisma.TransactionSettingNullableScalarRelationFilter, Prisma.TransactionSettingWhereInput> | null
 }
 
 export type TenantOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  slug?: Prisma.SortOrder
-  status?: Prisma.SortOrder
+  code?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   users?: Prisma.UserOrderByRelationAggregateInput
+  modules?: Prisma.TenantModuleOrderByRelationAggregateInput
   categories?: Prisma.CategoryOrderByRelationAggregateInput
   products?: Prisma.ProductOrderByRelationAggregateInput
   rawMaterials?: Prisma.RawMaterialOrderByRelationAggregateInput
-  paymentMethods?: Prisma.PaymentMethodOrderByRelationAggregateInput
-  purchases?: Prisma.PurchaseOrderByRelationAggregateInput
-  transactions?: Prisma.TransactionOrderByRelationAggregateInput
-  stockMovements?: Prisma.StockMovementOrderByRelationAggregateInput
   suppliers?: Prisma.SupplierOrderByRelationAggregateInput
+  purchases?: Prisma.PurchaseOrderByRelationAggregateInput
+  stockMovements?: Prisma.StockMovementOrderByRelationAggregateInput
+  transactions?: Prisma.TransactionOrderByRelationAggregateInput
+  paymentMethods?: Prisma.PaymentMethodOrderByRelationAggregateInput
+  refreshTokens?: Prisma.RefreshTokenOrderByRelationAggregateInput
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
-  modules?: Prisma.TenantModuleOrderByRelationAggregateInput
   transactionSetting?: Prisma.TransactionSettingOrderByWithRelationInput
   _relevance?: Prisma.TenantOrderByRelevanceInput
 }
 
 export type TenantWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  slug?: string
+  code?: string
   AND?: Prisma.TenantWhereInput | Prisma.TenantWhereInput[]
   OR?: Prisma.TenantWhereInput[]
   NOT?: Prisma.TenantWhereInput | Prisma.TenantWhereInput[]
   name?: Prisma.StringFilter<"Tenant"> | string
-  status?: Prisma.BoolFilter<"Tenant"> | boolean
+  isActive?: Prisma.BoolFilter<"Tenant"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Tenant"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Tenant"> | Date | string
   users?: Prisma.UserListRelationFilter
+  modules?: Prisma.TenantModuleListRelationFilter
   categories?: Prisma.CategoryListRelationFilter
   products?: Prisma.ProductListRelationFilter
   rawMaterials?: Prisma.RawMaterialListRelationFilter
-  paymentMethods?: Prisma.PaymentMethodListRelationFilter
-  purchases?: Prisma.PurchaseListRelationFilter
-  transactions?: Prisma.TransactionListRelationFilter
-  stockMovements?: Prisma.StockMovementListRelationFilter
   suppliers?: Prisma.SupplierListRelationFilter
+  purchases?: Prisma.PurchaseListRelationFilter
+  stockMovements?: Prisma.StockMovementListRelationFilter
+  transactions?: Prisma.TransactionListRelationFilter
+  paymentMethods?: Prisma.PaymentMethodListRelationFilter
+  refreshTokens?: Prisma.RefreshTokenListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
-  modules?: Prisma.TenantModuleListRelationFilter
   transactionSetting?: Prisma.XOR<Prisma.TransactionSettingNullableScalarRelationFilter, Prisma.TransactionSettingWhereInput> | null
-}, "id" | "slug">
+}, "id" | "code">
 
 export type TenantOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  slug?: Prisma.SortOrder
-  status?: Prisma.SortOrder
+  code?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.TenantCountOrderByAggregateInput
@@ -268,8 +271,8 @@ export type TenantScalarWhereWithAggregatesInput = {
   NOT?: Prisma.TenantScalarWhereWithAggregatesInput | Prisma.TenantScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Tenant"> | string
   name?: Prisma.StringWithAggregatesFilter<"Tenant"> | string
-  slug?: Prisma.StringWithAggregatesFilter<"Tenant"> | string
-  status?: Prisma.BoolWithAggregatesFilter<"Tenant"> | boolean
+  code?: Prisma.StringWithAggregatesFilter<"Tenant"> | string
+  isActive?: Prisma.BoolWithAggregatesFilter<"Tenant"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Tenant"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Tenant"> | Date | string
 }
@@ -277,92 +280,96 @@ export type TenantScalarWhereWithAggregatesInput = {
 export type TenantCreateInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateManyInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -370,8 +377,8 @@ export type TenantCreateManyInput = {
 export type TenantUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -379,8 +386,8 @@ export type TenantUpdateManyMutationInput = {
 export type TenantUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -394,8 +401,8 @@ export type TenantOrderByRelevanceInput = {
 export type TenantCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  slug?: Prisma.SortOrder
-  status?: Prisma.SortOrder
+  code?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -403,8 +410,8 @@ export type TenantCountOrderByAggregateInput = {
 export type TenantMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  slug?: Prisma.SortOrder
-  status?: Prisma.SortOrder
+  code?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -412,8 +419,8 @@ export type TenantMaxOrderByAggregateInput = {
 export type TenantMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  slug?: Prisma.SortOrder
-  status?: Prisma.SortOrder
+  code?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -582,6 +589,22 @@ export type TenantUpdateOneRequiredWithoutPaymentMethodsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutPaymentMethodsInput, Prisma.TenantUpdateWithoutPaymentMethodsInput>, Prisma.TenantUncheckedUpdateWithoutPaymentMethodsInput>
 }
 
+export type TenantCreateNestedOneWithoutRefreshTokensInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutRefreshTokensInput, Prisma.TenantUncheckedCreateWithoutRefreshTokensInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutRefreshTokensInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneWithoutRefreshTokensNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutRefreshTokensInput, Prisma.TenantUncheckedCreateWithoutRefreshTokensInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutRefreshTokensInput
+  upsert?: Prisma.TenantUpsertWithoutRefreshTokensInput
+  disconnect?: Prisma.TenantWhereInput | boolean
+  delete?: Prisma.TenantWhereInput | boolean
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.TenantUpdateWithoutRefreshTokensInput>, Prisma.TenantUncheckedUpdateWithoutRefreshTokensInput>
+}
+
 export type TenantCreateNestedOneWithoutAuditLogsInput = {
   create?: Prisma.XOR<Prisma.TenantCreateWithoutAuditLogsInput, Prisma.TenantUncheckedCreateWithoutAuditLogsInput>
   connectOrCreate?: Prisma.TenantCreateOrConnectWithoutAuditLogsInput
@@ -615,19 +638,20 @@ export type TenantUpdateOneRequiredWithoutTransactionSettingNestedInput = {
 export type TenantCreateWithoutModulesInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
@@ -635,19 +659,20 @@ export type TenantCreateWithoutModulesInput = {
 export type TenantUncheckedCreateWithoutModulesInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
@@ -671,19 +696,20 @@ export type TenantUpdateToOneWithWhereWithoutModulesInput = {
 export type TenantUpdateWithoutModulesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
@@ -691,19 +717,20 @@ export type TenantUpdateWithoutModulesInput = {
 export type TenantUncheckedUpdateWithoutModulesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
@@ -711,40 +738,42 @@ export type TenantUncheckedUpdateWithoutModulesInput = {
 export type TenantCreateWithoutUsersInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutUsersInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
@@ -767,80 +796,84 @@ export type TenantUpdateToOneWithWhereWithoutUsersInput = {
 export type TenantUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutUsersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCategoriesInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCategoriesInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
@@ -863,80 +896,84 @@ export type TenantUpdateToOneWithWhereWithoutCategoriesInput = {
 export type TenantUpdateWithoutCategoriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCategoriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutProductsInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutProductsInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
@@ -959,80 +996,84 @@ export type TenantUpdateToOneWithWhereWithoutProductsInput = {
 export type TenantUpdateWithoutProductsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutProductsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutRawMaterialsInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutRawMaterialsInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
@@ -1055,80 +1096,84 @@ export type TenantUpdateToOneWithWhereWithoutRawMaterialsInput = {
 export type TenantUpdateWithoutRawMaterialsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutRawMaterialsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSuppliersInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSuppliersInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
@@ -1151,80 +1196,84 @@ export type TenantUpdateToOneWithWhereWithoutSuppliersInput = {
 export type TenantUpdateWithoutSuppliersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSuppliersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPurchasesInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPurchasesInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
@@ -1247,80 +1296,84 @@ export type TenantUpdateToOneWithWhereWithoutPurchasesInput = {
 export type TenantUpdateWithoutPurchasesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPurchasesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutStockMovementsInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
-  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutStockMovementsInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
-  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
@@ -1343,80 +1396,84 @@ export type TenantUpdateToOneWithWhereWithoutStockMovementsInput = {
 export type TenantUpdateWithoutStockMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
-  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutStockMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
-  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTransactionsInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
   purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
-  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTransactionsInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
   purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
-  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
@@ -1439,80 +1496,84 @@ export type TenantUpdateToOneWithWhereWithoutTransactionsInput = {
 export type TenantUpdateWithoutTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
   purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
-  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
   purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
-  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPaymentMethodsInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPaymentMethodsInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
@@ -1535,80 +1596,184 @@ export type TenantUpdateToOneWithWhereWithoutPaymentMethodsInput = {
 export type TenantUpdateWithoutPaymentMethodsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPaymentMethodsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutRefreshTokensInput = {
+  id?: string
+  name: string
+  code: string
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutRefreshTokensInput = {
+  id?: string
+  name: string
+  code: string
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutRefreshTokensInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutRefreshTokensInput, Prisma.TenantUncheckedCreateWithoutRefreshTokensInput>
+}
+
+export type TenantUpsertWithoutRefreshTokensInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutRefreshTokensInput, Prisma.TenantUncheckedUpdateWithoutRefreshTokensInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutRefreshTokensInput, Prisma.TenantUncheckedCreateWithoutRefreshTokensInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutRefreshTokensInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutRefreshTokensInput, Prisma.TenantUncheckedUpdateWithoutRefreshTokensInput>
+}
+
+export type TenantUpdateWithoutRefreshTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  rawMaterials?: Prisma.RawMaterialUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutRefreshTokensInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
   modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutAuditLogsInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutAuditLogsInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
@@ -1631,81 +1796,85 @@ export type TenantUpdateToOneWithWhereWithoutAuditLogsInput = {
 export type TenantUpdateWithoutAuditLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTransactionSettingInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTransactionSettingInput = {
   id?: string
   name: string
-  slug: string
-  status?: boolean
+  code: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
   categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
   products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutTenantInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
-  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
-  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
-  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
-  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTransactionSettingInput = {
@@ -1727,41 +1896,43 @@ export type TenantUpdateToOneWithWhereWithoutTransactionSettingInput = {
 export type TenantUpdateWithoutTransactionSettingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTransactionSettingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
   categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
   products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutTenantNestedInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
-  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
-  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
-  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
-  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 
@@ -1771,30 +1942,32 @@ export type TenantUncheckedUpdateWithoutTransactionSettingInput = {
 
 export type TenantCountOutputType = {
   users: number
+  modules: number
   categories: number
   products: number
   rawMaterials: number
-  paymentMethods: number
-  purchases: number
-  transactions: number
-  stockMovements: number
   suppliers: number
+  purchases: number
+  stockMovements: number
+  transactions: number
+  paymentMethods: number
+  refreshTokens: number
   auditLogs: number
-  modules: number
 }
 
 export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | TenantCountOutputTypeCountUsersArgs
+  modules?: boolean | TenantCountOutputTypeCountModulesArgs
   categories?: boolean | TenantCountOutputTypeCountCategoriesArgs
   products?: boolean | TenantCountOutputTypeCountProductsArgs
   rawMaterials?: boolean | TenantCountOutputTypeCountRawMaterialsArgs
-  paymentMethods?: boolean | TenantCountOutputTypeCountPaymentMethodsArgs
-  purchases?: boolean | TenantCountOutputTypeCountPurchasesArgs
-  transactions?: boolean | TenantCountOutputTypeCountTransactionsArgs
-  stockMovements?: boolean | TenantCountOutputTypeCountStockMovementsArgs
   suppliers?: boolean | TenantCountOutputTypeCountSuppliersArgs
+  purchases?: boolean | TenantCountOutputTypeCountPurchasesArgs
+  stockMovements?: boolean | TenantCountOutputTypeCountStockMovementsArgs
+  transactions?: boolean | TenantCountOutputTypeCountTransactionsArgs
+  paymentMethods?: boolean | TenantCountOutputTypeCountPaymentMethodsArgs
+  refreshTokens?: boolean | TenantCountOutputTypeCountRefreshTokensArgs
   auditLogs?: boolean | TenantCountOutputTypeCountAuditLogsArgs
-  modules?: boolean | TenantCountOutputTypeCountModulesArgs
 }
 
 /**
@@ -1812,6 +1985,13 @@ export type TenantCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
  */
 export type TenantCountOutputTypeCountUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.UserWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountModulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TenantModuleWhereInput
 }
 
 /**
@@ -1838,8 +2018,8 @@ export type TenantCountOutputTypeCountRawMaterialsArgs<ExtArgs extends runtime.T
 /**
  * TenantCountOutputType without action
  */
-export type TenantCountOutputTypeCountPaymentMethodsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PaymentMethodWhereInput
+export type TenantCountOutputTypeCountSuppliersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.SupplierWhereInput
 }
 
 /**
@@ -1852,13 +2032,6 @@ export type TenantCountOutputTypeCountPurchasesArgs<ExtArgs extends runtime.Type
 /**
  * TenantCountOutputType without action
  */
-export type TenantCountOutputTypeCountTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TransactionWhereInput
-}
-
-/**
- * TenantCountOutputType without action
- */
 export type TenantCountOutputTypeCountStockMovementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.StockMovementWhereInput
 }
@@ -1866,8 +2039,22 @@ export type TenantCountOutputTypeCountStockMovementsArgs<ExtArgs extends runtime
 /**
  * TenantCountOutputType without action
  */
-export type TenantCountOutputTypeCountSuppliersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.SupplierWhereInput
+export type TenantCountOutputTypeCountTransactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TransactionWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountPaymentMethodsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentMethodWhereInput
+}
+
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountRefreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RefreshTokenWhereInput
 }
 
 /**
@@ -1877,32 +2064,26 @@ export type TenantCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Type
   where?: Prisma.AuditLogWhereInput
 }
 
-/**
- * TenantCountOutputType without action
- */
-export type TenantCountOutputTypeCountModulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.TenantModuleWhereInput
-}
-
 
 export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
-  slug?: boolean
-  status?: boolean
+  code?: boolean
+  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   users?: boolean | Prisma.Tenant$usersArgs<ExtArgs>
+  modules?: boolean | Prisma.Tenant$modulesArgs<ExtArgs>
   categories?: boolean | Prisma.Tenant$categoriesArgs<ExtArgs>
   products?: boolean | Prisma.Tenant$productsArgs<ExtArgs>
   rawMaterials?: boolean | Prisma.Tenant$rawMaterialsArgs<ExtArgs>
-  paymentMethods?: boolean | Prisma.Tenant$paymentMethodsArgs<ExtArgs>
-  purchases?: boolean | Prisma.Tenant$purchasesArgs<ExtArgs>
-  transactions?: boolean | Prisma.Tenant$transactionsArgs<ExtArgs>
-  stockMovements?: boolean | Prisma.Tenant$stockMovementsArgs<ExtArgs>
   suppliers?: boolean | Prisma.Tenant$suppliersArgs<ExtArgs>
+  purchases?: boolean | Prisma.Tenant$purchasesArgs<ExtArgs>
+  stockMovements?: boolean | Prisma.Tenant$stockMovementsArgs<ExtArgs>
+  transactions?: boolean | Prisma.Tenant$transactionsArgs<ExtArgs>
+  paymentMethods?: boolean | Prisma.Tenant$paymentMethodsArgs<ExtArgs>
+  refreshTokens?: boolean | Prisma.Tenant$refreshTokensArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Tenant$auditLogsArgs<ExtArgs>
-  modules?: boolean | Prisma.Tenant$modulesArgs<ExtArgs>
   transactionSetting?: boolean | Prisma.Tenant$transactionSettingArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenant"]>
@@ -1912,25 +2093,26 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 export type TenantSelectScalar = {
   id?: boolean
   name?: boolean
-  slug?: boolean
-  status?: boolean
+  code?: boolean
+  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TenantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["tenant"]>
+export type TenantOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "code" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["tenant"]>
 export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | Prisma.Tenant$usersArgs<ExtArgs>
+  modules?: boolean | Prisma.Tenant$modulesArgs<ExtArgs>
   categories?: boolean | Prisma.Tenant$categoriesArgs<ExtArgs>
   products?: boolean | Prisma.Tenant$productsArgs<ExtArgs>
   rawMaterials?: boolean | Prisma.Tenant$rawMaterialsArgs<ExtArgs>
-  paymentMethods?: boolean | Prisma.Tenant$paymentMethodsArgs<ExtArgs>
-  purchases?: boolean | Prisma.Tenant$purchasesArgs<ExtArgs>
-  transactions?: boolean | Prisma.Tenant$transactionsArgs<ExtArgs>
-  stockMovements?: boolean | Prisma.Tenant$stockMovementsArgs<ExtArgs>
   suppliers?: boolean | Prisma.Tenant$suppliersArgs<ExtArgs>
+  purchases?: boolean | Prisma.Tenant$purchasesArgs<ExtArgs>
+  stockMovements?: boolean | Prisma.Tenant$stockMovementsArgs<ExtArgs>
+  transactions?: boolean | Prisma.Tenant$transactionsArgs<ExtArgs>
+  paymentMethods?: boolean | Prisma.Tenant$paymentMethodsArgs<ExtArgs>
+  refreshTokens?: boolean | Prisma.Tenant$refreshTokensArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Tenant$auditLogsArgs<ExtArgs>
-  modules?: boolean | Prisma.Tenant$modulesArgs<ExtArgs>
   transactionSetting?: boolean | Prisma.Tenant$transactionSettingArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1939,23 +2121,24 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   name: "Tenant"
   objects: {
     users: Prisma.$UserPayload<ExtArgs>[]
+    modules: Prisma.$TenantModulePayload<ExtArgs>[]
     categories: Prisma.$CategoryPayload<ExtArgs>[]
     products: Prisma.$ProductPayload<ExtArgs>[]
     rawMaterials: Prisma.$RawMaterialPayload<ExtArgs>[]
-    paymentMethods: Prisma.$PaymentMethodPayload<ExtArgs>[]
-    purchases: Prisma.$PurchasePayload<ExtArgs>[]
-    transactions: Prisma.$TransactionPayload<ExtArgs>[]
-    stockMovements: Prisma.$StockMovementPayload<ExtArgs>[]
     suppliers: Prisma.$SupplierPayload<ExtArgs>[]
+    purchases: Prisma.$PurchasePayload<ExtArgs>[]
+    stockMovements: Prisma.$StockMovementPayload<ExtArgs>[]
+    transactions: Prisma.$TransactionPayload<ExtArgs>[]
+    paymentMethods: Prisma.$PaymentMethodPayload<ExtArgs>[]
+    refreshTokens: Prisma.$RefreshTokenPayload<ExtArgs>[]
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
-    modules: Prisma.$TenantModulePayload<ExtArgs>[]
     transactionSetting: Prisma.$TransactionSettingPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
-    slug: string
-    status: boolean
+    code: string
+    isActive: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["tenant"]>
@@ -2299,16 +2482,17 @@ readonly fields: TenantFieldRefs;
 export interface Prisma__TenantClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   users<T extends Prisma.Tenant$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  modules<T extends Prisma.Tenant$modulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$modulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   categories<T extends Prisma.Tenant$categoriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$categoriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   products<T extends Prisma.Tenant$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rawMaterials<T extends Prisma.Tenant$rawMaterialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$rawMaterialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RawMaterialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  paymentMethods<T extends Prisma.Tenant$paymentMethodsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$paymentMethodsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentMethodPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  purchases<T extends Prisma.Tenant$purchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$purchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  transactions<T extends Prisma.Tenant$transactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  stockMovements<T extends Prisma.Tenant$stockMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$stockMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StockMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   suppliers<T extends Prisma.Tenant$suppliersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$suppliersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  purchases<T extends Prisma.Tenant$purchasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$purchasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  stockMovements<T extends Prisma.Tenant$stockMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$stockMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StockMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  transactions<T extends Prisma.Tenant$transactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  paymentMethods<T extends Prisma.Tenant$paymentMethodsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$paymentMethodsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentMethodPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  refreshTokens<T extends Prisma.Tenant$refreshTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$refreshTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RefreshTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditLogs<T extends Prisma.Tenant$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  modules<T extends Prisma.Tenant$modulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$modulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   transactionSetting<T extends Prisma.Tenant$transactionSettingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$transactionSettingArgs<ExtArgs>>): Prisma.Prisma__TransactionSettingClient<runtime.Types.Result.GetResult<Prisma.$TransactionSettingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2341,8 +2525,8 @@ export interface Prisma__TenantClient<T, Null = never, ExtArgs extends runtime.T
 export interface TenantFieldRefs {
   readonly id: Prisma.FieldRef<"Tenant", 'String'>
   readonly name: Prisma.FieldRef<"Tenant", 'String'>
-  readonly slug: Prisma.FieldRef<"Tenant", 'String'>
-  readonly status: Prisma.FieldRef<"Tenant", 'Boolean'>
+  readonly code: Prisma.FieldRef<"Tenant", 'String'>
+  readonly isActive: Prisma.FieldRef<"Tenant", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Tenant", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Tenant", 'DateTime'>
 }
@@ -2717,6 +2901,30 @@ export type Tenant$usersArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 }
 
 /**
+ * Tenant.modules
+ */
+export type Tenant$modulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantModule
+   */
+  select?: Prisma.TenantModuleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TenantModule
+   */
+  omit?: Prisma.TenantModuleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantModuleInclude<ExtArgs> | null
+  where?: Prisma.TenantModuleWhereInput
+  orderBy?: Prisma.TenantModuleOrderByWithRelationInput | Prisma.TenantModuleOrderByWithRelationInput[]
+  cursor?: Prisma.TenantModuleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TenantModuleScalarFieldEnum | Prisma.TenantModuleScalarFieldEnum[]
+}
+
+/**
  * Tenant.categories
  */
 export type Tenant$categoriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2789,27 +2997,27 @@ export type Tenant$rawMaterialsArgs<ExtArgs extends runtime.Types.Extensions.Int
 }
 
 /**
- * Tenant.paymentMethods
+ * Tenant.suppliers
  */
-export type Tenant$paymentMethodsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Tenant$suppliersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the PaymentMethod
+   * Select specific fields to fetch from the Supplier
    */
-  select?: Prisma.PaymentMethodSelect<ExtArgs> | null
+  select?: Prisma.SupplierSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the PaymentMethod
+   * Omit specific fields from the Supplier
    */
-  omit?: Prisma.PaymentMethodOmit<ExtArgs> | null
+  omit?: Prisma.SupplierOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.PaymentMethodInclude<ExtArgs> | null
-  where?: Prisma.PaymentMethodWhereInput
-  orderBy?: Prisma.PaymentMethodOrderByWithRelationInput | Prisma.PaymentMethodOrderByWithRelationInput[]
-  cursor?: Prisma.PaymentMethodWhereUniqueInput
+  include?: Prisma.SupplierInclude<ExtArgs> | null
+  where?: Prisma.SupplierWhereInput
+  orderBy?: Prisma.SupplierOrderByWithRelationInput | Prisma.SupplierOrderByWithRelationInput[]
+  cursor?: Prisma.SupplierWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.PaymentMethodScalarFieldEnum | Prisma.PaymentMethodScalarFieldEnum[]
+  distinct?: Prisma.SupplierScalarFieldEnum | Prisma.SupplierScalarFieldEnum[]
 }
 
 /**
@@ -2837,30 +3045,6 @@ export type Tenant$purchasesArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * Tenant.transactions
- */
-export type Tenant$transactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Transaction
-   */
-  select?: Prisma.TransactionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Transaction
-   */
-  omit?: Prisma.TransactionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TransactionInclude<ExtArgs> | null
-  where?: Prisma.TransactionWhereInput
-  orderBy?: Prisma.TransactionOrderByWithRelationInput | Prisma.TransactionOrderByWithRelationInput[]
-  cursor?: Prisma.TransactionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.TransactionScalarFieldEnum | Prisma.TransactionScalarFieldEnum[]
-}
-
-/**
  * Tenant.stockMovements
  */
 export type Tenant$stockMovementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2885,27 +3069,75 @@ export type Tenant$stockMovementsArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * Tenant.suppliers
+ * Tenant.transactions
  */
-export type Tenant$suppliersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Tenant$transactionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Supplier
+   * Select specific fields to fetch from the Transaction
    */
-  select?: Prisma.SupplierSelect<ExtArgs> | null
+  select?: Prisma.TransactionSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Supplier
+   * Omit specific fields from the Transaction
    */
-  omit?: Prisma.SupplierOmit<ExtArgs> | null
+  omit?: Prisma.TransactionOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.SupplierInclude<ExtArgs> | null
-  where?: Prisma.SupplierWhereInput
-  orderBy?: Prisma.SupplierOrderByWithRelationInput | Prisma.SupplierOrderByWithRelationInput[]
-  cursor?: Prisma.SupplierWhereUniqueInput
+  include?: Prisma.TransactionInclude<ExtArgs> | null
+  where?: Prisma.TransactionWhereInput
+  orderBy?: Prisma.TransactionOrderByWithRelationInput | Prisma.TransactionOrderByWithRelationInput[]
+  cursor?: Prisma.TransactionWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.SupplierScalarFieldEnum | Prisma.SupplierScalarFieldEnum[]
+  distinct?: Prisma.TransactionScalarFieldEnum | Prisma.TransactionScalarFieldEnum[]
+}
+
+/**
+ * Tenant.paymentMethods
+ */
+export type Tenant$paymentMethodsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PaymentMethod
+   */
+  select?: Prisma.PaymentMethodSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PaymentMethod
+   */
+  omit?: Prisma.PaymentMethodOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentMethodInclude<ExtArgs> | null
+  where?: Prisma.PaymentMethodWhereInput
+  orderBy?: Prisma.PaymentMethodOrderByWithRelationInput | Prisma.PaymentMethodOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentMethodWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentMethodScalarFieldEnum | Prisma.PaymentMethodScalarFieldEnum[]
+}
+
+/**
+ * Tenant.refreshTokens
+ */
+export type Tenant$refreshTokensArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RefreshToken
+   */
+  select?: Prisma.RefreshTokenSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RefreshToken
+   */
+  omit?: Prisma.RefreshTokenOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RefreshTokenInclude<ExtArgs> | null
+  where?: Prisma.RefreshTokenWhereInput
+  orderBy?: Prisma.RefreshTokenOrderByWithRelationInput | Prisma.RefreshTokenOrderByWithRelationInput[]
+  cursor?: Prisma.RefreshTokenWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RefreshTokenScalarFieldEnum | Prisma.RefreshTokenScalarFieldEnum[]
 }
 
 /**
@@ -2930,30 +3162,6 @@ export type Tenant$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
-}
-
-/**
- * Tenant.modules
- */
-export type Tenant$modulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the TenantModule
-   */
-  select?: Prisma.TenantModuleSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the TenantModule
-   */
-  omit?: Prisma.TenantModuleOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.TenantModuleInclude<ExtArgs> | null
-  where?: Prisma.TenantModuleWhereInput
-  orderBy?: Prisma.TenantModuleOrderByWithRelationInput | Prisma.TenantModuleOrderByWithRelationInput[]
-  cursor?: Prisma.TenantModuleWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.TenantModuleScalarFieldEnum | Prisma.TenantModuleScalarFieldEnum[]
 }
 
 /**

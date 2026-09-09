@@ -28,8 +28,8 @@ export type PurchaseReceivingMinAggregateOutputType = {
   id: string | null
   purchaseId: string | null
   receivingNumber: string | null
-  receivingDate: Date | null
-  note: string | null
+  receivedAt: Date | null
+  notes: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -38,8 +38,8 @@ export type PurchaseReceivingMaxAggregateOutputType = {
   id: string | null
   purchaseId: string | null
   receivingNumber: string | null
-  receivingDate: Date | null
-  note: string | null
+  receivedAt: Date | null
+  notes: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -48,8 +48,8 @@ export type PurchaseReceivingCountAggregateOutputType = {
   id: number
   purchaseId: number
   receivingNumber: number
-  receivingDate: number
-  note: number
+  receivedAt: number
+  notes: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -60,8 +60,8 @@ export type PurchaseReceivingMinAggregateInputType = {
   id?: true
   purchaseId?: true
   receivingNumber?: true
-  receivingDate?: true
-  note?: true
+  receivedAt?: true
+  notes?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -70,8 +70,8 @@ export type PurchaseReceivingMaxAggregateInputType = {
   id?: true
   purchaseId?: true
   receivingNumber?: true
-  receivingDate?: true
-  note?: true
+  receivedAt?: true
+  notes?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -80,8 +80,8 @@ export type PurchaseReceivingCountAggregateInputType = {
   id?: true
   purchaseId?: true
   receivingNumber?: true
-  receivingDate?: true
-  note?: true
+  receivedAt?: true
+  notes?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -163,8 +163,8 @@ export type PurchaseReceivingGroupByOutputType = {
   id: string
   purchaseId: string
   receivingNumber: string
-  receivingDate: Date
-  note: string | null
+  receivedAt: Date
+  notes: string | null
   createdAt: Date
   updatedAt: Date
   _count: PurchaseReceivingCountAggregateOutputType | null
@@ -194,8 +194,8 @@ export type PurchaseReceivingWhereInput = {
   id?: Prisma.StringFilter<"PurchaseReceiving"> | string
   purchaseId?: Prisma.StringFilter<"PurchaseReceiving"> | string
   receivingNumber?: Prisma.StringFilter<"PurchaseReceiving"> | string
-  receivingDate?: Prisma.DateTimeFilter<"PurchaseReceiving"> | Date | string
-  note?: Prisma.StringNullableFilter<"PurchaseReceiving"> | string | null
+  receivedAt?: Prisma.DateTimeFilter<"PurchaseReceiving"> | Date | string
+  notes?: Prisma.StringNullableFilter<"PurchaseReceiving"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PurchaseReceiving"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PurchaseReceiving"> | Date | string
   purchase?: Prisma.XOR<Prisma.PurchaseScalarRelationFilter, Prisma.PurchaseWhereInput>
@@ -206,8 +206,8 @@ export type PurchaseReceivingOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   purchaseId?: Prisma.SortOrder
   receivingNumber?: Prisma.SortOrder
-  receivingDate?: Prisma.SortOrder
-  note?: Prisma.SortOrderInput | Prisma.SortOrder
+  receivedAt?: Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   purchase?: Prisma.PurchaseOrderByWithRelationInput
@@ -223,8 +223,8 @@ export type PurchaseReceivingWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.PurchaseReceivingWhereInput | Prisma.PurchaseReceivingWhereInput[]
   purchaseId?: Prisma.StringFilter<"PurchaseReceiving"> | string
   receivingNumber?: Prisma.StringFilter<"PurchaseReceiving"> | string
-  receivingDate?: Prisma.DateTimeFilter<"PurchaseReceiving"> | Date | string
-  note?: Prisma.StringNullableFilter<"PurchaseReceiving"> | string | null
+  receivedAt?: Prisma.DateTimeFilter<"PurchaseReceiving"> | Date | string
+  notes?: Prisma.StringNullableFilter<"PurchaseReceiving"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PurchaseReceiving"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PurchaseReceiving"> | Date | string
   purchase?: Prisma.XOR<Prisma.PurchaseScalarRelationFilter, Prisma.PurchaseWhereInput>
@@ -235,8 +235,8 @@ export type PurchaseReceivingOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   purchaseId?: Prisma.SortOrder
   receivingNumber?: Prisma.SortOrder
-  receivingDate?: Prisma.SortOrder
-  note?: Prisma.SortOrderInput | Prisma.SortOrder
+  receivedAt?: Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PurchaseReceivingCountOrderByAggregateInput
@@ -251,8 +251,8 @@ export type PurchaseReceivingScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"PurchaseReceiving"> | string
   purchaseId?: Prisma.StringWithAggregatesFilter<"PurchaseReceiving"> | string
   receivingNumber?: Prisma.StringWithAggregatesFilter<"PurchaseReceiving"> | string
-  receivingDate?: Prisma.DateTimeWithAggregatesFilter<"PurchaseReceiving"> | Date | string
-  note?: Prisma.StringNullableWithAggregatesFilter<"PurchaseReceiving"> | string | null
+  receivedAt?: Prisma.DateTimeWithAggregatesFilter<"PurchaseReceiving"> | Date | string
+  notes?: Prisma.StringNullableWithAggregatesFilter<"PurchaseReceiving"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PurchaseReceiving"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PurchaseReceiving"> | Date | string
 }
@@ -260,53 +260,53 @@ export type PurchaseReceivingScalarWhereWithAggregatesInput = {
 export type PurchaseReceivingCreateInput = {
   id?: string
   receivingNumber: string
-  receivingDate?: Date | string
-  note?: string | null
+  receivedAt?: Date | string
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   purchase: Prisma.PurchaseCreateNestedOneWithoutReceivingsInput
-  items?: Prisma.PurchaseReceivingItemCreateNestedManyWithoutPurchaseReceivingInput
+  items?: Prisma.PurchaseReceivingItemCreateNestedManyWithoutReceivingInput
 }
 
 export type PurchaseReceivingUncheckedCreateInput = {
   id?: string
   purchaseId: string
   receivingNumber: string
-  receivingDate?: Date | string
-  note?: string | null
+  receivedAt?: Date | string
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  items?: Prisma.PurchaseReceivingItemUncheckedCreateNestedManyWithoutPurchaseReceivingInput
+  items?: Prisma.PurchaseReceivingItemUncheckedCreateNestedManyWithoutReceivingInput
 }
 
 export type PurchaseReceivingUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   receivingNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  receivingDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchase?: Prisma.PurchaseUpdateOneRequiredWithoutReceivingsNestedInput
-  items?: Prisma.PurchaseReceivingItemUpdateManyWithoutPurchaseReceivingNestedInput
+  items?: Prisma.PurchaseReceivingItemUpdateManyWithoutReceivingNestedInput
 }
 
 export type PurchaseReceivingUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   purchaseId?: Prisma.StringFieldUpdateOperationsInput | string
   receivingNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  receivingDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  items?: Prisma.PurchaseReceivingItemUncheckedUpdateManyWithoutPurchaseReceivingNestedInput
+  items?: Prisma.PurchaseReceivingItemUncheckedUpdateManyWithoutReceivingNestedInput
 }
 
 export type PurchaseReceivingCreateManyInput = {
   id?: string
   purchaseId: string
   receivingNumber: string
-  receivingDate?: Date | string
-  note?: string | null
+  receivedAt?: Date | string
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -314,8 +314,8 @@ export type PurchaseReceivingCreateManyInput = {
 export type PurchaseReceivingUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   receivingNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  receivingDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -324,8 +324,8 @@ export type PurchaseReceivingUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   purchaseId?: Prisma.StringFieldUpdateOperationsInput | string
   receivingNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  receivingDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -355,8 +355,8 @@ export type PurchaseReceivingCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   purchaseId?: Prisma.SortOrder
   receivingNumber?: Prisma.SortOrder
-  receivingDate?: Prisma.SortOrder
-  note?: Prisma.SortOrder
+  receivedAt?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -365,8 +365,8 @@ export type PurchaseReceivingMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   purchaseId?: Prisma.SortOrder
   receivingNumber?: Prisma.SortOrder
-  receivingDate?: Prisma.SortOrder
-  note?: Prisma.SortOrder
+  receivedAt?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -375,8 +375,8 @@ export type PurchaseReceivingMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   purchaseId?: Prisma.SortOrder
   receivingNumber?: Prisma.SortOrder
-  receivingDate?: Prisma.SortOrder
-  note?: Prisma.SortOrder
+  receivedAt?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -445,21 +445,21 @@ export type PurchaseReceivingUpdateOneRequiredWithoutItemsNestedInput = {
 export type PurchaseReceivingCreateWithoutPurchaseInput = {
   id?: string
   receivingNumber: string
-  receivingDate?: Date | string
-  note?: string | null
+  receivedAt?: Date | string
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  items?: Prisma.PurchaseReceivingItemCreateNestedManyWithoutPurchaseReceivingInput
+  items?: Prisma.PurchaseReceivingItemCreateNestedManyWithoutReceivingInput
 }
 
 export type PurchaseReceivingUncheckedCreateWithoutPurchaseInput = {
   id?: string
   receivingNumber: string
-  receivingDate?: Date | string
-  note?: string | null
+  receivedAt?: Date | string
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  items?: Prisma.PurchaseReceivingItemUncheckedCreateNestedManyWithoutPurchaseReceivingInput
+  items?: Prisma.PurchaseReceivingItemUncheckedCreateNestedManyWithoutReceivingInput
 }
 
 export type PurchaseReceivingCreateOrConnectWithoutPurchaseInput = {
@@ -495,8 +495,8 @@ export type PurchaseReceivingScalarWhereInput = {
   id?: Prisma.StringFilter<"PurchaseReceiving"> | string
   purchaseId?: Prisma.StringFilter<"PurchaseReceiving"> | string
   receivingNumber?: Prisma.StringFilter<"PurchaseReceiving"> | string
-  receivingDate?: Prisma.DateTimeFilter<"PurchaseReceiving"> | Date | string
-  note?: Prisma.StringNullableFilter<"PurchaseReceiving"> | string | null
+  receivedAt?: Prisma.DateTimeFilter<"PurchaseReceiving"> | Date | string
+  notes?: Prisma.StringNullableFilter<"PurchaseReceiving"> | string | null
   createdAt?: Prisma.DateTimeFilter<"PurchaseReceiving"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PurchaseReceiving"> | Date | string
 }
@@ -504,8 +504,8 @@ export type PurchaseReceivingScalarWhereInput = {
 export type PurchaseReceivingCreateWithoutItemsInput = {
   id?: string
   receivingNumber: string
-  receivingDate?: Date | string
-  note?: string | null
+  receivedAt?: Date | string
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   purchase: Prisma.PurchaseCreateNestedOneWithoutReceivingsInput
@@ -515,8 +515,8 @@ export type PurchaseReceivingUncheckedCreateWithoutItemsInput = {
   id?: string
   purchaseId: string
   receivingNumber: string
-  receivingDate?: Date | string
-  note?: string | null
+  receivedAt?: Date | string
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -540,8 +540,8 @@ export type PurchaseReceivingUpdateToOneWithWhereWithoutItemsInput = {
 export type PurchaseReceivingUpdateWithoutItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   receivingNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  receivingDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchase?: Prisma.PurchaseUpdateOneRequiredWithoutReceivingsNestedInput
@@ -551,8 +551,8 @@ export type PurchaseReceivingUncheckedUpdateWithoutItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   purchaseId?: Prisma.StringFieldUpdateOperationsInput | string
   receivingNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  receivingDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -560,8 +560,8 @@ export type PurchaseReceivingUncheckedUpdateWithoutItemsInput = {
 export type PurchaseReceivingCreateManyPurchaseInput = {
   id?: string
   receivingNumber: string
-  receivingDate?: Date | string
-  note?: string | null
+  receivedAt?: Date | string
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -569,28 +569,28 @@ export type PurchaseReceivingCreateManyPurchaseInput = {
 export type PurchaseReceivingUpdateWithoutPurchaseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   receivingNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  receivingDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  items?: Prisma.PurchaseReceivingItemUpdateManyWithoutPurchaseReceivingNestedInput
+  items?: Prisma.PurchaseReceivingItemUpdateManyWithoutReceivingNestedInput
 }
 
 export type PurchaseReceivingUncheckedUpdateWithoutPurchaseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   receivingNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  receivingDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  items?: Prisma.PurchaseReceivingItemUncheckedUpdateManyWithoutPurchaseReceivingNestedInput
+  items?: Prisma.PurchaseReceivingItemUncheckedUpdateManyWithoutReceivingNestedInput
 }
 
 export type PurchaseReceivingUncheckedUpdateManyWithoutPurchaseInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   receivingNumber?: Prisma.StringFieldUpdateOperationsInput | string
-  receivingDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receivedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -630,8 +630,8 @@ export type PurchaseReceivingSelect<ExtArgs extends runtime.Types.Extensions.Int
   id?: boolean
   purchaseId?: boolean
   receivingNumber?: boolean
-  receivingDate?: boolean
-  note?: boolean
+  receivedAt?: boolean
+  notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   purchase?: boolean | Prisma.PurchaseDefaultArgs<ExtArgs>
@@ -645,13 +645,13 @@ export type PurchaseReceivingSelectScalar = {
   id?: boolean
   purchaseId?: boolean
   receivingNumber?: boolean
-  receivingDate?: boolean
-  note?: boolean
+  receivedAt?: boolean
+  notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PurchaseReceivingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "purchaseId" | "receivingNumber" | "receivingDate" | "note" | "createdAt" | "updatedAt", ExtArgs["result"]["purchaseReceiving"]>
+export type PurchaseReceivingOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "purchaseId" | "receivingNumber" | "receivedAt" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["purchaseReceiving"]>
 export type PurchaseReceivingInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   purchase?: boolean | Prisma.PurchaseDefaultArgs<ExtArgs>
   items?: boolean | Prisma.PurchaseReceiving$itemsArgs<ExtArgs>
@@ -668,8 +668,8 @@ export type $PurchaseReceivingPayload<ExtArgs extends runtime.Types.Extensions.I
     id: string
     purchaseId: string
     receivingNumber: string
-    receivingDate: Date
-    note: string | null
+    receivedAt: Date
+    notes: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["purchaseReceiving"]>
@@ -1046,8 +1046,8 @@ export interface PurchaseReceivingFieldRefs {
   readonly id: Prisma.FieldRef<"PurchaseReceiving", 'String'>
   readonly purchaseId: Prisma.FieldRef<"PurchaseReceiving", 'String'>
   readonly receivingNumber: Prisma.FieldRef<"PurchaseReceiving", 'String'>
-  readonly receivingDate: Prisma.FieldRef<"PurchaseReceiving", 'DateTime'>
-  readonly note: Prisma.FieldRef<"PurchaseReceiving", 'String'>
+  readonly receivedAt: Prisma.FieldRef<"PurchaseReceiving", 'DateTime'>
+  readonly notes: Prisma.FieldRef<"PurchaseReceiving", 'String'>
   readonly createdAt: Prisma.FieldRef<"PurchaseReceiving", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"PurchaseReceiving", 'DateTime'>
 }

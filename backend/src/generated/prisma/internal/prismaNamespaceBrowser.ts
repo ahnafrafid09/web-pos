@@ -98,8 +98,8 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 export const TenantScalarFieldEnum = {
   id: 'id',
   name: 'name',
-  slug: 'slug',
-  status: 'status',
+  code: 'code',
+  isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -111,8 +111,7 @@ export const ModuleScalarFieldEnum = {
   id: 'id',
   code: 'code',
   name: 'name',
-  description: 'description',
-  status: 'status',
+  isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -142,7 +141,8 @@ export const UserScalarFieldEnum = {
   email: 'email',
   password: 'password',
   role: 'role',
-  status: 'status',
+  isActive: 'isActive',
+  lastLoginAt: 'lastLoginAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -154,7 +154,7 @@ export const CategoryScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
   name: 'name',
-  status: 'status',
+  isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -167,14 +167,14 @@ export const ProductScalarFieldEnum = {
   tenantId: 'tenantId',
   categoryId: 'categoryId',
   name: 'name',
-  type: 'type',
   sku: 'sku',
+  type: 'type',
   unit: 'unit',
   sellingPrice: 'sellingPrice',
   hpp: 'hpp',
-  status: 'status',
   imageUrl: 'imageUrl',
   imageKey: 'imageKey',
+  isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -185,11 +185,11 @@ export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeo
 export const RawMaterialScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
-  name: 'name',
-  sku: 'sku',
   unitId: 'unitId',
+  name: 'name',
+  code: 'code',
   averageCost: 'averageCost',
-  status: 'status',
+  isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -201,7 +201,8 @@ export const StockScalarFieldEnum = {
   id: 'id',
   rawMaterialId: 'rawMaterialId',
   quantity: 'quantity',
-  minimumStock: 'minimumStock',
+  minQuantity: 'minQuantity',
+  maxQuantity: 'maxQuantity',
   updatedAt: 'updatedAt'
 } as const
 
@@ -228,7 +229,7 @@ export const SupplierScalarFieldEnum = {
   phone: 'phone',
   email: 'email',
   address: 'address',
-  status: 'status',
+  isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -240,20 +241,18 @@ export const PurchaseScalarFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
   supplierId: 'supplierId',
+  createdById: 'createdById',
   purchaseNumber: 'purchaseNumber',
   invoiceNumber: 'invoiceNumber',
-  purchaseType: 'purchaseType',
+  type: 'type',
   status: 'status',
-  purchaseDate: 'purchaseDate',
   subtotal: 'subtotal',
-  discountType: 'discountType',
-  discountValue: 'discountValue',
   discount: 'discount',
-  taxType: 'taxType',
-  taxValue: 'taxValue',
   tax: 'tax',
   totalAmount: 'totalAmount',
   paymentStatus: 'paymentStatus',
+  notes: 'notes',
+  purchasedAt: 'purchasedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -265,13 +264,14 @@ export const PurchaseItemScalarFieldEnum = {
   id: 'id',
   purchaseId: 'purchaseId',
   rawMaterialId: 'rawMaterialId',
-  quantity: 'quantity',
   unitId: 'unitId',
+  quantity: 'quantity',
   baseQuantity: 'baseQuantity',
   receivedBaseQuantity: 'receivedBaseQuantity',
   unitPrice: 'unitPrice',
   subtotal: 'subtotal',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type PurchaseItemScalarFieldEnum = (typeof PurchaseItemScalarFieldEnum)[keyof typeof PurchaseItemScalarFieldEnum]
@@ -281,8 +281,8 @@ export const PurchaseReceivingScalarFieldEnum = {
   id: 'id',
   purchaseId: 'purchaseId',
   receivingNumber: 'receivingNumber',
-  receivingDate: 'receivingDate',
-  note: 'note',
+  receivedAt: 'receivedAt',
+  notes: 'notes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -292,10 +292,9 @@ export type PurchaseReceivingScalarFieldEnum = (typeof PurchaseReceivingScalarFi
 
 export const PurchaseReceivingItemScalarFieldEnum = {
   id: 'id',
-  purchaseReceivingId: 'purchaseReceivingId',
+  receivingId: 'receivingId',
   purchaseItemId: 'purchaseItemId',
   quantity: 'quantity',
-  baseQuantity: 'baseQuantity',
   createdAt: 'createdAt'
 } as const
 
@@ -307,8 +306,9 @@ export const PurchasePaymentScalarFieldEnum = {
   purchaseId: 'purchaseId',
   paymentMethodId: 'paymentMethodId',
   amount: 'amount',
+  reference: 'reference',
+  notes: 'notes',
   paidAt: 'paidAt',
-  note: 'note',
   createdAt: 'createdAt'
 } as const
 
@@ -324,7 +324,7 @@ export const StockMovementScalarFieldEnum = {
   unitCost: 'unitCost',
   referenceId: 'referenceId',
   referenceType: 'referenceType',
-  note: 'note',
+  notes: 'notes',
   createdAt: 'createdAt'
 } as const
 
@@ -346,6 +346,7 @@ export const TransactionScalarFieldEnum = {
   change: 'change',
   totalHpp: 'totalHpp',
   profit: 'profit',
+  notes: 'notes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -388,6 +389,7 @@ export const PaymentScalarFieldEnum = {
   transactionId: 'transactionId',
   paymentMethodId: 'paymentMethodId',
   amount: 'amount',
+  reference: 'reference',
   paidAt: 'paidAt',
   createdAt: 'createdAt'
 } as const
@@ -397,8 +399,9 @@ export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeo
 
 export const RefreshTokenScalarFieldEnum = {
   id: 'id',
-  tokenHash: 'tokenHash',
   userId: 'userId',
+  tenantId: 'tenantId',
+  tokenHash: 'tokenHash',
   expiresAt: 'expiresAt',
   revokedAt: 'revokedAt',
   createdAt: 'createdAt'
@@ -409,8 +412,9 @@ export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[k
 
 export const UnitScalarFieldEnum = {
   id: 'id',
-  name: 'name',
   code: 'code',
+  name: 'name',
+  isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -422,8 +426,9 @@ export const UnitConversionScalarFieldEnum = {
   id: 'id',
   fromUnitId: 'fromUnitId',
   toUnitId: 'toUnitId',
-  factor: 'factor',
-  createdAt: 'createdAt'
+  multiplier: 'multiplier',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type UnitConversionScalarFieldEnum = (typeof UnitConversionScalarFieldEnum)[keyof typeof UnitConversionScalarFieldEnum]
@@ -432,8 +437,11 @@ export type UnitConversionScalarFieldEnum = (typeof UnitConversionScalarFieldEnu
 export const RawMaterialUnitConversionScalarFieldEnum = {
   id: 'id',
   rawMaterialId: 'rawMaterialId',
-  unitId: 'unitId',
-  factor: 'factor'
+  fromUnitId: 'fromUnitId',
+  toUnitId: 'toUnitId',
+  multiplier: 'multiplier',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type RawMaterialUnitConversionScalarFieldEnum = (typeof RawMaterialUnitConversionScalarFieldEnum)[keyof typeof RawMaterialUnitConversionScalarFieldEnum]
@@ -491,10 +499,18 @@ export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[key
 export const TenantOrderByRelevanceFieldEnum = {
   id: 'id',
   name: 'name',
-  slug: 'slug'
+  code: 'code'
 } as const
 
 export type TenantOrderByRelevanceFieldEnum = (typeof TenantOrderByRelevanceFieldEnum)[keyof typeof TenantOrderByRelevanceFieldEnum]
+
+
+export const ModuleOrderByRelevanceFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type ModuleOrderByRelevanceFieldEnum = (typeof ModuleOrderByRelevanceFieldEnum)[keyof typeof ModuleOrderByRelevanceFieldEnum]
 
 
 export const NullsOrder = {
@@ -503,15 +519,6 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
-
-
-export const ModuleOrderByRelevanceFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description'
-} as const
-
-export type ModuleOrderByRelevanceFieldEnum = (typeof ModuleOrderByRelevanceFieldEnum)[keyof typeof ModuleOrderByRelevanceFieldEnum]
 
 
 export const TenantModuleOrderByRelevanceFieldEnum = {
@@ -561,9 +568,9 @@ export type ProductOrderByRelevanceFieldEnum = (typeof ProductOrderByRelevanceFi
 export const RawMaterialOrderByRelevanceFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
+  unitId: 'unitId',
   name: 'name',
-  sku: 'sku',
-  unitId: 'unitId'
+  code: 'code'
 } as const
 
 export type RawMaterialOrderByRelevanceFieldEnum = (typeof RawMaterialOrderByRelevanceFieldEnum)[keyof typeof RawMaterialOrderByRelevanceFieldEnum]
@@ -603,8 +610,10 @@ export const PurchaseOrderByRelevanceFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
   supplierId: 'supplierId',
+  createdById: 'createdById',
   purchaseNumber: 'purchaseNumber',
-  invoiceNumber: 'invoiceNumber'
+  invoiceNumber: 'invoiceNumber',
+  notes: 'notes'
 } as const
 
 export type PurchaseOrderByRelevanceFieldEnum = (typeof PurchaseOrderByRelevanceFieldEnum)[keyof typeof PurchaseOrderByRelevanceFieldEnum]
@@ -624,7 +633,7 @@ export const PurchaseReceivingOrderByRelevanceFieldEnum = {
   id: 'id',
   purchaseId: 'purchaseId',
   receivingNumber: 'receivingNumber',
-  note: 'note'
+  notes: 'notes'
 } as const
 
 export type PurchaseReceivingOrderByRelevanceFieldEnum = (typeof PurchaseReceivingOrderByRelevanceFieldEnum)[keyof typeof PurchaseReceivingOrderByRelevanceFieldEnum]
@@ -632,7 +641,7 @@ export type PurchaseReceivingOrderByRelevanceFieldEnum = (typeof PurchaseReceivi
 
 export const PurchaseReceivingItemOrderByRelevanceFieldEnum = {
   id: 'id',
-  purchaseReceivingId: 'purchaseReceivingId',
+  receivingId: 'receivingId',
   purchaseItemId: 'purchaseItemId'
 } as const
 
@@ -643,7 +652,8 @@ export const PurchasePaymentOrderByRelevanceFieldEnum = {
   id: 'id',
   purchaseId: 'purchaseId',
   paymentMethodId: 'paymentMethodId',
-  note: 'note'
+  reference: 'reference',
+  notes: 'notes'
 } as const
 
 export type PurchasePaymentOrderByRelevanceFieldEnum = (typeof PurchasePaymentOrderByRelevanceFieldEnum)[keyof typeof PurchasePaymentOrderByRelevanceFieldEnum]
@@ -655,7 +665,7 @@ export const StockMovementOrderByRelevanceFieldEnum = {
   rawMaterialId: 'rawMaterialId',
   referenceId: 'referenceId',
   referenceType: 'referenceType',
-  note: 'note'
+  notes: 'notes'
 } as const
 
 export type StockMovementOrderByRelevanceFieldEnum = (typeof StockMovementOrderByRelevanceFieldEnum)[keyof typeof StockMovementOrderByRelevanceFieldEnum]
@@ -665,7 +675,8 @@ export const TransactionOrderByRelevanceFieldEnum = {
   id: 'id',
   tenantId: 'tenantId',
   cashierId: 'cashierId',
-  invoiceNumber: 'invoiceNumber'
+  invoiceNumber: 'invoiceNumber',
+  notes: 'notes'
 } as const
 
 export type TransactionOrderByRelevanceFieldEnum = (typeof TransactionOrderByRelevanceFieldEnum)[keyof typeof TransactionOrderByRelevanceFieldEnum]
@@ -694,7 +705,8 @@ export type PaymentMethodOrderByRelevanceFieldEnum = (typeof PaymentMethodOrderB
 export const PaymentOrderByRelevanceFieldEnum = {
   id: 'id',
   transactionId: 'transactionId',
-  paymentMethodId: 'paymentMethodId'
+  paymentMethodId: 'paymentMethodId',
+  reference: 'reference'
 } as const
 
 export type PaymentOrderByRelevanceFieldEnum = (typeof PaymentOrderByRelevanceFieldEnum)[keyof typeof PaymentOrderByRelevanceFieldEnum]
@@ -702,8 +714,9 @@ export type PaymentOrderByRelevanceFieldEnum = (typeof PaymentOrderByRelevanceFi
 
 export const RefreshTokenOrderByRelevanceFieldEnum = {
   id: 'id',
-  tokenHash: 'tokenHash',
-  userId: 'userId'
+  userId: 'userId',
+  tenantId: 'tenantId',
+  tokenHash: 'tokenHash'
 } as const
 
 export type RefreshTokenOrderByRelevanceFieldEnum = (typeof RefreshTokenOrderByRelevanceFieldEnum)[keyof typeof RefreshTokenOrderByRelevanceFieldEnum]
@@ -711,8 +724,8 @@ export type RefreshTokenOrderByRelevanceFieldEnum = (typeof RefreshTokenOrderByR
 
 export const UnitOrderByRelevanceFieldEnum = {
   id: 'id',
-  name: 'name',
-  code: 'code'
+  code: 'code',
+  name: 'name'
 } as const
 
 export type UnitOrderByRelevanceFieldEnum = (typeof UnitOrderByRelevanceFieldEnum)[keyof typeof UnitOrderByRelevanceFieldEnum]
@@ -730,7 +743,8 @@ export type UnitConversionOrderByRelevanceFieldEnum = (typeof UnitConversionOrde
 export const RawMaterialUnitConversionOrderByRelevanceFieldEnum = {
   id: 'id',
   rawMaterialId: 'rawMaterialId',
-  unitId: 'unitId'
+  fromUnitId: 'fromUnitId',
+  toUnitId: 'toUnitId'
 } as const
 
 export type RawMaterialUnitConversionOrderByRelevanceFieldEnum = (typeof RawMaterialUnitConversionOrderByRelevanceFieldEnum)[keyof typeof RawMaterialUnitConversionOrderByRelevanceFieldEnum]

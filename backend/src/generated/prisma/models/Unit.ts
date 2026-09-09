@@ -26,24 +26,27 @@ export type AggregateUnit = {
 
 export type UnitMinAggregateOutputType = {
   id: string | null
-  name: string | null
   code: string | null
+  name: string | null
+  isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type UnitMaxAggregateOutputType = {
   id: string | null
-  name: string | null
   code: string | null
+  name: string | null
+  isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type UnitCountAggregateOutputType = {
   id: number
-  name: number
   code: number
+  name: number
+  isActive: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -52,24 +55,27 @@ export type UnitCountAggregateOutputType = {
 
 export type UnitMinAggregateInputType = {
   id?: true
-  name?: true
   code?: true
+  name?: true
+  isActive?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type UnitMaxAggregateInputType = {
   id?: true
-  name?: true
   code?: true
+  name?: true
+  isActive?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type UnitCountAggregateInputType = {
   id?: true
-  name?: true
   code?: true
+  name?: true
+  isActive?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -149,8 +155,9 @@ export type UnitGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type UnitGroupByOutputType = {
   id: string
-  name: string
   code: string
+  name: string
+  isActive: boolean
   createdAt: Date
   updatedAt: Date
   _count: UnitCountAggregateOutputType | null
@@ -178,51 +185,58 @@ export type UnitWhereInput = {
   OR?: Prisma.UnitWhereInput[]
   NOT?: Prisma.UnitWhereInput | Prisma.UnitWhereInput[]
   id?: Prisma.StringFilter<"Unit"> | string
-  name?: Prisma.StringFilter<"Unit"> | string
   code?: Prisma.StringFilter<"Unit"> | string
+  name?: Prisma.StringFilter<"Unit"> | string
+  isActive?: Prisma.BoolFilter<"Unit"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Unit"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Unit"> | Date | string
-  conversionsFrom?: Prisma.UnitConversionListRelationFilter
-  conversionsTo?: Prisma.UnitConversionListRelationFilter
   rawMaterials?: Prisma.RawMaterialListRelationFilter
   purchaseItems?: Prisma.PurchaseItemListRelationFilter
-  unitConversions?: Prisma.RawMaterialUnitConversionListRelationFilter
+  conversionsFrom?: Prisma.UnitConversionListRelationFilter
+  conversionsTo?: Prisma.UnitConversionListRelationFilter
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionListRelationFilter
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionListRelationFilter
 }
 
 export type UnitOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
   code?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  conversionsFrom?: Prisma.UnitConversionOrderByRelationAggregateInput
-  conversionsTo?: Prisma.UnitConversionOrderByRelationAggregateInput
   rawMaterials?: Prisma.RawMaterialOrderByRelationAggregateInput
   purchaseItems?: Prisma.PurchaseItemOrderByRelationAggregateInput
-  unitConversions?: Prisma.RawMaterialUnitConversionOrderByRelationAggregateInput
+  conversionsFrom?: Prisma.UnitConversionOrderByRelationAggregateInput
+  conversionsTo?: Prisma.UnitConversionOrderByRelationAggregateInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionOrderByRelationAggregateInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionOrderByRelationAggregateInput
   _relevance?: Prisma.UnitOrderByRelevanceInput
 }
 
 export type UnitWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  name?: string
   code?: string
+  name?: string
   AND?: Prisma.UnitWhereInput | Prisma.UnitWhereInput[]
   OR?: Prisma.UnitWhereInput[]
   NOT?: Prisma.UnitWhereInput | Prisma.UnitWhereInput[]
+  isActive?: Prisma.BoolFilter<"Unit"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Unit"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Unit"> | Date | string
-  conversionsFrom?: Prisma.UnitConversionListRelationFilter
-  conversionsTo?: Prisma.UnitConversionListRelationFilter
   rawMaterials?: Prisma.RawMaterialListRelationFilter
   purchaseItems?: Prisma.PurchaseItemListRelationFilter
-  unitConversions?: Prisma.RawMaterialUnitConversionListRelationFilter
-}, "id" | "name" | "code">
+  conversionsFrom?: Prisma.UnitConversionListRelationFilter
+  conversionsTo?: Prisma.UnitConversionListRelationFilter
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionListRelationFilter
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionListRelationFilter
+}, "id" | "code" | "name">
 
 export type UnitOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
   code?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.UnitCountOrderByAggregateInput
@@ -235,84 +249,96 @@ export type UnitScalarWhereWithAggregatesInput = {
   OR?: Prisma.UnitScalarWhereWithAggregatesInput[]
   NOT?: Prisma.UnitScalarWhereWithAggregatesInput | Prisma.UnitScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Unit"> | string
-  name?: Prisma.StringWithAggregatesFilter<"Unit"> | string
   code?: Prisma.StringWithAggregatesFilter<"Unit"> | string
+  name?: Prisma.StringWithAggregatesFilter<"Unit"> | string
+  isActive?: Prisma.BoolWithAggregatesFilter<"Unit"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Unit"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Unit"> | Date | string
 }
 
 export type UnitCreateInput = {
   id?: string
-  name: string
   code: string
+  name: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  conversionsFrom?: Prisma.UnitConversionCreateNestedManyWithoutFromUnitInput
-  conversionsTo?: Prisma.UnitConversionCreateNestedManyWithoutToUnitInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutUnitInput
   purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutUnitInput
-  unitConversions?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutUnitInput
+  conversionsFrom?: Prisma.UnitConversionCreateNestedManyWithoutFromUnitInput
+  conversionsTo?: Prisma.UnitConversionCreateNestedManyWithoutToUnitInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutFromUnitInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutToUnitInput
 }
 
 export type UnitUncheckedCreateInput = {
   id?: string
-  name: string
   code: string
+  name: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  conversionsFrom?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
-  conversionsTo?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutToUnitInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutUnitInput
   purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutUnitInput
-  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutUnitInput
+  conversionsFrom?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
+  conversionsTo?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutToUnitInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutToUnitInput
 }
 
 export type UnitUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  conversionsFrom?: Prisma.UnitConversionUpdateManyWithoutFromUnitNestedInput
-  conversionsTo?: Prisma.UnitConversionUpdateManyWithoutToUnitNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutUnitNestedInput
   purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutUnitNestedInput
-  unitConversions?: Prisma.RawMaterialUnitConversionUpdateManyWithoutUnitNestedInput
+  conversionsFrom?: Prisma.UnitConversionUpdateManyWithoutFromUnitNestedInput
+  conversionsTo?: Prisma.UnitConversionUpdateManyWithoutToUnitNestedInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUpdateManyWithoutFromUnitNestedInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUpdateManyWithoutToUnitNestedInput
 }
 
 export type UnitUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  conversionsFrom?: Prisma.UnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
-  conversionsTo?: Prisma.UnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutUnitNestedInput
   purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutUnitNestedInput
-  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutUnitNestedInput
+  conversionsFrom?: Prisma.UnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
+  conversionsTo?: Prisma.UnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
 }
 
 export type UnitCreateManyInput = {
   id?: string
-  name: string
   code: string
+  name: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type UnitUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UnitUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -330,24 +356,27 @@ export type UnitOrderByRelevanceInput = {
 
 export type UnitCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
   code?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type UnitMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
   code?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type UnitMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  name?: Prisma.SortOrder
   code?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -408,42 +437,60 @@ export type UnitUpdateOneRequiredWithoutConversionsToNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UnitUpdateToOneWithWhereWithoutConversionsToInput, Prisma.UnitUpdateWithoutConversionsToInput>, Prisma.UnitUncheckedUpdateWithoutConversionsToInput>
 }
 
-export type UnitCreateNestedOneWithoutUnitConversionsInput = {
-  create?: Prisma.XOR<Prisma.UnitCreateWithoutUnitConversionsInput, Prisma.UnitUncheckedCreateWithoutUnitConversionsInput>
-  connectOrCreate?: Prisma.UnitCreateOrConnectWithoutUnitConversionsInput
+export type UnitCreateNestedOneWithoutRawMaterialConversionsFromInput = {
+  create?: Prisma.XOR<Prisma.UnitCreateWithoutRawMaterialConversionsFromInput, Prisma.UnitUncheckedCreateWithoutRawMaterialConversionsFromInput>
+  connectOrCreate?: Prisma.UnitCreateOrConnectWithoutRawMaterialConversionsFromInput
   connect?: Prisma.UnitWhereUniqueInput
 }
 
-export type UnitUpdateOneRequiredWithoutUnitConversionsNestedInput = {
-  create?: Prisma.XOR<Prisma.UnitCreateWithoutUnitConversionsInput, Prisma.UnitUncheckedCreateWithoutUnitConversionsInput>
-  connectOrCreate?: Prisma.UnitCreateOrConnectWithoutUnitConversionsInput
-  upsert?: Prisma.UnitUpsertWithoutUnitConversionsInput
+export type UnitCreateNestedOneWithoutRawMaterialConversionsToInput = {
+  create?: Prisma.XOR<Prisma.UnitCreateWithoutRawMaterialConversionsToInput, Prisma.UnitUncheckedCreateWithoutRawMaterialConversionsToInput>
+  connectOrCreate?: Prisma.UnitCreateOrConnectWithoutRawMaterialConversionsToInput
   connect?: Prisma.UnitWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UnitUpdateToOneWithWhereWithoutUnitConversionsInput, Prisma.UnitUpdateWithoutUnitConversionsInput>, Prisma.UnitUncheckedUpdateWithoutUnitConversionsInput>
+}
+
+export type UnitUpdateOneRequiredWithoutRawMaterialConversionsFromNestedInput = {
+  create?: Prisma.XOR<Prisma.UnitCreateWithoutRawMaterialConversionsFromInput, Prisma.UnitUncheckedCreateWithoutRawMaterialConversionsFromInput>
+  connectOrCreate?: Prisma.UnitCreateOrConnectWithoutRawMaterialConversionsFromInput
+  upsert?: Prisma.UnitUpsertWithoutRawMaterialConversionsFromInput
+  connect?: Prisma.UnitWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UnitUpdateToOneWithWhereWithoutRawMaterialConversionsFromInput, Prisma.UnitUpdateWithoutRawMaterialConversionsFromInput>, Prisma.UnitUncheckedUpdateWithoutRawMaterialConversionsFromInput>
+}
+
+export type UnitUpdateOneRequiredWithoutRawMaterialConversionsToNestedInput = {
+  create?: Prisma.XOR<Prisma.UnitCreateWithoutRawMaterialConversionsToInput, Prisma.UnitUncheckedCreateWithoutRawMaterialConversionsToInput>
+  connectOrCreate?: Prisma.UnitCreateOrConnectWithoutRawMaterialConversionsToInput
+  upsert?: Prisma.UnitUpsertWithoutRawMaterialConversionsToInput
+  connect?: Prisma.UnitWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UnitUpdateToOneWithWhereWithoutRawMaterialConversionsToInput, Prisma.UnitUpdateWithoutRawMaterialConversionsToInput>, Prisma.UnitUncheckedUpdateWithoutRawMaterialConversionsToInput>
 }
 
 export type UnitCreateWithoutRawMaterialsInput = {
   id?: string
-  name: string
   code: string
+  name: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutUnitInput
   conversionsFrom?: Prisma.UnitConversionCreateNestedManyWithoutFromUnitInput
   conversionsTo?: Prisma.UnitConversionCreateNestedManyWithoutToUnitInput
-  purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutUnitInput
-  unitConversions?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutUnitInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutFromUnitInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutToUnitInput
 }
 
 export type UnitUncheckedCreateWithoutRawMaterialsInput = {
   id?: string
-  name: string
   code: string
+  name: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutUnitInput
   conversionsFrom?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
   conversionsTo?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutToUnitInput
-  purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutUnitInput
-  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutUnitInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutToUnitInput
 }
 
 export type UnitCreateOrConnectWithoutRawMaterialsInput = {
@@ -464,50 +511,58 @@ export type UnitUpdateToOneWithWhereWithoutRawMaterialsInput = {
 
 export type UnitUpdateWithoutRawMaterialsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutUnitNestedInput
   conversionsFrom?: Prisma.UnitConversionUpdateManyWithoutFromUnitNestedInput
   conversionsTo?: Prisma.UnitConversionUpdateManyWithoutToUnitNestedInput
-  purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutUnitNestedInput
-  unitConversions?: Prisma.RawMaterialUnitConversionUpdateManyWithoutUnitNestedInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUpdateManyWithoutFromUnitNestedInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUpdateManyWithoutToUnitNestedInput
 }
 
 export type UnitUncheckedUpdateWithoutRawMaterialsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutUnitNestedInput
   conversionsFrom?: Prisma.UnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
   conversionsTo?: Prisma.UnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
-  purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutUnitNestedInput
-  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutUnitNestedInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
 }
 
 export type UnitCreateWithoutPurchaseItemsInput = {
   id?: string
-  name: string
   code: string
+  name: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutUnitInput
   conversionsFrom?: Prisma.UnitConversionCreateNestedManyWithoutFromUnitInput
   conversionsTo?: Prisma.UnitConversionCreateNestedManyWithoutToUnitInput
-  rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutUnitInput
-  unitConversions?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutUnitInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutFromUnitInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutToUnitInput
 }
 
 export type UnitUncheckedCreateWithoutPurchaseItemsInput = {
   id?: string
-  name: string
   code: string
+  name: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
+  rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutUnitInput
   conversionsFrom?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
   conversionsTo?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutToUnitInput
-  rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutUnitInput
-  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutUnitInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutToUnitInput
 }
 
 export type UnitCreateOrConnectWithoutPurchaseItemsInput = {
@@ -528,50 +583,58 @@ export type UnitUpdateToOneWithWhereWithoutPurchaseItemsInput = {
 
 export type UnitUpdateWithoutPurchaseItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  rawMaterials?: Prisma.RawMaterialUpdateManyWithoutUnitNestedInput
   conversionsFrom?: Prisma.UnitConversionUpdateManyWithoutFromUnitNestedInput
   conversionsTo?: Prisma.UnitConversionUpdateManyWithoutToUnitNestedInput
-  rawMaterials?: Prisma.RawMaterialUpdateManyWithoutUnitNestedInput
-  unitConversions?: Prisma.RawMaterialUnitConversionUpdateManyWithoutUnitNestedInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUpdateManyWithoutFromUnitNestedInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUpdateManyWithoutToUnitNestedInput
 }
 
 export type UnitUncheckedUpdateWithoutPurchaseItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutUnitNestedInput
   conversionsFrom?: Prisma.UnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
   conversionsTo?: Prisma.UnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
-  rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutUnitNestedInput
-  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutUnitNestedInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
 }
 
 export type UnitCreateWithoutConversionsFromInput = {
   id?: string
-  name: string
   code: string
+  name: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  conversionsTo?: Prisma.UnitConversionCreateNestedManyWithoutToUnitInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutUnitInput
   purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutUnitInput
-  unitConversions?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutUnitInput
+  conversionsTo?: Prisma.UnitConversionCreateNestedManyWithoutToUnitInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutFromUnitInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutToUnitInput
 }
 
 export type UnitUncheckedCreateWithoutConversionsFromInput = {
   id?: string
-  name: string
   code: string
+  name: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  conversionsTo?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutToUnitInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutUnitInput
   purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutUnitInput
-  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutUnitInput
+  conversionsTo?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutToUnitInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutToUnitInput
 }
 
 export type UnitCreateOrConnectWithoutConversionsFromInput = {
@@ -581,26 +644,30 @@ export type UnitCreateOrConnectWithoutConversionsFromInput = {
 
 export type UnitCreateWithoutConversionsToInput = {
   id?: string
-  name: string
   code: string
+  name: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  conversionsFrom?: Prisma.UnitConversionCreateNestedManyWithoutFromUnitInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutUnitInput
   purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutUnitInput
-  unitConversions?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutUnitInput
+  conversionsFrom?: Prisma.UnitConversionCreateNestedManyWithoutFromUnitInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutFromUnitInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutToUnitInput
 }
 
 export type UnitUncheckedCreateWithoutConversionsToInput = {
   id?: string
-  name: string
   code: string
+  name: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  conversionsFrom?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutUnitInput
   purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutUnitInput
-  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutUnitInput
+  conversionsFrom?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutToUnitInput
 }
 
 export type UnitCreateOrConnectWithoutConversionsToInput = {
@@ -621,26 +688,30 @@ export type UnitUpdateToOneWithWhereWithoutConversionsFromInput = {
 
 export type UnitUpdateWithoutConversionsFromInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  conversionsTo?: Prisma.UnitConversionUpdateManyWithoutToUnitNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutUnitNestedInput
   purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutUnitNestedInput
-  unitConversions?: Prisma.RawMaterialUnitConversionUpdateManyWithoutUnitNestedInput
+  conversionsTo?: Prisma.UnitConversionUpdateManyWithoutToUnitNestedInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUpdateManyWithoutFromUnitNestedInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUpdateManyWithoutToUnitNestedInput
 }
 
 export type UnitUncheckedUpdateWithoutConversionsFromInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  conversionsTo?: Prisma.UnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutUnitNestedInput
   purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutUnitNestedInput
-  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutUnitNestedInput
+  conversionsTo?: Prisma.UnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
 }
 
 export type UnitUpsertWithoutConversionsToInput = {
@@ -656,90 +727,174 @@ export type UnitUpdateToOneWithWhereWithoutConversionsToInput = {
 
 export type UnitUpdateWithoutConversionsToInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  conversionsFrom?: Prisma.UnitConversionUpdateManyWithoutFromUnitNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutUnitNestedInput
   purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutUnitNestedInput
-  unitConversions?: Prisma.RawMaterialUnitConversionUpdateManyWithoutUnitNestedInput
+  conversionsFrom?: Prisma.UnitConversionUpdateManyWithoutFromUnitNestedInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUpdateManyWithoutFromUnitNestedInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUpdateManyWithoutToUnitNestedInput
 }
 
 export type UnitUncheckedUpdateWithoutConversionsToInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  conversionsFrom?: Prisma.UnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutUnitNestedInput
   purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutUnitNestedInput
-  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutUnitNestedInput
+  conversionsFrom?: Prisma.UnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
 }
 
-export type UnitCreateWithoutUnitConversionsInput = {
+export type UnitCreateWithoutRawMaterialConversionsFromInput = {
   id?: string
-  name: string
   code: string
+  name: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  conversionsFrom?: Prisma.UnitConversionCreateNestedManyWithoutFromUnitInput
-  conversionsTo?: Prisma.UnitConversionCreateNestedManyWithoutToUnitInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutUnitInput
   purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutUnitInput
+  conversionsFrom?: Prisma.UnitConversionCreateNestedManyWithoutFromUnitInput
+  conversionsTo?: Prisma.UnitConversionCreateNestedManyWithoutToUnitInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutToUnitInput
 }
 
-export type UnitUncheckedCreateWithoutUnitConversionsInput = {
+export type UnitUncheckedCreateWithoutRawMaterialConversionsFromInput = {
   id?: string
-  name: string
   code: string
+  name: string
+  isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  conversionsFrom?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
-  conversionsTo?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutToUnitInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutUnitInput
   purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutUnitInput
+  conversionsFrom?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
+  conversionsTo?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutToUnitInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutToUnitInput
 }
 
-export type UnitCreateOrConnectWithoutUnitConversionsInput = {
+export type UnitCreateOrConnectWithoutRawMaterialConversionsFromInput = {
   where: Prisma.UnitWhereUniqueInput
-  create: Prisma.XOR<Prisma.UnitCreateWithoutUnitConversionsInput, Prisma.UnitUncheckedCreateWithoutUnitConversionsInput>
+  create: Prisma.XOR<Prisma.UnitCreateWithoutRawMaterialConversionsFromInput, Prisma.UnitUncheckedCreateWithoutRawMaterialConversionsFromInput>
 }
 
-export type UnitUpsertWithoutUnitConversionsInput = {
-  update: Prisma.XOR<Prisma.UnitUpdateWithoutUnitConversionsInput, Prisma.UnitUncheckedUpdateWithoutUnitConversionsInput>
-  create: Prisma.XOR<Prisma.UnitCreateWithoutUnitConversionsInput, Prisma.UnitUncheckedCreateWithoutUnitConversionsInput>
+export type UnitCreateWithoutRawMaterialConversionsToInput = {
+  id?: string
+  code: string
+  name: string
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutUnitInput
+  purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutUnitInput
+  conversionsFrom?: Prisma.UnitConversionCreateNestedManyWithoutFromUnitInput
+  conversionsTo?: Prisma.UnitConversionCreateNestedManyWithoutToUnitInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutFromUnitInput
+}
+
+export type UnitUncheckedCreateWithoutRawMaterialConversionsToInput = {
+  id?: string
+  code: string
+  name: string
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutUnitInput
+  purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutUnitInput
+  conversionsFrom?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
+  conversionsTo?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutToUnitInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
+}
+
+export type UnitCreateOrConnectWithoutRawMaterialConversionsToInput = {
+  where: Prisma.UnitWhereUniqueInput
+  create: Prisma.XOR<Prisma.UnitCreateWithoutRawMaterialConversionsToInput, Prisma.UnitUncheckedCreateWithoutRawMaterialConversionsToInput>
+}
+
+export type UnitUpsertWithoutRawMaterialConversionsFromInput = {
+  update: Prisma.XOR<Prisma.UnitUpdateWithoutRawMaterialConversionsFromInput, Prisma.UnitUncheckedUpdateWithoutRawMaterialConversionsFromInput>
+  create: Prisma.XOR<Prisma.UnitCreateWithoutRawMaterialConversionsFromInput, Prisma.UnitUncheckedCreateWithoutRawMaterialConversionsFromInput>
   where?: Prisma.UnitWhereInput
 }
 
-export type UnitUpdateToOneWithWhereWithoutUnitConversionsInput = {
+export type UnitUpdateToOneWithWhereWithoutRawMaterialConversionsFromInput = {
   where?: Prisma.UnitWhereInput
-  data: Prisma.XOR<Prisma.UnitUpdateWithoutUnitConversionsInput, Prisma.UnitUncheckedUpdateWithoutUnitConversionsInput>
+  data: Prisma.XOR<Prisma.UnitUpdateWithoutRawMaterialConversionsFromInput, Prisma.UnitUncheckedUpdateWithoutRawMaterialConversionsFromInput>
 }
 
-export type UnitUpdateWithoutUnitConversionsInput = {
+export type UnitUpdateWithoutRawMaterialConversionsFromInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  conversionsFrom?: Prisma.UnitConversionUpdateManyWithoutFromUnitNestedInput
-  conversionsTo?: Prisma.UnitConversionUpdateManyWithoutToUnitNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutUnitNestedInput
   purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutUnitNestedInput
+  conversionsFrom?: Prisma.UnitConversionUpdateManyWithoutFromUnitNestedInput
+  conversionsTo?: Prisma.UnitConversionUpdateManyWithoutToUnitNestedInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUpdateManyWithoutToUnitNestedInput
 }
 
-export type UnitUncheckedUpdateWithoutUnitConversionsInput = {
+export type UnitUncheckedUpdateWithoutRawMaterialConversionsFromInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  conversionsFrom?: Prisma.UnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
-  conversionsTo?: Prisma.UnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutUnitNestedInput
   purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutUnitNestedInput
+  conversionsFrom?: Prisma.UnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
+  conversionsTo?: Prisma.UnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
+  rawMaterialConversionsTo?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
+}
+
+export type UnitUpsertWithoutRawMaterialConversionsToInput = {
+  update: Prisma.XOR<Prisma.UnitUpdateWithoutRawMaterialConversionsToInput, Prisma.UnitUncheckedUpdateWithoutRawMaterialConversionsToInput>
+  create: Prisma.XOR<Prisma.UnitCreateWithoutRawMaterialConversionsToInput, Prisma.UnitUncheckedCreateWithoutRawMaterialConversionsToInput>
+  where?: Prisma.UnitWhereInput
+}
+
+export type UnitUpdateToOneWithWhereWithoutRawMaterialConversionsToInput = {
+  where?: Prisma.UnitWhereInput
+  data: Prisma.XOR<Prisma.UnitUpdateWithoutRawMaterialConversionsToInput, Prisma.UnitUncheckedUpdateWithoutRawMaterialConversionsToInput>
+}
+
+export type UnitUpdateWithoutRawMaterialConversionsToInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  rawMaterials?: Prisma.RawMaterialUpdateManyWithoutUnitNestedInput
+  purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutUnitNestedInput
+  conversionsFrom?: Prisma.UnitConversionUpdateManyWithoutFromUnitNestedInput
+  conversionsTo?: Prisma.UnitConversionUpdateManyWithoutToUnitNestedInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUpdateManyWithoutFromUnitNestedInput
+}
+
+export type UnitUncheckedUpdateWithoutRawMaterialConversionsToInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutUnitNestedInput
+  purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutUnitNestedInput
+  conversionsFrom?: Prisma.UnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
+  conversionsTo?: Prisma.UnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
+  rawMaterialConversionsFrom?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
 }
 
 
@@ -748,19 +903,21 @@ export type UnitUncheckedUpdateWithoutUnitConversionsInput = {
  */
 
 export type UnitCountOutputType = {
-  conversionsFrom: number
-  conversionsTo: number
   rawMaterials: number
   purchaseItems: number
-  unitConversions: number
+  conversionsFrom: number
+  conversionsTo: number
+  rawMaterialConversionsFrom: number
+  rawMaterialConversionsTo: number
 }
 
 export type UnitCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  conversionsFrom?: boolean | UnitCountOutputTypeCountConversionsFromArgs
-  conversionsTo?: boolean | UnitCountOutputTypeCountConversionsToArgs
   rawMaterials?: boolean | UnitCountOutputTypeCountRawMaterialsArgs
   purchaseItems?: boolean | UnitCountOutputTypeCountPurchaseItemsArgs
-  unitConversions?: boolean | UnitCountOutputTypeCountUnitConversionsArgs
+  conversionsFrom?: boolean | UnitCountOutputTypeCountConversionsFromArgs
+  conversionsTo?: boolean | UnitCountOutputTypeCountConversionsToArgs
+  rawMaterialConversionsFrom?: boolean | UnitCountOutputTypeCountRawMaterialConversionsFromArgs
+  rawMaterialConversionsTo?: boolean | UnitCountOutputTypeCountRawMaterialConversionsToArgs
 }
 
 /**
@@ -771,20 +928,6 @@ export type UnitCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
    * Select specific fields to fetch from the UnitCountOutputType
    */
   select?: Prisma.UnitCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * UnitCountOutputType without action
- */
-export type UnitCountOutputTypeCountConversionsFromArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UnitConversionWhereInput
-}
-
-/**
- * UnitCountOutputType without action
- */
-export type UnitCountOutputTypeCountConversionsToArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.UnitConversionWhereInput
 }
 
 /**
@@ -804,22 +947,45 @@ export type UnitCountOutputTypeCountPurchaseItemsArgs<ExtArgs extends runtime.Ty
 /**
  * UnitCountOutputType without action
  */
-export type UnitCountOutputTypeCountUnitConversionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UnitCountOutputTypeCountConversionsFromArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UnitConversionWhereInput
+}
+
+/**
+ * UnitCountOutputType without action
+ */
+export type UnitCountOutputTypeCountConversionsToArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UnitConversionWhereInput
+}
+
+/**
+ * UnitCountOutputType without action
+ */
+export type UnitCountOutputTypeCountRawMaterialConversionsFromArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RawMaterialUnitConversionWhereInput
+}
+
+/**
+ * UnitCountOutputType without action
+ */
+export type UnitCountOutputTypeCountRawMaterialConversionsToArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.RawMaterialUnitConversionWhereInput
 }
 
 
 export type UnitSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  name?: boolean
   code?: boolean
+  name?: boolean
+  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  conversionsFrom?: boolean | Prisma.Unit$conversionsFromArgs<ExtArgs>
-  conversionsTo?: boolean | Prisma.Unit$conversionsToArgs<ExtArgs>
   rawMaterials?: boolean | Prisma.Unit$rawMaterialsArgs<ExtArgs>
   purchaseItems?: boolean | Prisma.Unit$purchaseItemsArgs<ExtArgs>
-  unitConversions?: boolean | Prisma.Unit$unitConversionsArgs<ExtArgs>
+  conversionsFrom?: boolean | Prisma.Unit$conversionsFromArgs<ExtArgs>
+  conversionsTo?: boolean | Prisma.Unit$conversionsToArgs<ExtArgs>
+  rawMaterialConversionsFrom?: boolean | Prisma.Unit$rawMaterialConversionsFromArgs<ExtArgs>
+  rawMaterialConversionsTo?: boolean | Prisma.Unit$rawMaterialConversionsToArgs<ExtArgs>
   _count?: boolean | Prisma.UnitCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["unit"]>
 
@@ -827,35 +993,39 @@ export type UnitSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 
 export type UnitSelectScalar = {
   id?: boolean
-  name?: boolean
   code?: boolean
+  name?: boolean
+  isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UnitOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "code" | "createdAt" | "updatedAt", ExtArgs["result"]["unit"]>
+export type UnitOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["unit"]>
 export type UnitInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  conversionsFrom?: boolean | Prisma.Unit$conversionsFromArgs<ExtArgs>
-  conversionsTo?: boolean | Prisma.Unit$conversionsToArgs<ExtArgs>
   rawMaterials?: boolean | Prisma.Unit$rawMaterialsArgs<ExtArgs>
   purchaseItems?: boolean | Prisma.Unit$purchaseItemsArgs<ExtArgs>
-  unitConversions?: boolean | Prisma.Unit$unitConversionsArgs<ExtArgs>
+  conversionsFrom?: boolean | Prisma.Unit$conversionsFromArgs<ExtArgs>
+  conversionsTo?: boolean | Prisma.Unit$conversionsToArgs<ExtArgs>
+  rawMaterialConversionsFrom?: boolean | Prisma.Unit$rawMaterialConversionsFromArgs<ExtArgs>
+  rawMaterialConversionsTo?: boolean | Prisma.Unit$rawMaterialConversionsToArgs<ExtArgs>
   _count?: boolean | Prisma.UnitCountOutputTypeDefaultArgs<ExtArgs>
 }
 
 export type $UnitPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Unit"
   objects: {
-    conversionsFrom: Prisma.$UnitConversionPayload<ExtArgs>[]
-    conversionsTo: Prisma.$UnitConversionPayload<ExtArgs>[]
     rawMaterials: Prisma.$RawMaterialPayload<ExtArgs>[]
     purchaseItems: Prisma.$PurchaseItemPayload<ExtArgs>[]
-    unitConversions: Prisma.$RawMaterialUnitConversionPayload<ExtArgs>[]
+    conversionsFrom: Prisma.$UnitConversionPayload<ExtArgs>[]
+    conversionsTo: Prisma.$UnitConversionPayload<ExtArgs>[]
+    rawMaterialConversionsFrom: Prisma.$RawMaterialUnitConversionPayload<ExtArgs>[]
+    rawMaterialConversionsTo: Prisma.$RawMaterialUnitConversionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    name: string
     code: string
+    name: string
+    isActive: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["unit"]>
@@ -1198,11 +1368,12 @@ readonly fields: UnitFieldRefs;
  */
 export interface Prisma__UnitClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  conversionsFrom<T extends Prisma.Unit$conversionsFromArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Unit$conversionsFromArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UnitConversionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  conversionsTo<T extends Prisma.Unit$conversionsToArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Unit$conversionsToArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UnitConversionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rawMaterials<T extends Prisma.Unit$rawMaterialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Unit$rawMaterialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RawMaterialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   purchaseItems<T extends Prisma.Unit$purchaseItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Unit$purchaseItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchaseItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  unitConversions<T extends Prisma.Unit$unitConversionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Unit$unitConversionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RawMaterialUnitConversionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversionsFrom<T extends Prisma.Unit$conversionsFromArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Unit$conversionsFromArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UnitConversionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  conversionsTo<T extends Prisma.Unit$conversionsToArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Unit$conversionsToArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UnitConversionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  rawMaterialConversionsFrom<T extends Prisma.Unit$rawMaterialConversionsFromArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Unit$rawMaterialConversionsFromArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RawMaterialUnitConversionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  rawMaterialConversionsTo<T extends Prisma.Unit$rawMaterialConversionsToArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Unit$rawMaterialConversionsToArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RawMaterialUnitConversionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1233,8 +1404,9 @@ export interface Prisma__UnitClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface UnitFieldRefs {
   readonly id: Prisma.FieldRef<"Unit", 'String'>
-  readonly name: Prisma.FieldRef<"Unit", 'String'>
   readonly code: Prisma.FieldRef<"Unit", 'String'>
+  readonly name: Prisma.FieldRef<"Unit", 'String'>
+  readonly isActive: Prisma.FieldRef<"Unit", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Unit", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Unit", 'DateTime'>
 }
@@ -1585,54 +1757,6 @@ export type UnitDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * Unit.conversionsFrom
- */
-export type Unit$conversionsFromArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the UnitConversion
-   */
-  select?: Prisma.UnitConversionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the UnitConversion
-   */
-  omit?: Prisma.UnitConversionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UnitConversionInclude<ExtArgs> | null
-  where?: Prisma.UnitConversionWhereInput
-  orderBy?: Prisma.UnitConversionOrderByWithRelationInput | Prisma.UnitConversionOrderByWithRelationInput[]
-  cursor?: Prisma.UnitConversionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.UnitConversionScalarFieldEnum | Prisma.UnitConversionScalarFieldEnum[]
-}
-
-/**
- * Unit.conversionsTo
- */
-export type Unit$conversionsToArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the UnitConversion
-   */
-  select?: Prisma.UnitConversionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the UnitConversion
-   */
-  omit?: Prisma.UnitConversionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.UnitConversionInclude<ExtArgs> | null
-  where?: Prisma.UnitConversionWhereInput
-  orderBy?: Prisma.UnitConversionOrderByWithRelationInput | Prisma.UnitConversionOrderByWithRelationInput[]
-  cursor?: Prisma.UnitConversionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.UnitConversionScalarFieldEnum | Prisma.UnitConversionScalarFieldEnum[]
-}
-
-/**
  * Unit.rawMaterials
  */
 export type Unit$rawMaterialsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1681,9 +1805,81 @@ export type Unit$purchaseItemsArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
- * Unit.unitConversions
+ * Unit.conversionsFrom
  */
-export type Unit$unitConversionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Unit$conversionsFromArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UnitConversion
+   */
+  select?: Prisma.UnitConversionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UnitConversion
+   */
+  omit?: Prisma.UnitConversionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UnitConversionInclude<ExtArgs> | null
+  where?: Prisma.UnitConversionWhereInput
+  orderBy?: Prisma.UnitConversionOrderByWithRelationInput | Prisma.UnitConversionOrderByWithRelationInput[]
+  cursor?: Prisma.UnitConversionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UnitConversionScalarFieldEnum | Prisma.UnitConversionScalarFieldEnum[]
+}
+
+/**
+ * Unit.conversionsTo
+ */
+export type Unit$conversionsToArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the UnitConversion
+   */
+  select?: Prisma.UnitConversionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the UnitConversion
+   */
+  omit?: Prisma.UnitConversionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UnitConversionInclude<ExtArgs> | null
+  where?: Prisma.UnitConversionWhereInput
+  orderBy?: Prisma.UnitConversionOrderByWithRelationInput | Prisma.UnitConversionOrderByWithRelationInput[]
+  cursor?: Prisma.UnitConversionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UnitConversionScalarFieldEnum | Prisma.UnitConversionScalarFieldEnum[]
+}
+
+/**
+ * Unit.rawMaterialConversionsFrom
+ */
+export type Unit$rawMaterialConversionsFromArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RawMaterialUnitConversion
+   */
+  select?: Prisma.RawMaterialUnitConversionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RawMaterialUnitConversion
+   */
+  omit?: Prisma.RawMaterialUnitConversionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RawMaterialUnitConversionInclude<ExtArgs> | null
+  where?: Prisma.RawMaterialUnitConversionWhereInput
+  orderBy?: Prisma.RawMaterialUnitConversionOrderByWithRelationInput | Prisma.RawMaterialUnitConversionOrderByWithRelationInput[]
+  cursor?: Prisma.RawMaterialUnitConversionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RawMaterialUnitConversionScalarFieldEnum | Prisma.RawMaterialUnitConversionScalarFieldEnum[]
+}
+
+/**
+ * Unit.rawMaterialConversionsTo
+ */
+export type Unit$rawMaterialConversionsToArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the RawMaterialUnitConversion
    */

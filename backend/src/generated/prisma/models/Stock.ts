@@ -28,19 +28,22 @@ export type AggregateStock = {
 
 export type StockAvgAggregateOutputType = {
   quantity: runtime.Decimal | null
-  minimumStock: runtime.Decimal | null
+  minQuantity: runtime.Decimal | null
+  maxQuantity: runtime.Decimal | null
 }
 
 export type StockSumAggregateOutputType = {
   quantity: runtime.Decimal | null
-  minimumStock: runtime.Decimal | null
+  minQuantity: runtime.Decimal | null
+  maxQuantity: runtime.Decimal | null
 }
 
 export type StockMinAggregateOutputType = {
   id: string | null
   rawMaterialId: string | null
   quantity: runtime.Decimal | null
-  minimumStock: runtime.Decimal | null
+  minQuantity: runtime.Decimal | null
+  maxQuantity: runtime.Decimal | null
   updatedAt: Date | null
 }
 
@@ -48,7 +51,8 @@ export type StockMaxAggregateOutputType = {
   id: string | null
   rawMaterialId: string | null
   quantity: runtime.Decimal | null
-  minimumStock: runtime.Decimal | null
+  minQuantity: runtime.Decimal | null
+  maxQuantity: runtime.Decimal | null
   updatedAt: Date | null
 }
 
@@ -56,7 +60,8 @@ export type StockCountAggregateOutputType = {
   id: number
   rawMaterialId: number
   quantity: number
-  minimumStock: number
+  minQuantity: number
+  maxQuantity: number
   updatedAt: number
   _all: number
 }
@@ -64,19 +69,22 @@ export type StockCountAggregateOutputType = {
 
 export type StockAvgAggregateInputType = {
   quantity?: true
-  minimumStock?: true
+  minQuantity?: true
+  maxQuantity?: true
 }
 
 export type StockSumAggregateInputType = {
   quantity?: true
-  minimumStock?: true
+  minQuantity?: true
+  maxQuantity?: true
 }
 
 export type StockMinAggregateInputType = {
   id?: true
   rawMaterialId?: true
   quantity?: true
-  minimumStock?: true
+  minQuantity?: true
+  maxQuantity?: true
   updatedAt?: true
 }
 
@@ -84,7 +92,8 @@ export type StockMaxAggregateInputType = {
   id?: true
   rawMaterialId?: true
   quantity?: true
-  minimumStock?: true
+  minQuantity?: true
+  maxQuantity?: true
   updatedAt?: true
 }
 
@@ -92,7 +101,8 @@ export type StockCountAggregateInputType = {
   id?: true
   rawMaterialId?: true
   quantity?: true
-  minimumStock?: true
+  minQuantity?: true
+  maxQuantity?: true
   updatedAt?: true
   _all?: true
 }
@@ -187,7 +197,8 @@ export type StockGroupByOutputType = {
   id: string
   rawMaterialId: string
   quantity: runtime.Decimal
-  minimumStock: runtime.Decimal
+  minQuantity: runtime.Decimal | null
+  maxQuantity: runtime.Decimal | null
   updatedAt: Date
   _count: StockCountAggregateOutputType | null
   _avg: StockAvgAggregateOutputType | null
@@ -218,7 +229,8 @@ export type StockWhereInput = {
   id?: Prisma.StringFilter<"Stock"> | string
   rawMaterialId?: Prisma.StringFilter<"Stock"> | string
   quantity?: Prisma.DecimalFilter<"Stock"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  minimumStock?: Prisma.DecimalFilter<"Stock"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minQuantity?: Prisma.DecimalNullableFilter<"Stock"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxQuantity?: Prisma.DecimalNullableFilter<"Stock"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   updatedAt?: Prisma.DateTimeFilter<"Stock"> | Date | string
   rawMaterial?: Prisma.XOR<Prisma.RawMaterialScalarRelationFilter, Prisma.RawMaterialWhereInput>
 }
@@ -227,7 +239,8 @@ export type StockOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   rawMaterialId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
-  minimumStock?: Prisma.SortOrder
+  minQuantity?: Prisma.SortOrderInput | Prisma.SortOrder
+  maxQuantity?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   rawMaterial?: Prisma.RawMaterialOrderByWithRelationInput
   _relevance?: Prisma.StockOrderByRelevanceInput
@@ -240,7 +253,8 @@ export type StockWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.StockWhereInput[]
   NOT?: Prisma.StockWhereInput | Prisma.StockWhereInput[]
   quantity?: Prisma.DecimalFilter<"Stock"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  minimumStock?: Prisma.DecimalFilter<"Stock"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minQuantity?: Prisma.DecimalNullableFilter<"Stock"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxQuantity?: Prisma.DecimalNullableFilter<"Stock"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   updatedAt?: Prisma.DateTimeFilter<"Stock"> | Date | string
   rawMaterial?: Prisma.XOR<Prisma.RawMaterialScalarRelationFilter, Prisma.RawMaterialWhereInput>
 }, "id" | "rawMaterialId">
@@ -249,7 +263,8 @@ export type StockOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   rawMaterialId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
-  minimumStock?: Prisma.SortOrder
+  minQuantity?: Prisma.SortOrderInput | Prisma.SortOrder
+  maxQuantity?: Prisma.SortOrderInput | Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.StockCountOrderByAggregateInput
   _avg?: Prisma.StockAvgOrderByAggregateInput
@@ -265,14 +280,16 @@ export type StockScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Stock"> | string
   rawMaterialId?: Prisma.StringWithAggregatesFilter<"Stock"> | string
   quantity?: Prisma.DecimalWithAggregatesFilter<"Stock"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  minimumStock?: Prisma.DecimalWithAggregatesFilter<"Stock"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minQuantity?: Prisma.DecimalNullableWithAggregatesFilter<"Stock"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxQuantity?: Prisma.DecimalNullableWithAggregatesFilter<"Stock"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Stock"> | Date | string
 }
 
 export type StockCreateInput = {
   id?: string
   quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  minimumStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  minQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   updatedAt?: Date | string
   rawMaterial: Prisma.RawMaterialCreateNestedOneWithoutStockInput
 }
@@ -281,14 +298,16 @@ export type StockUncheckedCreateInput = {
   id?: string
   rawMaterialId: string
   quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  minimumStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  minQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   updatedAt?: Date | string
 }
 
 export type StockUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  minimumStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minQuantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxQuantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rawMaterial?: Prisma.RawMaterialUpdateOneRequiredWithoutStockNestedInput
 }
@@ -297,7 +316,8 @@ export type StockUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rawMaterialId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  minimumStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minQuantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxQuantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -305,14 +325,16 @@ export type StockCreateManyInput = {
   id?: string
   rawMaterialId: string
   quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  minimumStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  minQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   updatedAt?: Date | string
 }
 
 export type StockUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  minimumStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minQuantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxQuantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -320,7 +342,8 @@ export type StockUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rawMaterialId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  minimumStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minQuantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxQuantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -339,20 +362,23 @@ export type StockCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   rawMaterialId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
-  minimumStock?: Prisma.SortOrder
+  minQuantity?: Prisma.SortOrder
+  maxQuantity?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type StockAvgOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
-  minimumStock?: Prisma.SortOrder
+  minQuantity?: Prisma.SortOrder
+  maxQuantity?: Prisma.SortOrder
 }
 
 export type StockMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   rawMaterialId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
-  minimumStock?: Prisma.SortOrder
+  minQuantity?: Prisma.SortOrder
+  maxQuantity?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
@@ -360,13 +386,15 @@ export type StockMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   rawMaterialId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
-  minimumStock?: Prisma.SortOrder
+  minQuantity?: Prisma.SortOrder
+  maxQuantity?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type StockSumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
-  minimumStock?: Prisma.SortOrder
+  minQuantity?: Prisma.SortOrder
+  maxQuantity?: Prisma.SortOrder
 }
 
 export type StockCreateNestedOneWithoutRawMaterialInput = {
@@ -409,17 +437,27 @@ export type DecimalFieldUpdateOperationsInput = {
   divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
+}
+
 export type StockCreateWithoutRawMaterialInput = {
   id?: string
   quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  minimumStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  minQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   updatedAt?: Date | string
 }
 
 export type StockUncheckedCreateWithoutRawMaterialInput = {
   id?: string
   quantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  minimumStock?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  minQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   updatedAt?: Date | string
 }
 
@@ -442,14 +480,16 @@ export type StockUpdateToOneWithWhereWithoutRawMaterialInput = {
 export type StockUpdateWithoutRawMaterialInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  minimumStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minQuantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxQuantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type StockUncheckedUpdateWithoutRawMaterialInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  minimumStock?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  minQuantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  maxQuantity?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -459,7 +499,8 @@ export type StockSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   id?: boolean
   rawMaterialId?: boolean
   quantity?: boolean
-  minimumStock?: boolean
+  minQuantity?: boolean
+  maxQuantity?: boolean
   updatedAt?: boolean
   rawMaterial?: boolean | Prisma.RawMaterialDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["stock"]>
@@ -470,11 +511,12 @@ export type StockSelectScalar = {
   id?: boolean
   rawMaterialId?: boolean
   quantity?: boolean
-  minimumStock?: boolean
+  minQuantity?: boolean
+  maxQuantity?: boolean
   updatedAt?: boolean
 }
 
-export type StockOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rawMaterialId" | "quantity" | "minimumStock" | "updatedAt", ExtArgs["result"]["stock"]>
+export type StockOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rawMaterialId" | "quantity" | "minQuantity" | "maxQuantity" | "updatedAt", ExtArgs["result"]["stock"]>
 export type StockInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   rawMaterial?: boolean | Prisma.RawMaterialDefaultArgs<ExtArgs>
 }
@@ -488,7 +530,8 @@ export type $StockPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     id: string
     rawMaterialId: string
     quantity: runtime.Decimal
-    minimumStock: runtime.Decimal
+    minQuantity: runtime.Decimal | null
+    maxQuantity: runtime.Decimal | null
     updatedAt: Date
   }, ExtArgs["result"]["stock"]>
   composites: {}
@@ -863,7 +906,8 @@ export interface StockFieldRefs {
   readonly id: Prisma.FieldRef<"Stock", 'String'>
   readonly rawMaterialId: Prisma.FieldRef<"Stock", 'String'>
   readonly quantity: Prisma.FieldRef<"Stock", 'Decimal'>
-  readonly minimumStock: Prisma.FieldRef<"Stock", 'Decimal'>
+  readonly minQuantity: Prisma.FieldRef<"Stock", 'Decimal'>
+  readonly maxQuantity: Prisma.FieldRef<"Stock", 'Decimal'>
   readonly updatedAt: Prisma.FieldRef<"Stock", 'DateTime'>
 }
     

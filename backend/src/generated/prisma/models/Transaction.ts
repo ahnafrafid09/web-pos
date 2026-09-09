@@ -65,6 +65,7 @@ export type TransactionMinAggregateOutputType = {
   change: number | null
   totalHpp: number | null
   profit: number | null
+  notes: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -84,6 +85,7 @@ export type TransactionMaxAggregateOutputType = {
   change: number | null
   totalHpp: number | null
   profit: number | null
+  notes: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -103,6 +105,7 @@ export type TransactionCountAggregateOutputType = {
   change: number
   totalHpp: number
   profit: number
+  notes: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -148,6 +151,7 @@ export type TransactionMinAggregateInputType = {
   change?: true
   totalHpp?: true
   profit?: true
+  notes?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -167,6 +171,7 @@ export type TransactionMaxAggregateInputType = {
   change?: true
   totalHpp?: true
   profit?: true
+  notes?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -186,6 +191,7 @@ export type TransactionCountAggregateInputType = {
   change?: true
   totalHpp?: true
   profit?: true
+  notes?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -292,6 +298,7 @@ export type TransactionGroupByOutputType = {
   change: number
   totalHpp: number
   profit: number
+  notes: string | null
   createdAt: Date
   updatedAt: Date
   _count: TransactionCountAggregateOutputType | null
@@ -334,6 +341,7 @@ export type TransactionWhereInput = {
   change?: Prisma.IntFilter<"Transaction"> | number
   totalHpp?: Prisma.IntFilter<"Transaction"> | number
   profit?: Prisma.IntFilter<"Transaction"> | number
+  notes?: Prisma.StringNullableFilter<"Transaction"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -357,6 +365,7 @@ export type TransactionOrderByWithRelationInput = {
   change?: Prisma.SortOrder
   totalHpp?: Prisma.SortOrder
   profit?: Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
@@ -368,6 +377,7 @@ export type TransactionOrderByWithRelationInput = {
 
 export type TransactionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  tenantId_invoiceNumber?: Prisma.TransactionTenantIdInvoiceNumberCompoundUniqueInput
   AND?: Prisma.TransactionWhereInput | Prisma.TransactionWhereInput[]
   OR?: Prisma.TransactionWhereInput[]
   NOT?: Prisma.TransactionWhereInput | Prisma.TransactionWhereInput[]
@@ -384,13 +394,14 @@ export type TransactionWhereUniqueInput = Prisma.AtLeast<{
   change?: Prisma.IntFilter<"Transaction"> | number
   totalHpp?: Prisma.IntFilter<"Transaction"> | number
   profit?: Prisma.IntFilter<"Transaction"> | number
+  notes?: Prisma.StringNullableFilter<"Transaction"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   cashier?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   items?: Prisma.TransactionItemListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
-}, "id">
+}, "id" | "tenantId_invoiceNumber">
 
 export type TransactionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -407,6 +418,7 @@ export type TransactionOrderByWithAggregationInput = {
   change?: Prisma.SortOrder
   totalHpp?: Prisma.SortOrder
   profit?: Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.TransactionCountOrderByAggregateInput
@@ -434,6 +446,7 @@ export type TransactionScalarWhereWithAggregatesInput = {
   change?: Prisma.IntWithAggregatesFilter<"Transaction"> | number
   totalHpp?: Prisma.IntWithAggregatesFilter<"Transaction"> | number
   profit?: Prisma.IntWithAggregatesFilter<"Transaction"> | number
+  notes?: Prisma.StringNullableWithAggregatesFilter<"Transaction"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Transaction"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Transaction"> | Date | string
 }
@@ -451,6 +464,7 @@ export type TransactionCreateInput = {
   change?: number
   totalHpp?: number
   profit?: number
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTransactionsInput
@@ -474,6 +488,7 @@ export type TransactionUncheckedCreateInput = {
   change?: number
   totalHpp?: number
   profit?: number
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.TransactionItemUncheckedCreateNestedManyWithoutTransactionInput
@@ -493,6 +508,7 @@ export type TransactionUpdateInput = {
   change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTransactionsNestedInput
@@ -516,6 +532,7 @@ export type TransactionUncheckedUpdateInput = {
   change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.TransactionItemUncheckedUpdateManyWithoutTransactionNestedInput
@@ -537,6 +554,7 @@ export type TransactionCreateManyInput = {
   change?: number
   totalHpp?: number
   profit?: number
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -554,6 +572,7 @@ export type TransactionUpdateManyMutationInput = {
   change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -573,6 +592,7 @@ export type TransactionUncheckedUpdateManyInput = {
   change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -593,6 +613,11 @@ export type TransactionOrderByRelevanceInput = {
   search: string
 }
 
+export type TransactionTenantIdInvoiceNumberCompoundUniqueInput = {
+  tenantId: string
+  invoiceNumber: string
+}
+
 export type TransactionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
@@ -608,6 +633,7 @@ export type TransactionCountOrderByAggregateInput = {
   change?: Prisma.SortOrder
   totalHpp?: Prisma.SortOrder
   profit?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -639,6 +665,7 @@ export type TransactionMaxOrderByAggregateInput = {
   change?: Prisma.SortOrder
   totalHpp?: Prisma.SortOrder
   profit?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -658,6 +685,7 @@ export type TransactionMinOrderByAggregateInput = {
   change?: Prisma.SortOrder
   totalHpp?: Prisma.SortOrder
   profit?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -808,6 +836,7 @@ export type TransactionCreateWithoutTenantInput = {
   change?: number
   totalHpp?: number
   profit?: number
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   cashier?: Prisma.UserCreateNestedOneWithoutTransactionsInput
@@ -829,6 +858,7 @@ export type TransactionUncheckedCreateWithoutTenantInput = {
   change?: number
   totalHpp?: number
   profit?: number
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.TransactionItemUncheckedCreateNestedManyWithoutTransactionInput
@@ -879,6 +909,7 @@ export type TransactionScalarWhereInput = {
   change?: Prisma.IntFilter<"Transaction"> | number
   totalHpp?: Prisma.IntFilter<"Transaction"> | number
   profit?: Prisma.IntFilter<"Transaction"> | number
+  notes?: Prisma.StringNullableFilter<"Transaction"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Transaction"> | Date | string
 }
@@ -896,6 +927,7 @@ export type TransactionCreateWithoutCashierInput = {
   change?: number
   totalHpp?: number
   profit?: number
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTransactionsInput
@@ -917,6 +949,7 @@ export type TransactionUncheckedCreateWithoutCashierInput = {
   change?: number
   totalHpp?: number
   profit?: number
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.TransactionItemUncheckedCreateNestedManyWithoutTransactionInput
@@ -962,6 +995,7 @@ export type TransactionCreateWithoutItemsInput = {
   change?: number
   totalHpp?: number
   profit?: number
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTransactionsInput
@@ -984,6 +1018,7 @@ export type TransactionUncheckedCreateWithoutItemsInput = {
   change?: number
   totalHpp?: number
   profit?: number
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutTransactionInput
@@ -1018,6 +1053,7 @@ export type TransactionUpdateWithoutItemsInput = {
   change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTransactionsNestedInput
@@ -1040,6 +1076,7 @@ export type TransactionUncheckedUpdateWithoutItemsInput = {
   change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   payments?: Prisma.PaymentUncheckedUpdateManyWithoutTransactionNestedInput
@@ -1058,6 +1095,7 @@ export type TransactionCreateWithoutPaymentsInput = {
   change?: number
   totalHpp?: number
   profit?: number
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTransactionsInput
@@ -1080,6 +1118,7 @@ export type TransactionUncheckedCreateWithoutPaymentsInput = {
   change?: number
   totalHpp?: number
   profit?: number
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   items?: Prisma.TransactionItemUncheckedCreateNestedManyWithoutTransactionInput
@@ -1114,6 +1153,7 @@ export type TransactionUpdateWithoutPaymentsInput = {
   change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTransactionsNestedInput
@@ -1136,6 +1176,7 @@ export type TransactionUncheckedUpdateWithoutPaymentsInput = {
   change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.TransactionItemUncheckedUpdateManyWithoutTransactionNestedInput
@@ -1155,6 +1196,7 @@ export type TransactionCreateManyTenantInput = {
   change?: number
   totalHpp?: number
   profit?: number
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1172,6 +1214,7 @@ export type TransactionUpdateWithoutTenantInput = {
   change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   cashier?: Prisma.UserUpdateOneWithoutTransactionsNestedInput
@@ -1193,6 +1236,7 @@ export type TransactionUncheckedUpdateWithoutTenantInput = {
   change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.TransactionItemUncheckedUpdateManyWithoutTransactionNestedInput
@@ -1213,6 +1257,7 @@ export type TransactionUncheckedUpdateManyWithoutTenantInput = {
   change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1231,6 +1276,7 @@ export type TransactionCreateManyCashierInput = {
   change?: number
   totalHpp?: number
   profit?: number
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1248,6 +1294,7 @@ export type TransactionUpdateWithoutCashierInput = {
   change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTransactionsNestedInput
@@ -1269,6 +1316,7 @@ export type TransactionUncheckedUpdateWithoutCashierInput = {
   change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   items?: Prisma.TransactionItemUncheckedUpdateManyWithoutTransactionNestedInput
@@ -1289,6 +1337,7 @@ export type TransactionUncheckedUpdateManyWithoutCashierInput = {
   change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1348,6 +1397,7 @@ export type TransactionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   change?: boolean
   totalHpp?: boolean
   profit?: boolean
+  notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -1374,11 +1424,12 @@ export type TransactionSelectScalar = {
   change?: boolean
   totalHpp?: boolean
   profit?: boolean
+  notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "cashierId" | "invoiceNumber" | "status" | "subtotal" | "discount" | "serviceCharge" | "tax" | "total" | "totalPaid" | "change" | "totalHpp" | "profit" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
+export type TransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "cashierId" | "invoiceNumber" | "status" | "subtotal" | "discount" | "serviceCharge" | "tax" | "total" | "totalPaid" | "change" | "totalHpp" | "profit" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
 export type TransactionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   cashier?: boolean | Prisma.Transaction$cashierArgs<ExtArgs>
@@ -1410,6 +1461,7 @@ export type $TransactionPayload<ExtArgs extends runtime.Types.Extensions.Interna
     change: number
     totalHpp: number
     profit: number
+    notes: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["transaction"]>
@@ -1799,6 +1851,7 @@ export interface TransactionFieldRefs {
   readonly change: Prisma.FieldRef<"Transaction", 'Int'>
   readonly totalHpp: Prisma.FieldRef<"Transaction", 'Int'>
   readonly profit: Prisma.FieldRef<"Transaction", 'Int'>
+  readonly notes: Prisma.FieldRef<"Transaction", 'String'>
   readonly createdAt: Prisma.FieldRef<"Transaction", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Transaction", 'DateTime'>
 }

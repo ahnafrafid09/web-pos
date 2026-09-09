@@ -349,9 +349,9 @@ export type TransactionItemCreateInput = {
   productName: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   sellingPrice: number
-  hpp: number
-  subtotal: number
-  profit: number
+  hpp?: number
+  subtotal?: number
+  profit?: number
   createdAt?: Date | string
   transaction: Prisma.TransactionCreateNestedOneWithoutItemsInput
   product: Prisma.ProductCreateNestedOneWithoutTransactionItemsInput
@@ -364,9 +364,9 @@ export type TransactionItemUncheckedCreateInput = {
   productName: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   sellingPrice: number
-  hpp: number
-  subtotal: number
-  profit: number
+  hpp?: number
+  subtotal?: number
+  profit?: number
   createdAt?: Date | string
 }
 
@@ -403,9 +403,9 @@ export type TransactionItemCreateManyInput = {
   productName: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   sellingPrice: number
-  hpp: number
-  subtotal: number
-  profit: number
+  hpp?: number
+  subtotal?: number
+  profit?: number
   createdAt?: Date | string
 }
 
@@ -593,9 +593,9 @@ export type TransactionItemCreateWithoutProductInput = {
   productName: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   sellingPrice: number
-  hpp: number
-  subtotal: number
-  profit: number
+  hpp?: number
+  subtotal?: number
+  profit?: number
   createdAt?: Date | string
   transaction: Prisma.TransactionCreateNestedOneWithoutItemsInput
 }
@@ -606,9 +606,9 @@ export type TransactionItemUncheckedCreateWithoutProductInput = {
   productName: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   sellingPrice: number
-  hpp: number
-  subtotal: number
-  profit: number
+  hpp?: number
+  subtotal?: number
+  profit?: number
   createdAt?: Date | string
 }
 
@@ -659,9 +659,9 @@ export type TransactionItemCreateWithoutTransactionInput = {
   productName: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   sellingPrice: number
-  hpp: number
-  subtotal: number
-  profit: number
+  hpp?: number
+  subtotal?: number
+  profit?: number
   createdAt?: Date | string
   product: Prisma.ProductCreateNestedOneWithoutTransactionItemsInput
 }
@@ -672,9 +672,9 @@ export type TransactionItemUncheckedCreateWithoutTransactionInput = {
   productName: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   sellingPrice: number
-  hpp: number
-  subtotal: number
-  profit: number
+  hpp?: number
+  subtotal?: number
+  profit?: number
   createdAt?: Date | string
 }
 
@@ -710,9 +710,9 @@ export type TransactionItemCreateManyProductInput = {
   productName: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   sellingPrice: number
-  hpp: number
-  subtotal: number
-  profit: number
+  hpp?: number
+  subtotal?: number
+  profit?: number
   createdAt?: Date | string
 }
 
@@ -758,9 +758,9 @@ export type TransactionItemCreateManyTransactionInput = {
   productName: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   sellingPrice: number
-  hpp: number
-  subtotal: number
-  profit: number
+  hpp?: number
+  subtotal?: number
+  profit?: number
   createdAt?: Date | string
 }
 
