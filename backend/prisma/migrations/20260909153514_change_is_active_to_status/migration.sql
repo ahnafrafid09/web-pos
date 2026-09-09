@@ -3,12 +3,12 @@ CREATE TABLE `tenant` (
     `id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(150) NOT NULL,
     `code` VARCHAR(50) NOT NULL,
-    `is_active` BOOLEAN NOT NULL DEFAULT true,
+    `status` BOOLEAN NOT NULL DEFAULT true,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `tenant_code_key`(`code`),
-    INDEX `tenant_is_active_idx`(`is_active`),
+    INDEX `tenant_status_idx`(`status`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -17,12 +17,12 @@ CREATE TABLE `module` (
     `id` VARCHAR(191) NOT NULL,
     `code` ENUM('SALES', 'INVENTORY', 'PURCHASE', 'RECIPE', 'REPORTING') NOT NULL,
     `name` VARCHAR(100) NOT NULL,
-    `is_active` BOOLEAN NOT NULL DEFAULT true,
+    `status` BOOLEAN NOT NULL DEFAULT true,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `module_code_key`(`code`),
-    INDEX `module_is_active_idx`(`is_active`),
+    INDEX `module_status_idx`(`status`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -53,14 +53,14 @@ CREATE TABLE `user` (
     `email` VARCHAR(150) NULL,
     `password` VARCHAR(255) NOT NULL,
     `role` ENUM('SUPER_ADMIN', 'OWNER', 'ADMIN', 'CASHIER') NOT NULL,
-    `is_active` BOOLEAN NOT NULL DEFAULT true,
+    `status` BOOLEAN NOT NULL DEFAULT true,
     `last_login_at` DATETIME(3) NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
 
     INDEX `user_tenant_id_idx`(`tenant_id`),
     INDEX `user_tenant_id_role_idx`(`tenant_id`, `role`),
-    INDEX `user_tenant_id_is_active_idx`(`tenant_id`, `is_active`),
+    INDEX `user_tenant_id_status_idx`(`tenant_id`, `status`),
     INDEX `user_email_idx`(`email`),
     UNIQUE INDEX `user_tenant_id_username_key`(`tenant_id`, `username`),
     PRIMARY KEY (`id`)
@@ -71,12 +71,12 @@ CREATE TABLE `category` (
     `id` VARCHAR(191) NOT NULL,
     `tenant_id` VARCHAR(191) NOT NULL,
     `name` VARCHAR(100) NOT NULL,
-    `is_active` BOOLEAN NOT NULL DEFAULT true,
+    `status` BOOLEAN NOT NULL DEFAULT true,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
 
     INDEX `category_tenant_id_idx`(`tenant_id`),
-    INDEX `category_tenant_id_is_active_idx`(`tenant_id`, `is_active`),
+    INDEX `category_tenant_id_status_idx`(`tenant_id`, `status`),
     UNIQUE INDEX `category_tenant_id_name_key`(`tenant_id`, `name`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
@@ -94,14 +94,14 @@ CREATE TABLE `product` (
     `hpp` INTEGER NOT NULL DEFAULT 0,
     `image_url` TEXT NULL,
     `image_key` VARCHAR(255) NULL,
-    `is_active` BOOLEAN NOT NULL DEFAULT true,
+    `status` BOOLEAN NOT NULL DEFAULT true,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
 
     INDEX `product_tenant_id_idx`(`tenant_id`),
     INDEX `product_tenant_id_category_id_idx`(`tenant_id`, `category_id`),
     INDEX `product_tenant_id_type_idx`(`tenant_id`, `type`),
-    INDEX `product_tenant_id_is_active_idx`(`tenant_id`, `is_active`),
+    INDEX `product_tenant_id_status_idx`(`tenant_id`, `status`),
     INDEX `product_tenant_id_name_idx`(`tenant_id`, `name`),
     UNIQUE INDEX `product_tenant_id_sku_key`(`tenant_id`, `sku`),
     PRIMARY KEY (`id`)
@@ -115,13 +115,13 @@ CREATE TABLE `raw_material` (
     `name` VARCHAR(150) NOT NULL,
     `code` VARCHAR(100) NULL,
     `average_cost` INTEGER NOT NULL DEFAULT 0,
-    `is_active` BOOLEAN NOT NULL DEFAULT true,
+    `status` BOOLEAN NOT NULL DEFAULT true,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
 
     INDEX `raw_material_tenant_id_idx`(`tenant_id`),
     INDEX `raw_material_tenant_id_unit_id_idx`(`tenant_id`, `unit_id`),
-    INDEX `raw_material_tenant_id_is_active_idx`(`tenant_id`, `is_active`),
+    INDEX `raw_material_tenant_id_status_idx`(`tenant_id`, `status`),
     UNIQUE INDEX `raw_material_tenant_id_name_key`(`tenant_id`, `name`),
     UNIQUE INDEX `raw_material_tenant_id_code_key`(`tenant_id`, `code`),
     PRIMARY KEY (`id`)
@@ -164,12 +164,12 @@ CREATE TABLE `supplier` (
     `phone` VARCHAR(30) NULL,
     `email` VARCHAR(150) NULL,
     `address` TEXT NULL,
-    `is_active` BOOLEAN NOT NULL DEFAULT true,
+    `status` BOOLEAN NOT NULL DEFAULT true,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
 
     INDEX `supplier_tenant_id_idx`(`tenant_id`),
-    INDEX `supplier_tenant_id_is_active_idx`(`tenant_id`, `is_active`),
+    INDEX `supplier_tenant_id_status_idx`(`tenant_id`, `status`),
     INDEX `supplier_tenant_id_name_idx`(`tenant_id`, `name`),
     UNIQUE INDEX `supplier_tenant_id_code_key`(`tenant_id`, `code`),
     PRIMARY KEY (`id`)
@@ -394,13 +394,13 @@ CREATE TABLE `unit` (
     `id` VARCHAR(191) NOT NULL,
     `code` VARCHAR(30) NOT NULL,
     `name` VARCHAR(50) NOT NULL,
-    `is_active` BOOLEAN NOT NULL DEFAULT true,
+    `status` BOOLEAN NOT NULL DEFAULT true,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updated_at` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `unit_code_key`(`code`),
     UNIQUE INDEX `unit_name_key`(`name`),
-    INDEX `unit_is_active_idx`(`is_active`),
+    INDEX `unit_status_idx`(`status`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 

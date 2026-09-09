@@ -170,7 +170,7 @@ export type TenantModuleGroupByOutputType = {
   tenantId: string
   moduleId: string
   status: $Enums.TenantModuleStatus
-  startedAt: Date | null
+  startedAt: Date
   expiredAt: Date | null
   createdAt: Date
   updatedAt: Date
@@ -202,7 +202,7 @@ export type TenantModuleWhereInput = {
   tenantId?: Prisma.StringFilter<"TenantModule"> | string
   moduleId?: Prisma.StringFilter<"TenantModule"> | string
   status?: Prisma.EnumTenantModuleStatusFilter<"TenantModule"> | $Enums.TenantModuleStatus
-  startedAt?: Prisma.DateTimeNullableFilter<"TenantModule"> | Date | string | null
+  startedAt?: Prisma.DateTimeFilter<"TenantModule"> | Date | string
   expiredAt?: Prisma.DateTimeNullableFilter<"TenantModule"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"TenantModule"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TenantModule"> | Date | string
@@ -215,7 +215,7 @@ export type TenantModuleOrderByWithRelationInput = {
   tenantId?: Prisma.SortOrder
   moduleId?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  startedAt?: Prisma.SortOrder
   expiredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -233,7 +233,7 @@ export type TenantModuleWhereUniqueInput = Prisma.AtLeast<{
   tenantId?: Prisma.StringFilter<"TenantModule"> | string
   moduleId?: Prisma.StringFilter<"TenantModule"> | string
   status?: Prisma.EnumTenantModuleStatusFilter<"TenantModule"> | $Enums.TenantModuleStatus
-  startedAt?: Prisma.DateTimeNullableFilter<"TenantModule"> | Date | string | null
+  startedAt?: Prisma.DateTimeFilter<"TenantModule"> | Date | string
   expiredAt?: Prisma.DateTimeNullableFilter<"TenantModule"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"TenantModule"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TenantModule"> | Date | string
@@ -246,7 +246,7 @@ export type TenantModuleOrderByWithAggregationInput = {
   tenantId?: Prisma.SortOrder
   moduleId?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  startedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  startedAt?: Prisma.SortOrder
   expiredAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -263,7 +263,7 @@ export type TenantModuleScalarWhereWithAggregatesInput = {
   tenantId?: Prisma.StringWithAggregatesFilter<"TenantModule"> | string
   moduleId?: Prisma.StringWithAggregatesFilter<"TenantModule"> | string
   status?: Prisma.EnumTenantModuleStatusWithAggregatesFilter<"TenantModule"> | $Enums.TenantModuleStatus
-  startedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TenantModule"> | Date | string | null
+  startedAt?: Prisma.DateTimeWithAggregatesFilter<"TenantModule"> | Date | string
   expiredAt?: Prisma.DateTimeNullableWithAggregatesFilter<"TenantModule"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"TenantModule"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"TenantModule"> | Date | string
@@ -272,12 +272,12 @@ export type TenantModuleScalarWhereWithAggregatesInput = {
 export type TenantModuleCreateInput = {
   id?: string
   status?: $Enums.TenantModuleStatus
-  startedAt?: Date | string | null
+  startedAt?: Date | string
   expiredAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutModulesInput
-  module: Prisma.ModuleCreateNestedOneWithoutTenantsInput
+  module: Prisma.ModuleCreateNestedOneWithoutTenantModulesInput
 }
 
 export type TenantModuleUncheckedCreateInput = {
@@ -285,7 +285,7 @@ export type TenantModuleUncheckedCreateInput = {
   tenantId: string
   moduleId: string
   status?: $Enums.TenantModuleStatus
-  startedAt?: Date | string | null
+  startedAt?: Date | string
   expiredAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -294,12 +294,12 @@ export type TenantModuleUncheckedCreateInput = {
 export type TenantModuleUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTenantModuleStatusFieldUpdateOperationsInput | $Enums.TenantModuleStatus
-  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutModulesNestedInput
-  module?: Prisma.ModuleUpdateOneRequiredWithoutTenantsNestedInput
+  module?: Prisma.ModuleUpdateOneRequiredWithoutTenantModulesNestedInput
 }
 
 export type TenantModuleUncheckedUpdateInput = {
@@ -307,7 +307,7 @@ export type TenantModuleUncheckedUpdateInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   moduleId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTenantModuleStatusFieldUpdateOperationsInput | $Enums.TenantModuleStatus
-  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -318,7 +318,7 @@ export type TenantModuleCreateManyInput = {
   tenantId: string
   moduleId: string
   status?: $Enums.TenantModuleStatus
-  startedAt?: Date | string | null
+  startedAt?: Date | string
   expiredAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -327,7 +327,7 @@ export type TenantModuleCreateManyInput = {
 export type TenantModuleUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTenantModuleStatusFieldUpdateOperationsInput | $Enums.TenantModuleStatus
-  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -338,7 +338,7 @@ export type TenantModuleUncheckedUpdateManyInput = {
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   moduleId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTenantModuleStatusFieldUpdateOperationsInput | $Enums.TenantModuleStatus
-  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -493,18 +493,18 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
 export type TenantModuleCreateWithoutTenantInput = {
   id?: string
   status?: $Enums.TenantModuleStatus
-  startedAt?: Date | string | null
+  startedAt?: Date | string
   expiredAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  module: Prisma.ModuleCreateNestedOneWithoutTenantsInput
+  module: Prisma.ModuleCreateNestedOneWithoutTenantModulesInput
 }
 
 export type TenantModuleUncheckedCreateWithoutTenantInput = {
   id?: string
   moduleId: string
   status?: $Enums.TenantModuleStatus
-  startedAt?: Date | string | null
+  startedAt?: Date | string
   expiredAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -544,7 +544,7 @@ export type TenantModuleScalarWhereInput = {
   tenantId?: Prisma.StringFilter<"TenantModule"> | string
   moduleId?: Prisma.StringFilter<"TenantModule"> | string
   status?: Prisma.EnumTenantModuleStatusFilter<"TenantModule"> | $Enums.TenantModuleStatus
-  startedAt?: Prisma.DateTimeNullableFilter<"TenantModule"> | Date | string | null
+  startedAt?: Prisma.DateTimeFilter<"TenantModule"> | Date | string
   expiredAt?: Prisma.DateTimeNullableFilter<"TenantModule"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"TenantModule"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"TenantModule"> | Date | string
@@ -553,7 +553,7 @@ export type TenantModuleScalarWhereInput = {
 export type TenantModuleCreateWithoutModuleInput = {
   id?: string
   status?: $Enums.TenantModuleStatus
-  startedAt?: Date | string | null
+  startedAt?: Date | string
   expiredAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -564,7 +564,7 @@ export type TenantModuleUncheckedCreateWithoutModuleInput = {
   id?: string
   tenantId: string
   status?: $Enums.TenantModuleStatus
-  startedAt?: Date | string | null
+  startedAt?: Date | string
   expiredAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -600,7 +600,7 @@ export type TenantModuleCreateManyTenantInput = {
   id?: string
   moduleId: string
   status?: $Enums.TenantModuleStatus
-  startedAt?: Date | string | null
+  startedAt?: Date | string
   expiredAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -609,18 +609,18 @@ export type TenantModuleCreateManyTenantInput = {
 export type TenantModuleUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTenantModuleStatusFieldUpdateOperationsInput | $Enums.TenantModuleStatus
-  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  module?: Prisma.ModuleUpdateOneRequiredWithoutTenantsNestedInput
+  module?: Prisma.ModuleUpdateOneRequiredWithoutTenantModulesNestedInput
 }
 
 export type TenantModuleUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   moduleId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTenantModuleStatusFieldUpdateOperationsInput | $Enums.TenantModuleStatus
-  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -630,7 +630,7 @@ export type TenantModuleUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   moduleId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTenantModuleStatusFieldUpdateOperationsInput | $Enums.TenantModuleStatus
-  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -640,7 +640,7 @@ export type TenantModuleCreateManyModuleInput = {
   id?: string
   tenantId: string
   status?: $Enums.TenantModuleStatus
-  startedAt?: Date | string | null
+  startedAt?: Date | string
   expiredAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -649,7 +649,7 @@ export type TenantModuleCreateManyModuleInput = {
 export type TenantModuleUpdateWithoutModuleInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTenantModuleStatusFieldUpdateOperationsInput | $Enums.TenantModuleStatus
-  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -660,7 +660,7 @@ export type TenantModuleUncheckedUpdateWithoutModuleInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTenantModuleStatusFieldUpdateOperationsInput | $Enums.TenantModuleStatus
-  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -670,7 +670,7 @@ export type TenantModuleUncheckedUpdateManyWithoutModuleInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTenantModuleStatusFieldUpdateOperationsInput | $Enums.TenantModuleStatus
-  startedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  startedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   expiredAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -721,7 +721,7 @@ export type $TenantModulePayload<ExtArgs extends runtime.Types.Extensions.Intern
     tenantId: string
     moduleId: string
     status: $Enums.TenantModuleStatus
-    startedAt: Date | null
+    startedAt: Date
     expiredAt: Date | null
     createdAt: Date
     updatedAt: Date

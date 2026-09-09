@@ -45,7 +45,7 @@ export type StockMovementMinAggregateOutputType = {
   unitCost: number | null
   referenceId: string | null
   referenceType: string | null
-  notes: string | null
+  note: string | null
   createdAt: Date | null
 }
 
@@ -58,7 +58,7 @@ export type StockMovementMaxAggregateOutputType = {
   unitCost: number | null
   referenceId: string | null
   referenceType: string | null
-  notes: string | null
+  note: string | null
   createdAt: Date | null
 }
 
@@ -71,7 +71,7 @@ export type StockMovementCountAggregateOutputType = {
   unitCost: number
   referenceId: number
   referenceType: number
-  notes: number
+  note: number
   createdAt: number
   _all: number
 }
@@ -96,7 +96,7 @@ export type StockMovementMinAggregateInputType = {
   unitCost?: true
   referenceId?: true
   referenceType?: true
-  notes?: true
+  note?: true
   createdAt?: true
 }
 
@@ -109,7 +109,7 @@ export type StockMovementMaxAggregateInputType = {
   unitCost?: true
   referenceId?: true
   referenceType?: true
-  notes?: true
+  note?: true
   createdAt?: true
 }
 
@@ -122,7 +122,7 @@ export type StockMovementCountAggregateInputType = {
   unitCost?: true
   referenceId?: true
   referenceType?: true
-  notes?: true
+  note?: true
   createdAt?: true
   _all?: true
 }
@@ -222,7 +222,7 @@ export type StockMovementGroupByOutputType = {
   unitCost: number
   referenceId: string | null
   referenceType: string | null
-  notes: string | null
+  note: string | null
   createdAt: Date
   _count: StockMovementCountAggregateOutputType | null
   _avg: StockMovementAvgAggregateOutputType | null
@@ -258,7 +258,7 @@ export type StockMovementWhereInput = {
   unitCost?: Prisma.IntFilter<"StockMovement"> | number
   referenceId?: Prisma.StringNullableFilter<"StockMovement"> | string | null
   referenceType?: Prisma.StringNullableFilter<"StockMovement"> | string | null
-  notes?: Prisma.StringNullableFilter<"StockMovement"> | string | null
+  note?: Prisma.StringNullableFilter<"StockMovement"> | string | null
   createdAt?: Prisma.DateTimeFilter<"StockMovement"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   rawMaterial?: Prisma.XOR<Prisma.RawMaterialScalarRelationFilter, Prisma.RawMaterialWhereInput>
@@ -273,7 +273,7 @@ export type StockMovementOrderByWithRelationInput = {
   unitCost?: Prisma.SortOrder
   referenceId?: Prisma.SortOrderInput | Prisma.SortOrder
   referenceType?: Prisma.SortOrderInput | Prisma.SortOrder
-  notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  note?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
   rawMaterial?: Prisma.RawMaterialOrderByWithRelationInput
@@ -292,7 +292,7 @@ export type StockMovementWhereUniqueInput = Prisma.AtLeast<{
   unitCost?: Prisma.IntFilter<"StockMovement"> | number
   referenceId?: Prisma.StringNullableFilter<"StockMovement"> | string | null
   referenceType?: Prisma.StringNullableFilter<"StockMovement"> | string | null
-  notes?: Prisma.StringNullableFilter<"StockMovement"> | string | null
+  note?: Prisma.StringNullableFilter<"StockMovement"> | string | null
   createdAt?: Prisma.DateTimeFilter<"StockMovement"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   rawMaterial?: Prisma.XOR<Prisma.RawMaterialScalarRelationFilter, Prisma.RawMaterialWhereInput>
@@ -307,7 +307,7 @@ export type StockMovementOrderByWithAggregationInput = {
   unitCost?: Prisma.SortOrder
   referenceId?: Prisma.SortOrderInput | Prisma.SortOrder
   referenceType?: Prisma.SortOrderInput | Prisma.SortOrder
-  notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  note?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.StockMovementCountOrderByAggregateInput
   _avg?: Prisma.StockMovementAvgOrderByAggregateInput
@@ -328,7 +328,7 @@ export type StockMovementScalarWhereWithAggregatesInput = {
   unitCost?: Prisma.IntWithAggregatesFilter<"StockMovement"> | number
   referenceId?: Prisma.StringNullableWithAggregatesFilter<"StockMovement"> | string | null
   referenceType?: Prisma.StringNullableWithAggregatesFilter<"StockMovement"> | string | null
-  notes?: Prisma.StringNullableWithAggregatesFilter<"StockMovement"> | string | null
+  note?: Prisma.StringNullableWithAggregatesFilter<"StockMovement"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"StockMovement"> | Date | string
 }
 
@@ -339,7 +339,7 @@ export type StockMovementCreateInput = {
   unitCost?: number
   referenceId?: string | null
   referenceType?: string | null
-  notes?: string | null
+  note?: string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutStockMovementsInput
   rawMaterial: Prisma.RawMaterialCreateNestedOneWithoutStockMovementsInput
@@ -354,7 +354,7 @@ export type StockMovementUncheckedCreateInput = {
   unitCost?: number
   referenceId?: string | null
   referenceType?: string | null
-  notes?: string | null
+  note?: string | null
   createdAt?: Date | string
 }
 
@@ -365,7 +365,7 @@ export type StockMovementUpdateInput = {
   unitCost?: Prisma.IntFieldUpdateOperationsInput | number
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutStockMovementsNestedInput
   rawMaterial?: Prisma.RawMaterialUpdateOneRequiredWithoutStockMovementsNestedInput
@@ -380,7 +380,7 @@ export type StockMovementUncheckedUpdateInput = {
   unitCost?: Prisma.IntFieldUpdateOperationsInput | number
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -393,7 +393,7 @@ export type StockMovementCreateManyInput = {
   unitCost?: number
   referenceId?: string | null
   referenceType?: string | null
-  notes?: string | null
+  note?: string | null
   createdAt?: Date | string
 }
 
@@ -404,7 +404,7 @@ export type StockMovementUpdateManyMutationInput = {
   unitCost?: Prisma.IntFieldUpdateOperationsInput | number
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -417,7 +417,7 @@ export type StockMovementUncheckedUpdateManyInput = {
   unitCost?: Prisma.IntFieldUpdateOperationsInput | number
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -446,7 +446,7 @@ export type StockMovementCountOrderByAggregateInput = {
   unitCost?: Prisma.SortOrder
   referenceId?: Prisma.SortOrder
   referenceType?: Prisma.SortOrder
-  notes?: Prisma.SortOrder
+  note?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -464,7 +464,7 @@ export type StockMovementMaxOrderByAggregateInput = {
   unitCost?: Prisma.SortOrder
   referenceId?: Prisma.SortOrder
   referenceType?: Prisma.SortOrder
-  notes?: Prisma.SortOrder
+  note?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -477,7 +477,7 @@ export type StockMovementMinOrderByAggregateInput = {
   unitCost?: Prisma.SortOrder
   referenceId?: Prisma.SortOrder
   referenceType?: Prisma.SortOrder
-  notes?: Prisma.SortOrder
+  note?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
@@ -581,7 +581,7 @@ export type StockMovementCreateWithoutTenantInput = {
   unitCost?: number
   referenceId?: string | null
   referenceType?: string | null
-  notes?: string | null
+  note?: string | null
   createdAt?: Date | string
   rawMaterial: Prisma.RawMaterialCreateNestedOneWithoutStockMovementsInput
 }
@@ -594,7 +594,7 @@ export type StockMovementUncheckedCreateWithoutTenantInput = {
   unitCost?: number
   referenceId?: string | null
   referenceType?: string | null
-  notes?: string | null
+  note?: string | null
   createdAt?: Date | string
 }
 
@@ -636,7 +636,7 @@ export type StockMovementScalarWhereInput = {
   unitCost?: Prisma.IntFilter<"StockMovement"> | number
   referenceId?: Prisma.StringNullableFilter<"StockMovement"> | string | null
   referenceType?: Prisma.StringNullableFilter<"StockMovement"> | string | null
-  notes?: Prisma.StringNullableFilter<"StockMovement"> | string | null
+  note?: Prisma.StringNullableFilter<"StockMovement"> | string | null
   createdAt?: Prisma.DateTimeFilter<"StockMovement"> | Date | string
 }
 
@@ -647,7 +647,7 @@ export type StockMovementCreateWithoutRawMaterialInput = {
   unitCost?: number
   referenceId?: string | null
   referenceType?: string | null
-  notes?: string | null
+  note?: string | null
   createdAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutStockMovementsInput
 }
@@ -660,7 +660,7 @@ export type StockMovementUncheckedCreateWithoutRawMaterialInput = {
   unitCost?: number
   referenceId?: string | null
   referenceType?: string | null
-  notes?: string | null
+  note?: string | null
   createdAt?: Date | string
 }
 
@@ -698,7 +698,7 @@ export type StockMovementCreateManyTenantInput = {
   unitCost?: number
   referenceId?: string | null
   referenceType?: string | null
-  notes?: string | null
+  note?: string | null
   createdAt?: Date | string
 }
 
@@ -709,7 +709,7 @@ export type StockMovementUpdateWithoutTenantInput = {
   unitCost?: Prisma.IntFieldUpdateOperationsInput | number
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rawMaterial?: Prisma.RawMaterialUpdateOneRequiredWithoutStockMovementsNestedInput
 }
@@ -722,7 +722,7 @@ export type StockMovementUncheckedUpdateWithoutTenantInput = {
   unitCost?: Prisma.IntFieldUpdateOperationsInput | number
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -734,7 +734,7 @@ export type StockMovementUncheckedUpdateManyWithoutTenantInput = {
   unitCost?: Prisma.IntFieldUpdateOperationsInput | number
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -746,7 +746,7 @@ export type StockMovementCreateManyRawMaterialInput = {
   unitCost?: number
   referenceId?: string | null
   referenceType?: string | null
-  notes?: string | null
+  note?: string | null
   createdAt?: Date | string
 }
 
@@ -757,7 +757,7 @@ export type StockMovementUpdateWithoutRawMaterialInput = {
   unitCost?: Prisma.IntFieldUpdateOperationsInput | number
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutStockMovementsNestedInput
 }
@@ -770,7 +770,7 @@ export type StockMovementUncheckedUpdateWithoutRawMaterialInput = {
   unitCost?: Prisma.IntFieldUpdateOperationsInput | number
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -782,7 +782,7 @@ export type StockMovementUncheckedUpdateManyWithoutRawMaterialInput = {
   unitCost?: Prisma.IntFieldUpdateOperationsInput | number
   referenceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   referenceType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  note?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -797,7 +797,7 @@ export type StockMovementSelect<ExtArgs extends runtime.Types.Extensions.Interna
   unitCost?: boolean
   referenceId?: boolean
   referenceType?: boolean
-  notes?: boolean
+  note?: boolean
   createdAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   rawMaterial?: boolean | Prisma.RawMaterialDefaultArgs<ExtArgs>
@@ -814,11 +814,11 @@ export type StockMovementSelectScalar = {
   unitCost?: boolean
   referenceId?: boolean
   referenceType?: boolean
-  notes?: boolean
+  note?: boolean
   createdAt?: boolean
 }
 
-export type StockMovementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "rawMaterialId" | "type" | "quantity" | "unitCost" | "referenceId" | "referenceType" | "notes" | "createdAt", ExtArgs["result"]["stockMovement"]>
+export type StockMovementOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "rawMaterialId" | "type" | "quantity" | "unitCost" | "referenceId" | "referenceType" | "note" | "createdAt", ExtArgs["result"]["stockMovement"]>
 export type StockMovementInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   rawMaterial?: boolean | Prisma.RawMaterialDefaultArgs<ExtArgs>
@@ -839,7 +839,7 @@ export type $StockMovementPayload<ExtArgs extends runtime.Types.Extensions.Inter
     unitCost: number
     referenceId: string | null
     referenceType: string | null
-    notes: string | null
+    note: string | null
     createdAt: Date
   }, ExtArgs["result"]["stockMovement"]>
   composites: {}
@@ -1220,7 +1220,7 @@ export interface StockMovementFieldRefs {
   readonly unitCost: Prisma.FieldRef<"StockMovement", 'Int'>
   readonly referenceId: Prisma.FieldRef<"StockMovement", 'String'>
   readonly referenceType: Prisma.FieldRef<"StockMovement", 'String'>
-  readonly notes: Prisma.FieldRef<"StockMovement", 'String'>
+  readonly note: Prisma.FieldRef<"StockMovement", 'String'>
   readonly createdAt: Prisma.FieldRef<"StockMovement", 'DateTime'>
 }
     

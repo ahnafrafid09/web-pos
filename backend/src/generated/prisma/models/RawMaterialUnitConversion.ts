@@ -27,81 +27,63 @@ export type AggregateRawMaterialUnitConversion = {
 }
 
 export type RawMaterialUnitConversionAvgAggregateOutputType = {
-  multiplier: runtime.Decimal | null
+  factor: runtime.Decimal | null
 }
 
 export type RawMaterialUnitConversionSumAggregateOutputType = {
-  multiplier: runtime.Decimal | null
+  factor: runtime.Decimal | null
 }
 
 export type RawMaterialUnitConversionMinAggregateOutputType = {
   id: string | null
   rawMaterialId: string | null
-  fromUnitId: string | null
-  toUnitId: string | null
-  multiplier: runtime.Decimal | null
-  createdAt: Date | null
-  updatedAt: Date | null
+  unitId: string | null
+  factor: runtime.Decimal | null
 }
 
 export type RawMaterialUnitConversionMaxAggregateOutputType = {
   id: string | null
   rawMaterialId: string | null
-  fromUnitId: string | null
-  toUnitId: string | null
-  multiplier: runtime.Decimal | null
-  createdAt: Date | null
-  updatedAt: Date | null
+  unitId: string | null
+  factor: runtime.Decimal | null
 }
 
 export type RawMaterialUnitConversionCountAggregateOutputType = {
   id: number
   rawMaterialId: number
-  fromUnitId: number
-  toUnitId: number
-  multiplier: number
-  createdAt: number
-  updatedAt: number
+  unitId: number
+  factor: number
   _all: number
 }
 
 
 export type RawMaterialUnitConversionAvgAggregateInputType = {
-  multiplier?: true
+  factor?: true
 }
 
 export type RawMaterialUnitConversionSumAggregateInputType = {
-  multiplier?: true
+  factor?: true
 }
 
 export type RawMaterialUnitConversionMinAggregateInputType = {
   id?: true
   rawMaterialId?: true
-  fromUnitId?: true
-  toUnitId?: true
-  multiplier?: true
-  createdAt?: true
-  updatedAt?: true
+  unitId?: true
+  factor?: true
 }
 
 export type RawMaterialUnitConversionMaxAggregateInputType = {
   id?: true
   rawMaterialId?: true
-  fromUnitId?: true
-  toUnitId?: true
-  multiplier?: true
-  createdAt?: true
-  updatedAt?: true
+  unitId?: true
+  factor?: true
 }
 
 export type RawMaterialUnitConversionCountAggregateInputType = {
   id?: true
   rawMaterialId?: true
-  fromUnitId?: true
-  toUnitId?: true
-  multiplier?: true
-  createdAt?: true
-  updatedAt?: true
+  unitId?: true
+  factor?: true
   _all?: true
 }
 
@@ -194,11 +176,8 @@ export type RawMaterialUnitConversionGroupByArgs<ExtArgs extends runtime.Types.E
 export type RawMaterialUnitConversionGroupByOutputType = {
   id: string
   rawMaterialId: string
-  fromUnitId: string
-  toUnitId: string
-  multiplier: runtime.Decimal
-  createdAt: Date
-  updatedAt: Date
+  unitId: string
+  factor: runtime.Decimal
   _count: RawMaterialUnitConversionCountAggregateOutputType | null
   _avg: RawMaterialUnitConversionAvgAggregateOutputType | null
   _sum: RawMaterialUnitConversionSumAggregateOutputType | null
@@ -227,55 +206,40 @@ export type RawMaterialUnitConversionWhereInput = {
   NOT?: Prisma.RawMaterialUnitConversionWhereInput | Prisma.RawMaterialUnitConversionWhereInput[]
   id?: Prisma.StringFilter<"RawMaterialUnitConversion"> | string
   rawMaterialId?: Prisma.StringFilter<"RawMaterialUnitConversion"> | string
-  fromUnitId?: Prisma.StringFilter<"RawMaterialUnitConversion"> | string
-  toUnitId?: Prisma.StringFilter<"RawMaterialUnitConversion"> | string
-  multiplier?: Prisma.DecimalFilter<"RawMaterialUnitConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFilter<"RawMaterialUnitConversion"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"RawMaterialUnitConversion"> | Date | string
+  unitId?: Prisma.StringFilter<"RawMaterialUnitConversion"> | string
+  factor?: Prisma.DecimalFilter<"RawMaterialUnitConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   rawMaterial?: Prisma.XOR<Prisma.RawMaterialScalarRelationFilter, Prisma.RawMaterialWhereInput>
-  fromUnit?: Prisma.XOR<Prisma.UnitScalarRelationFilter, Prisma.UnitWhereInput>
-  toUnit?: Prisma.XOR<Prisma.UnitScalarRelationFilter, Prisma.UnitWhereInput>
+  unit?: Prisma.XOR<Prisma.UnitScalarRelationFilter, Prisma.UnitWhereInput>
 }
 
 export type RawMaterialUnitConversionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   rawMaterialId?: Prisma.SortOrder
-  fromUnitId?: Prisma.SortOrder
-  toUnitId?: Prisma.SortOrder
-  multiplier?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  unitId?: Prisma.SortOrder
+  factor?: Prisma.SortOrder
   rawMaterial?: Prisma.RawMaterialOrderByWithRelationInput
-  fromUnit?: Prisma.UnitOrderByWithRelationInput
-  toUnit?: Prisma.UnitOrderByWithRelationInput
+  unit?: Prisma.UnitOrderByWithRelationInput
   _relevance?: Prisma.RawMaterialUnitConversionOrderByRelevanceInput
 }
 
 export type RawMaterialUnitConversionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  rawMaterialId_fromUnitId_toUnitId?: Prisma.RawMaterialUnitConversionRawMaterialIdFromUnitIdToUnitIdCompoundUniqueInput
+  rawMaterialId_unitId?: Prisma.RawMaterialUnitConversionRawMaterialIdUnitIdCompoundUniqueInput
   AND?: Prisma.RawMaterialUnitConversionWhereInput | Prisma.RawMaterialUnitConversionWhereInput[]
   OR?: Prisma.RawMaterialUnitConversionWhereInput[]
   NOT?: Prisma.RawMaterialUnitConversionWhereInput | Prisma.RawMaterialUnitConversionWhereInput[]
   rawMaterialId?: Prisma.StringFilter<"RawMaterialUnitConversion"> | string
-  fromUnitId?: Prisma.StringFilter<"RawMaterialUnitConversion"> | string
-  toUnitId?: Prisma.StringFilter<"RawMaterialUnitConversion"> | string
-  multiplier?: Prisma.DecimalFilter<"RawMaterialUnitConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFilter<"RawMaterialUnitConversion"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"RawMaterialUnitConversion"> | Date | string
+  unitId?: Prisma.StringFilter<"RawMaterialUnitConversion"> | string
+  factor?: Prisma.DecimalFilter<"RawMaterialUnitConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   rawMaterial?: Prisma.XOR<Prisma.RawMaterialScalarRelationFilter, Prisma.RawMaterialWhereInput>
-  fromUnit?: Prisma.XOR<Prisma.UnitScalarRelationFilter, Prisma.UnitWhereInput>
-  toUnit?: Prisma.XOR<Prisma.UnitScalarRelationFilter, Prisma.UnitWhereInput>
-}, "id" | "rawMaterialId_fromUnitId_toUnitId">
+  unit?: Prisma.XOR<Prisma.UnitScalarRelationFilter, Prisma.UnitWhereInput>
+}, "id" | "rawMaterialId_unitId">
 
 export type RawMaterialUnitConversionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   rawMaterialId?: Prisma.SortOrder
-  fromUnitId?: Prisma.SortOrder
-  toUnitId?: Prisma.SortOrder
-  multiplier?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  unitId?: Prisma.SortOrder
+  factor?: Prisma.SortOrder
   _count?: Prisma.RawMaterialUnitConversionCountOrderByAggregateInput
   _avg?: Prisma.RawMaterialUnitConversionAvgOrderByAggregateInput
   _max?: Prisma.RawMaterialUnitConversionMaxOrderByAggregateInput
@@ -289,78 +253,55 @@ export type RawMaterialUnitConversionScalarWhereWithAggregatesInput = {
   NOT?: Prisma.RawMaterialUnitConversionScalarWhereWithAggregatesInput | Prisma.RawMaterialUnitConversionScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"RawMaterialUnitConversion"> | string
   rawMaterialId?: Prisma.StringWithAggregatesFilter<"RawMaterialUnitConversion"> | string
-  fromUnitId?: Prisma.StringWithAggregatesFilter<"RawMaterialUnitConversion"> | string
-  toUnitId?: Prisma.StringWithAggregatesFilter<"RawMaterialUnitConversion"> | string
-  multiplier?: Prisma.DecimalWithAggregatesFilter<"RawMaterialUnitConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeWithAggregatesFilter<"RawMaterialUnitConversion"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"RawMaterialUnitConversion"> | Date | string
+  unitId?: Prisma.StringWithAggregatesFilter<"RawMaterialUnitConversion"> | string
+  factor?: Prisma.DecimalWithAggregatesFilter<"RawMaterialUnitConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type RawMaterialUnitConversionCreateInput = {
   id?: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
   rawMaterial: Prisma.RawMaterialCreateNestedOneWithoutUnitConversionsInput
-  fromUnit: Prisma.UnitCreateNestedOneWithoutRawMaterialConversionsFromInput
-  toUnit: Prisma.UnitCreateNestedOneWithoutRawMaterialConversionsToInput
+  unit: Prisma.UnitCreateNestedOneWithoutUnitConversionsInput
 }
 
 export type RawMaterialUnitConversionUncheckedCreateInput = {
   id?: string
   rawMaterialId: string
-  fromUnitId: string
-  toUnitId: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  unitId: string
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type RawMaterialUnitConversionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   rawMaterial?: Prisma.RawMaterialUpdateOneRequiredWithoutUnitConversionsNestedInput
-  fromUnit?: Prisma.UnitUpdateOneRequiredWithoutRawMaterialConversionsFromNestedInput
-  toUnit?: Prisma.UnitUpdateOneRequiredWithoutRawMaterialConversionsToNestedInput
+  unit?: Prisma.UnitUpdateOneRequiredWithoutUnitConversionsNestedInput
 }
 
 export type RawMaterialUnitConversionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rawMaterialId?: Prisma.StringFieldUpdateOperationsInput | string
-  fromUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  toUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  unitId?: Prisma.StringFieldUpdateOperationsInput | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type RawMaterialUnitConversionCreateManyInput = {
   id?: string
   rawMaterialId: string
-  fromUnitId: string
-  toUnitId: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  unitId: string
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type RawMaterialUnitConversionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type RawMaterialUnitConversionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rawMaterialId?: Prisma.StringFieldUpdateOperationsInput | string
-  fromUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  toUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  unitId?: Prisma.StringFieldUpdateOperationsInput | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type RawMaterialUnitConversionListRelationFilter = {
@@ -379,48 +320,38 @@ export type RawMaterialUnitConversionOrderByRelevanceInput = {
   search: string
 }
 
-export type RawMaterialUnitConversionRawMaterialIdFromUnitIdToUnitIdCompoundUniqueInput = {
+export type RawMaterialUnitConversionRawMaterialIdUnitIdCompoundUniqueInput = {
   rawMaterialId: string
-  fromUnitId: string
-  toUnitId: string
+  unitId: string
 }
 
 export type RawMaterialUnitConversionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   rawMaterialId?: Prisma.SortOrder
-  fromUnitId?: Prisma.SortOrder
-  toUnitId?: Prisma.SortOrder
-  multiplier?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  unitId?: Prisma.SortOrder
+  factor?: Prisma.SortOrder
 }
 
 export type RawMaterialUnitConversionAvgOrderByAggregateInput = {
-  multiplier?: Prisma.SortOrder
+  factor?: Prisma.SortOrder
 }
 
 export type RawMaterialUnitConversionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   rawMaterialId?: Prisma.SortOrder
-  fromUnitId?: Prisma.SortOrder
-  toUnitId?: Prisma.SortOrder
-  multiplier?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  unitId?: Prisma.SortOrder
+  factor?: Prisma.SortOrder
 }
 
 export type RawMaterialUnitConversionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   rawMaterialId?: Prisma.SortOrder
-  fromUnitId?: Prisma.SortOrder
-  toUnitId?: Prisma.SortOrder
-  multiplier?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
+  unitId?: Prisma.SortOrder
+  factor?: Prisma.SortOrder
 }
 
 export type RawMaterialUnitConversionSumOrderByAggregateInput = {
-  multiplier?: Prisma.SortOrder
+  factor?: Prisma.SortOrder
 }
 
 export type RawMaterialUnitConversionCreateNestedManyWithoutRawMaterialInput = {
@@ -465,106 +396,58 @@ export type RawMaterialUnitConversionUncheckedUpdateManyWithoutRawMaterialNested
   deleteMany?: Prisma.RawMaterialUnitConversionScalarWhereInput | Prisma.RawMaterialUnitConversionScalarWhereInput[]
 }
 
-export type RawMaterialUnitConversionCreateNestedManyWithoutFromUnitInput = {
-  create?: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutFromUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutFromUnitInput> | Prisma.RawMaterialUnitConversionCreateWithoutFromUnitInput[] | Prisma.RawMaterialUnitConversionUncheckedCreateWithoutFromUnitInput[]
-  connectOrCreate?: Prisma.RawMaterialUnitConversionCreateOrConnectWithoutFromUnitInput | Prisma.RawMaterialUnitConversionCreateOrConnectWithoutFromUnitInput[]
-  createMany?: Prisma.RawMaterialUnitConversionCreateManyFromUnitInputEnvelope
+export type RawMaterialUnitConversionCreateNestedManyWithoutUnitInput = {
+  create?: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutUnitInput> | Prisma.RawMaterialUnitConversionCreateWithoutUnitInput[] | Prisma.RawMaterialUnitConversionUncheckedCreateWithoutUnitInput[]
+  connectOrCreate?: Prisma.RawMaterialUnitConversionCreateOrConnectWithoutUnitInput | Prisma.RawMaterialUnitConversionCreateOrConnectWithoutUnitInput[]
+  createMany?: Prisma.RawMaterialUnitConversionCreateManyUnitInputEnvelope
   connect?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
 }
 
-export type RawMaterialUnitConversionCreateNestedManyWithoutToUnitInput = {
-  create?: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutToUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutToUnitInput> | Prisma.RawMaterialUnitConversionCreateWithoutToUnitInput[] | Prisma.RawMaterialUnitConversionUncheckedCreateWithoutToUnitInput[]
-  connectOrCreate?: Prisma.RawMaterialUnitConversionCreateOrConnectWithoutToUnitInput | Prisma.RawMaterialUnitConversionCreateOrConnectWithoutToUnitInput[]
-  createMany?: Prisma.RawMaterialUnitConversionCreateManyToUnitInputEnvelope
+export type RawMaterialUnitConversionUncheckedCreateNestedManyWithoutUnitInput = {
+  create?: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutUnitInput> | Prisma.RawMaterialUnitConversionCreateWithoutUnitInput[] | Prisma.RawMaterialUnitConversionUncheckedCreateWithoutUnitInput[]
+  connectOrCreate?: Prisma.RawMaterialUnitConversionCreateOrConnectWithoutUnitInput | Prisma.RawMaterialUnitConversionCreateOrConnectWithoutUnitInput[]
+  createMany?: Prisma.RawMaterialUnitConversionCreateManyUnitInputEnvelope
   connect?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
 }
 
-export type RawMaterialUnitConversionUncheckedCreateNestedManyWithoutFromUnitInput = {
-  create?: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutFromUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutFromUnitInput> | Prisma.RawMaterialUnitConversionCreateWithoutFromUnitInput[] | Prisma.RawMaterialUnitConversionUncheckedCreateWithoutFromUnitInput[]
-  connectOrCreate?: Prisma.RawMaterialUnitConversionCreateOrConnectWithoutFromUnitInput | Prisma.RawMaterialUnitConversionCreateOrConnectWithoutFromUnitInput[]
-  createMany?: Prisma.RawMaterialUnitConversionCreateManyFromUnitInputEnvelope
-  connect?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
-}
-
-export type RawMaterialUnitConversionUncheckedCreateNestedManyWithoutToUnitInput = {
-  create?: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutToUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutToUnitInput> | Prisma.RawMaterialUnitConversionCreateWithoutToUnitInput[] | Prisma.RawMaterialUnitConversionUncheckedCreateWithoutToUnitInput[]
-  connectOrCreate?: Prisma.RawMaterialUnitConversionCreateOrConnectWithoutToUnitInput | Prisma.RawMaterialUnitConversionCreateOrConnectWithoutToUnitInput[]
-  createMany?: Prisma.RawMaterialUnitConversionCreateManyToUnitInputEnvelope
-  connect?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
-}
-
-export type RawMaterialUnitConversionUpdateManyWithoutFromUnitNestedInput = {
-  create?: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutFromUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutFromUnitInput> | Prisma.RawMaterialUnitConversionCreateWithoutFromUnitInput[] | Prisma.RawMaterialUnitConversionUncheckedCreateWithoutFromUnitInput[]
-  connectOrCreate?: Prisma.RawMaterialUnitConversionCreateOrConnectWithoutFromUnitInput | Prisma.RawMaterialUnitConversionCreateOrConnectWithoutFromUnitInput[]
-  upsert?: Prisma.RawMaterialUnitConversionUpsertWithWhereUniqueWithoutFromUnitInput | Prisma.RawMaterialUnitConversionUpsertWithWhereUniqueWithoutFromUnitInput[]
-  createMany?: Prisma.RawMaterialUnitConversionCreateManyFromUnitInputEnvelope
+export type RawMaterialUnitConversionUpdateManyWithoutUnitNestedInput = {
+  create?: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutUnitInput> | Prisma.RawMaterialUnitConversionCreateWithoutUnitInput[] | Prisma.RawMaterialUnitConversionUncheckedCreateWithoutUnitInput[]
+  connectOrCreate?: Prisma.RawMaterialUnitConversionCreateOrConnectWithoutUnitInput | Prisma.RawMaterialUnitConversionCreateOrConnectWithoutUnitInput[]
+  upsert?: Prisma.RawMaterialUnitConversionUpsertWithWhereUniqueWithoutUnitInput | Prisma.RawMaterialUnitConversionUpsertWithWhereUniqueWithoutUnitInput[]
+  createMany?: Prisma.RawMaterialUnitConversionCreateManyUnitInputEnvelope
   set?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
   disconnect?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
   delete?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
   connect?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
-  update?: Prisma.RawMaterialUnitConversionUpdateWithWhereUniqueWithoutFromUnitInput | Prisma.RawMaterialUnitConversionUpdateWithWhereUniqueWithoutFromUnitInput[]
-  updateMany?: Prisma.RawMaterialUnitConversionUpdateManyWithWhereWithoutFromUnitInput | Prisma.RawMaterialUnitConversionUpdateManyWithWhereWithoutFromUnitInput[]
+  update?: Prisma.RawMaterialUnitConversionUpdateWithWhereUniqueWithoutUnitInput | Prisma.RawMaterialUnitConversionUpdateWithWhereUniqueWithoutUnitInput[]
+  updateMany?: Prisma.RawMaterialUnitConversionUpdateManyWithWhereWithoutUnitInput | Prisma.RawMaterialUnitConversionUpdateManyWithWhereWithoutUnitInput[]
   deleteMany?: Prisma.RawMaterialUnitConversionScalarWhereInput | Prisma.RawMaterialUnitConversionScalarWhereInput[]
 }
 
-export type RawMaterialUnitConversionUpdateManyWithoutToUnitNestedInput = {
-  create?: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutToUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutToUnitInput> | Prisma.RawMaterialUnitConversionCreateWithoutToUnitInput[] | Prisma.RawMaterialUnitConversionUncheckedCreateWithoutToUnitInput[]
-  connectOrCreate?: Prisma.RawMaterialUnitConversionCreateOrConnectWithoutToUnitInput | Prisma.RawMaterialUnitConversionCreateOrConnectWithoutToUnitInput[]
-  upsert?: Prisma.RawMaterialUnitConversionUpsertWithWhereUniqueWithoutToUnitInput | Prisma.RawMaterialUnitConversionUpsertWithWhereUniqueWithoutToUnitInput[]
-  createMany?: Prisma.RawMaterialUnitConversionCreateManyToUnitInputEnvelope
+export type RawMaterialUnitConversionUncheckedUpdateManyWithoutUnitNestedInput = {
+  create?: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutUnitInput> | Prisma.RawMaterialUnitConversionCreateWithoutUnitInput[] | Prisma.RawMaterialUnitConversionUncheckedCreateWithoutUnitInput[]
+  connectOrCreate?: Prisma.RawMaterialUnitConversionCreateOrConnectWithoutUnitInput | Prisma.RawMaterialUnitConversionCreateOrConnectWithoutUnitInput[]
+  upsert?: Prisma.RawMaterialUnitConversionUpsertWithWhereUniqueWithoutUnitInput | Prisma.RawMaterialUnitConversionUpsertWithWhereUniqueWithoutUnitInput[]
+  createMany?: Prisma.RawMaterialUnitConversionCreateManyUnitInputEnvelope
   set?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
   disconnect?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
   delete?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
   connect?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
-  update?: Prisma.RawMaterialUnitConversionUpdateWithWhereUniqueWithoutToUnitInput | Prisma.RawMaterialUnitConversionUpdateWithWhereUniqueWithoutToUnitInput[]
-  updateMany?: Prisma.RawMaterialUnitConversionUpdateManyWithWhereWithoutToUnitInput | Prisma.RawMaterialUnitConversionUpdateManyWithWhereWithoutToUnitInput[]
-  deleteMany?: Prisma.RawMaterialUnitConversionScalarWhereInput | Prisma.RawMaterialUnitConversionScalarWhereInput[]
-}
-
-export type RawMaterialUnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput = {
-  create?: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutFromUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutFromUnitInput> | Prisma.RawMaterialUnitConversionCreateWithoutFromUnitInput[] | Prisma.RawMaterialUnitConversionUncheckedCreateWithoutFromUnitInput[]
-  connectOrCreate?: Prisma.RawMaterialUnitConversionCreateOrConnectWithoutFromUnitInput | Prisma.RawMaterialUnitConversionCreateOrConnectWithoutFromUnitInput[]
-  upsert?: Prisma.RawMaterialUnitConversionUpsertWithWhereUniqueWithoutFromUnitInput | Prisma.RawMaterialUnitConversionUpsertWithWhereUniqueWithoutFromUnitInput[]
-  createMany?: Prisma.RawMaterialUnitConversionCreateManyFromUnitInputEnvelope
-  set?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
-  disconnect?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
-  delete?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
-  connect?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
-  update?: Prisma.RawMaterialUnitConversionUpdateWithWhereUniqueWithoutFromUnitInput | Prisma.RawMaterialUnitConversionUpdateWithWhereUniqueWithoutFromUnitInput[]
-  updateMany?: Prisma.RawMaterialUnitConversionUpdateManyWithWhereWithoutFromUnitInput | Prisma.RawMaterialUnitConversionUpdateManyWithWhereWithoutFromUnitInput[]
-  deleteMany?: Prisma.RawMaterialUnitConversionScalarWhereInput | Prisma.RawMaterialUnitConversionScalarWhereInput[]
-}
-
-export type RawMaterialUnitConversionUncheckedUpdateManyWithoutToUnitNestedInput = {
-  create?: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutToUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutToUnitInput> | Prisma.RawMaterialUnitConversionCreateWithoutToUnitInput[] | Prisma.RawMaterialUnitConversionUncheckedCreateWithoutToUnitInput[]
-  connectOrCreate?: Prisma.RawMaterialUnitConversionCreateOrConnectWithoutToUnitInput | Prisma.RawMaterialUnitConversionCreateOrConnectWithoutToUnitInput[]
-  upsert?: Prisma.RawMaterialUnitConversionUpsertWithWhereUniqueWithoutToUnitInput | Prisma.RawMaterialUnitConversionUpsertWithWhereUniqueWithoutToUnitInput[]
-  createMany?: Prisma.RawMaterialUnitConversionCreateManyToUnitInputEnvelope
-  set?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
-  disconnect?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
-  delete?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
-  connect?: Prisma.RawMaterialUnitConversionWhereUniqueInput | Prisma.RawMaterialUnitConversionWhereUniqueInput[]
-  update?: Prisma.RawMaterialUnitConversionUpdateWithWhereUniqueWithoutToUnitInput | Prisma.RawMaterialUnitConversionUpdateWithWhereUniqueWithoutToUnitInput[]
-  updateMany?: Prisma.RawMaterialUnitConversionUpdateManyWithWhereWithoutToUnitInput | Prisma.RawMaterialUnitConversionUpdateManyWithWhereWithoutToUnitInput[]
+  update?: Prisma.RawMaterialUnitConversionUpdateWithWhereUniqueWithoutUnitInput | Prisma.RawMaterialUnitConversionUpdateWithWhereUniqueWithoutUnitInput[]
+  updateMany?: Prisma.RawMaterialUnitConversionUpdateManyWithWhereWithoutUnitInput | Prisma.RawMaterialUnitConversionUpdateManyWithWhereWithoutUnitInput[]
   deleteMany?: Prisma.RawMaterialUnitConversionScalarWhereInput | Prisma.RawMaterialUnitConversionScalarWhereInput[]
 }
 
 export type RawMaterialUnitConversionCreateWithoutRawMaterialInput = {
   id?: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  fromUnit: Prisma.UnitCreateNestedOneWithoutRawMaterialConversionsFromInput
-  toUnit: Prisma.UnitCreateNestedOneWithoutRawMaterialConversionsToInput
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit: Prisma.UnitCreateNestedOneWithoutUnitConversionsInput
 }
 
 export type RawMaterialUnitConversionUncheckedCreateWithoutRawMaterialInput = {
   id?: string
-  fromUnitId: string
-  toUnitId: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  unitId: string
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type RawMaterialUnitConversionCreateOrConnectWithoutRawMaterialInput = {
@@ -599,207 +482,94 @@ export type RawMaterialUnitConversionScalarWhereInput = {
   NOT?: Prisma.RawMaterialUnitConversionScalarWhereInput | Prisma.RawMaterialUnitConversionScalarWhereInput[]
   id?: Prisma.StringFilter<"RawMaterialUnitConversion"> | string
   rawMaterialId?: Prisma.StringFilter<"RawMaterialUnitConversion"> | string
-  fromUnitId?: Prisma.StringFilter<"RawMaterialUnitConversion"> | string
-  toUnitId?: Prisma.StringFilter<"RawMaterialUnitConversion"> | string
-  multiplier?: Prisma.DecimalFilter<"RawMaterialUnitConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFilter<"RawMaterialUnitConversion"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"RawMaterialUnitConversion"> | Date | string
+  unitId?: Prisma.StringFilter<"RawMaterialUnitConversion"> | string
+  factor?: Prisma.DecimalFilter<"RawMaterialUnitConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
-export type RawMaterialUnitConversionCreateWithoutFromUnitInput = {
+export type RawMaterialUnitConversionCreateWithoutUnitInput = {
   id?: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
   rawMaterial: Prisma.RawMaterialCreateNestedOneWithoutUnitConversionsInput
-  toUnit: Prisma.UnitCreateNestedOneWithoutRawMaterialConversionsToInput
 }
 
-export type RawMaterialUnitConversionUncheckedCreateWithoutFromUnitInput = {
+export type RawMaterialUnitConversionUncheckedCreateWithoutUnitInput = {
   id?: string
   rawMaterialId: string
-  toUnitId: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
-export type RawMaterialUnitConversionCreateOrConnectWithoutFromUnitInput = {
+export type RawMaterialUnitConversionCreateOrConnectWithoutUnitInput = {
   where: Prisma.RawMaterialUnitConversionWhereUniqueInput
-  create: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutFromUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutFromUnitInput>
+  create: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutUnitInput>
 }
 
-export type RawMaterialUnitConversionCreateManyFromUnitInputEnvelope = {
-  data: Prisma.RawMaterialUnitConversionCreateManyFromUnitInput | Prisma.RawMaterialUnitConversionCreateManyFromUnitInput[]
+export type RawMaterialUnitConversionCreateManyUnitInputEnvelope = {
+  data: Prisma.RawMaterialUnitConversionCreateManyUnitInput | Prisma.RawMaterialUnitConversionCreateManyUnitInput[]
   skipDuplicates?: boolean
 }
 
-export type RawMaterialUnitConversionCreateWithoutToUnitInput = {
-  id?: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  rawMaterial: Prisma.RawMaterialCreateNestedOneWithoutUnitConversionsInput
-  fromUnit: Prisma.UnitCreateNestedOneWithoutRawMaterialConversionsFromInput
-}
-
-export type RawMaterialUnitConversionUncheckedCreateWithoutToUnitInput = {
-  id?: string
-  rawMaterialId: string
-  fromUnitId: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type RawMaterialUnitConversionCreateOrConnectWithoutToUnitInput = {
+export type RawMaterialUnitConversionUpsertWithWhereUniqueWithoutUnitInput = {
   where: Prisma.RawMaterialUnitConversionWhereUniqueInput
-  create: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutToUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutToUnitInput>
+  update: Prisma.XOR<Prisma.RawMaterialUnitConversionUpdateWithoutUnitInput, Prisma.RawMaterialUnitConversionUncheckedUpdateWithoutUnitInput>
+  create: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutUnitInput>
 }
 
-export type RawMaterialUnitConversionCreateManyToUnitInputEnvelope = {
-  data: Prisma.RawMaterialUnitConversionCreateManyToUnitInput | Prisma.RawMaterialUnitConversionCreateManyToUnitInput[]
-  skipDuplicates?: boolean
-}
-
-export type RawMaterialUnitConversionUpsertWithWhereUniqueWithoutFromUnitInput = {
+export type RawMaterialUnitConversionUpdateWithWhereUniqueWithoutUnitInput = {
   where: Prisma.RawMaterialUnitConversionWhereUniqueInput
-  update: Prisma.XOR<Prisma.RawMaterialUnitConversionUpdateWithoutFromUnitInput, Prisma.RawMaterialUnitConversionUncheckedUpdateWithoutFromUnitInput>
-  create: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutFromUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutFromUnitInput>
+  data: Prisma.XOR<Prisma.RawMaterialUnitConversionUpdateWithoutUnitInput, Prisma.RawMaterialUnitConversionUncheckedUpdateWithoutUnitInput>
 }
 
-export type RawMaterialUnitConversionUpdateWithWhereUniqueWithoutFromUnitInput = {
-  where: Prisma.RawMaterialUnitConversionWhereUniqueInput
-  data: Prisma.XOR<Prisma.RawMaterialUnitConversionUpdateWithoutFromUnitInput, Prisma.RawMaterialUnitConversionUncheckedUpdateWithoutFromUnitInput>
-}
-
-export type RawMaterialUnitConversionUpdateManyWithWhereWithoutFromUnitInput = {
+export type RawMaterialUnitConversionUpdateManyWithWhereWithoutUnitInput = {
   where: Prisma.RawMaterialUnitConversionScalarWhereInput
-  data: Prisma.XOR<Prisma.RawMaterialUnitConversionUpdateManyMutationInput, Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutFromUnitInput>
-}
-
-export type RawMaterialUnitConversionUpsertWithWhereUniqueWithoutToUnitInput = {
-  where: Prisma.RawMaterialUnitConversionWhereUniqueInput
-  update: Prisma.XOR<Prisma.RawMaterialUnitConversionUpdateWithoutToUnitInput, Prisma.RawMaterialUnitConversionUncheckedUpdateWithoutToUnitInput>
-  create: Prisma.XOR<Prisma.RawMaterialUnitConversionCreateWithoutToUnitInput, Prisma.RawMaterialUnitConversionUncheckedCreateWithoutToUnitInput>
-}
-
-export type RawMaterialUnitConversionUpdateWithWhereUniqueWithoutToUnitInput = {
-  where: Prisma.RawMaterialUnitConversionWhereUniqueInput
-  data: Prisma.XOR<Prisma.RawMaterialUnitConversionUpdateWithoutToUnitInput, Prisma.RawMaterialUnitConversionUncheckedUpdateWithoutToUnitInput>
-}
-
-export type RawMaterialUnitConversionUpdateManyWithWhereWithoutToUnitInput = {
-  where: Prisma.RawMaterialUnitConversionScalarWhereInput
-  data: Prisma.XOR<Prisma.RawMaterialUnitConversionUpdateManyMutationInput, Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutToUnitInput>
+  data: Prisma.XOR<Prisma.RawMaterialUnitConversionUpdateManyMutationInput, Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutUnitInput>
 }
 
 export type RawMaterialUnitConversionCreateManyRawMaterialInput = {
   id?: string
-  fromUnitId: string
-  toUnitId: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  unitId: string
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type RawMaterialUnitConversionUpdateWithoutRawMaterialInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  fromUnit?: Prisma.UnitUpdateOneRequiredWithoutRawMaterialConversionsFromNestedInput
-  toUnit?: Prisma.UnitUpdateOneRequiredWithoutRawMaterialConversionsToNestedInput
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unit?: Prisma.UnitUpdateOneRequiredWithoutUnitConversionsNestedInput
 }
 
 export type RawMaterialUnitConversionUncheckedUpdateWithoutRawMaterialInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  fromUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  toUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  unitId?: Prisma.StringFieldUpdateOperationsInput | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type RawMaterialUnitConversionUncheckedUpdateManyWithoutRawMaterialInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  fromUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  toUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  unitId?: Prisma.StringFieldUpdateOperationsInput | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
-export type RawMaterialUnitConversionCreateManyFromUnitInput = {
+export type RawMaterialUnitConversionCreateManyUnitInput = {
   id?: string
   rawMaterialId: string
-  toUnitId: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Date | string
-  updatedAt?: Date | string
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
-export type RawMaterialUnitConversionCreateManyToUnitInput = {
-  id?: string
-  rawMaterialId: string
-  fromUnitId: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type RawMaterialUnitConversionUpdateWithoutFromUnitInput = {
+export type RawMaterialUnitConversionUpdateWithoutUnitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   rawMaterial?: Prisma.RawMaterialUpdateOneRequiredWithoutUnitConversionsNestedInput
-  toUnit?: Prisma.UnitUpdateOneRequiredWithoutRawMaterialConversionsToNestedInput
 }
 
-export type RawMaterialUnitConversionUncheckedUpdateWithoutFromUnitInput = {
+export type RawMaterialUnitConversionUncheckedUpdateWithoutUnitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rawMaterialId?: Prisma.StringFieldUpdateOperationsInput | string
-  toUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
-export type RawMaterialUnitConversionUncheckedUpdateManyWithoutFromUnitInput = {
+export type RawMaterialUnitConversionUncheckedUpdateManyWithoutUnitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   rawMaterialId?: Prisma.StringFieldUpdateOperationsInput | string
-  toUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type RawMaterialUnitConversionUpdateWithoutToUnitInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  rawMaterial?: Prisma.RawMaterialUpdateOneRequiredWithoutUnitConversionsNestedInput
-  fromUnit?: Prisma.UnitUpdateOneRequiredWithoutRawMaterialConversionsFromNestedInput
-}
-
-export type RawMaterialUnitConversionUncheckedUpdateWithoutToUnitInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  rawMaterialId?: Prisma.StringFieldUpdateOperationsInput | string
-  fromUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type RawMaterialUnitConversionUncheckedUpdateManyWithoutToUnitInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  rawMaterialId?: Prisma.StringFieldUpdateOperationsInput | string
-  fromUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 
@@ -807,14 +577,10 @@ export type RawMaterialUnitConversionUncheckedUpdateManyWithoutToUnitInput = {
 export type RawMaterialUnitConversionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   rawMaterialId?: boolean
-  fromUnitId?: boolean
-  toUnitId?: boolean
-  multiplier?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
+  unitId?: boolean
+  factor?: boolean
   rawMaterial?: boolean | Prisma.RawMaterialDefaultArgs<ExtArgs>
-  fromUnit?: boolean | Prisma.UnitDefaultArgs<ExtArgs>
-  toUnit?: boolean | Prisma.UnitDefaultArgs<ExtArgs>
+  unit?: boolean | Prisma.UnitDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["rawMaterialUnitConversion"]>
 
 
@@ -822,35 +588,27 @@ export type RawMaterialUnitConversionSelect<ExtArgs extends runtime.Types.Extens
 export type RawMaterialUnitConversionSelectScalar = {
   id?: boolean
   rawMaterialId?: boolean
-  fromUnitId?: boolean
-  toUnitId?: boolean
-  multiplier?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
+  unitId?: boolean
+  factor?: boolean
 }
 
-export type RawMaterialUnitConversionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rawMaterialId" | "fromUnitId" | "toUnitId" | "multiplier" | "createdAt" | "updatedAt", ExtArgs["result"]["rawMaterialUnitConversion"]>
+export type RawMaterialUnitConversionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "rawMaterialId" | "unitId" | "factor", ExtArgs["result"]["rawMaterialUnitConversion"]>
 export type RawMaterialUnitConversionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   rawMaterial?: boolean | Prisma.RawMaterialDefaultArgs<ExtArgs>
-  fromUnit?: boolean | Prisma.UnitDefaultArgs<ExtArgs>
-  toUnit?: boolean | Prisma.UnitDefaultArgs<ExtArgs>
+  unit?: boolean | Prisma.UnitDefaultArgs<ExtArgs>
 }
 
 export type $RawMaterialUnitConversionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "RawMaterialUnitConversion"
   objects: {
     rawMaterial: Prisma.$RawMaterialPayload<ExtArgs>
-    fromUnit: Prisma.$UnitPayload<ExtArgs>
-    toUnit: Prisma.$UnitPayload<ExtArgs>
+    unit: Prisma.$UnitPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     rawMaterialId: string
-    fromUnitId: string
-    toUnitId: string
-    multiplier: runtime.Decimal
-    createdAt: Date
-    updatedAt: Date
+    unitId: string
+    factor: runtime.Decimal
   }, ExtArgs["result"]["rawMaterialUnitConversion"]>
   composites: {}
 }
@@ -1192,8 +950,7 @@ readonly fields: RawMaterialUnitConversionFieldRefs;
 export interface Prisma__RawMaterialUnitConversionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   rawMaterial<T extends Prisma.RawMaterialDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RawMaterialDefaultArgs<ExtArgs>>): Prisma.Prisma__RawMaterialClient<runtime.Types.Result.GetResult<Prisma.$RawMaterialPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  fromUnit<T extends Prisma.UnitDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UnitDefaultArgs<ExtArgs>>): Prisma.Prisma__UnitClient<runtime.Types.Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  toUnit<T extends Prisma.UnitDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UnitDefaultArgs<ExtArgs>>): Prisma.Prisma__UnitClient<runtime.Types.Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  unit<T extends Prisma.UnitDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UnitDefaultArgs<ExtArgs>>): Prisma.Prisma__UnitClient<runtime.Types.Result.GetResult<Prisma.$UnitPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1225,11 +982,8 @@ export interface Prisma__RawMaterialUnitConversionClient<T, Null = never, ExtArg
 export interface RawMaterialUnitConversionFieldRefs {
   readonly id: Prisma.FieldRef<"RawMaterialUnitConversion", 'String'>
   readonly rawMaterialId: Prisma.FieldRef<"RawMaterialUnitConversion", 'String'>
-  readonly fromUnitId: Prisma.FieldRef<"RawMaterialUnitConversion", 'String'>
-  readonly toUnitId: Prisma.FieldRef<"RawMaterialUnitConversion", 'String'>
-  readonly multiplier: Prisma.FieldRef<"RawMaterialUnitConversion", 'Decimal'>
-  readonly createdAt: Prisma.FieldRef<"RawMaterialUnitConversion", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"RawMaterialUnitConversion", 'DateTime'>
+  readonly unitId: Prisma.FieldRef<"RawMaterialUnitConversion", 'String'>
+  readonly factor: Prisma.FieldRef<"RawMaterialUnitConversion", 'Decimal'>
 }
     
 

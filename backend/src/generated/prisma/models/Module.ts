@@ -28,7 +28,8 @@ export type ModuleMinAggregateOutputType = {
   id: string | null
   code: $Enums.ModuleCode | null
   name: string | null
-  isActive: boolean | null
+  description: string | null
+  status: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -37,7 +38,8 @@ export type ModuleMaxAggregateOutputType = {
   id: string | null
   code: $Enums.ModuleCode | null
   name: string | null
-  isActive: boolean | null
+  description: string | null
+  status: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -46,7 +48,8 @@ export type ModuleCountAggregateOutputType = {
   id: number
   code: number
   name: number
-  isActive: number
+  description: number
+  status: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -57,7 +60,8 @@ export type ModuleMinAggregateInputType = {
   id?: true
   code?: true
   name?: true
-  isActive?: true
+  description?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -66,7 +70,8 @@ export type ModuleMaxAggregateInputType = {
   id?: true
   code?: true
   name?: true
-  isActive?: true
+  description?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -75,7 +80,8 @@ export type ModuleCountAggregateInputType = {
   id?: true
   code?: true
   name?: true
-  isActive?: true
+  description?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -157,7 +163,8 @@ export type ModuleGroupByOutputType = {
   id: string
   code: $Enums.ModuleCode
   name: string
-  isActive: boolean
+  description: string | null
+  status: boolean
   createdAt: Date
   updatedAt: Date
   _count: ModuleCountAggregateOutputType | null
@@ -187,20 +194,22 @@ export type ModuleWhereInput = {
   id?: Prisma.StringFilter<"Module"> | string
   code?: Prisma.EnumModuleCodeFilter<"Module"> | $Enums.ModuleCode
   name?: Prisma.StringFilter<"Module"> | string
-  isActive?: Prisma.BoolFilter<"Module"> | boolean
+  description?: Prisma.StringNullableFilter<"Module"> | string | null
+  status?: Prisma.BoolFilter<"Module"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Module"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Module"> | Date | string
-  tenants?: Prisma.TenantModuleListRelationFilter
+  tenantModules?: Prisma.TenantModuleListRelationFilter
 }
 
 export type ModuleOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  tenants?: Prisma.TenantModuleOrderByRelationAggregateInput
+  tenantModules?: Prisma.TenantModuleOrderByRelationAggregateInput
   _relevance?: Prisma.ModuleOrderByRelevanceInput
 }
 
@@ -211,17 +220,19 @@ export type ModuleWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.ModuleWhereInput[]
   NOT?: Prisma.ModuleWhereInput | Prisma.ModuleWhereInput[]
   name?: Prisma.StringFilter<"Module"> | string
-  isActive?: Prisma.BoolFilter<"Module"> | boolean
+  description?: Prisma.StringNullableFilter<"Module"> | string | null
+  status?: Prisma.BoolFilter<"Module"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Module"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Module"> | Date | string
-  tenants?: Prisma.TenantModuleListRelationFilter
+  tenantModules?: Prisma.TenantModuleListRelationFilter
 }, "id" | "code">
 
 export type ModuleOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
+  description?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ModuleCountOrderByAggregateInput
@@ -236,7 +247,8 @@ export type ModuleScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Module"> | string
   code?: Prisma.EnumModuleCodeWithAggregatesFilter<"Module"> | $Enums.ModuleCode
   name?: Prisma.StringWithAggregatesFilter<"Module"> | string
-  isActive?: Prisma.BoolWithAggregatesFilter<"Module"> | boolean
+  description?: Prisma.StringNullableWithAggregatesFilter<"Module"> | string | null
+  status?: Prisma.BoolWithAggregatesFilter<"Module"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Module"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Module"> | Date | string
 }
@@ -245,47 +257,52 @@ export type ModuleCreateInput = {
   id?: string
   code: $Enums.ModuleCode
   name: string
-  isActive?: boolean
+  description?: string | null
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  tenants?: Prisma.TenantModuleCreateNestedManyWithoutModuleInput
+  tenantModules?: Prisma.TenantModuleCreateNestedManyWithoutModuleInput
 }
 
 export type ModuleUncheckedCreateInput = {
   id?: string
   code: $Enums.ModuleCode
   name: string
-  isActive?: boolean
+  description?: string | null
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  tenants?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutModuleInput
+  tenantModules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutModuleInput
 }
 
 export type ModuleUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.EnumModuleCodeFieldUpdateOperationsInput | $Enums.ModuleCode
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenants?: Prisma.TenantModuleUpdateManyWithoutModuleNestedInput
+  tenantModules?: Prisma.TenantModuleUpdateManyWithoutModuleNestedInput
 }
 
 export type ModuleUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.EnumModuleCodeFieldUpdateOperationsInput | $Enums.ModuleCode
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  tenants?: Prisma.TenantModuleUncheckedUpdateManyWithoutModuleNestedInput
+  tenantModules?: Prisma.TenantModuleUncheckedUpdateManyWithoutModuleNestedInput
 }
 
 export type ModuleCreateManyInput = {
   id?: string
   code: $Enums.ModuleCode
   name: string
-  isActive?: boolean
+  description?: string | null
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -294,7 +311,8 @@ export type ModuleUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.EnumModuleCodeFieldUpdateOperationsInput | $Enums.ModuleCode
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -303,7 +321,8 @@ export type ModuleUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.EnumModuleCodeFieldUpdateOperationsInput | $Enums.ModuleCode
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -318,7 +337,8 @@ export type ModuleCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -327,7 +347,8 @@ export type ModuleMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -336,7 +357,8 @@ export type ModuleMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   code?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -350,68 +372,76 @@ export type EnumModuleCodeFieldUpdateOperationsInput = {
   set?: $Enums.ModuleCode
 }
 
-export type ModuleCreateNestedOneWithoutTenantsInput = {
-  create?: Prisma.XOR<Prisma.ModuleCreateWithoutTenantsInput, Prisma.ModuleUncheckedCreateWithoutTenantsInput>
-  connectOrCreate?: Prisma.ModuleCreateOrConnectWithoutTenantsInput
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
+export type ModuleCreateNestedOneWithoutTenantModulesInput = {
+  create?: Prisma.XOR<Prisma.ModuleCreateWithoutTenantModulesInput, Prisma.ModuleUncheckedCreateWithoutTenantModulesInput>
+  connectOrCreate?: Prisma.ModuleCreateOrConnectWithoutTenantModulesInput
   connect?: Prisma.ModuleWhereUniqueInput
 }
 
-export type ModuleUpdateOneRequiredWithoutTenantsNestedInput = {
-  create?: Prisma.XOR<Prisma.ModuleCreateWithoutTenantsInput, Prisma.ModuleUncheckedCreateWithoutTenantsInput>
-  connectOrCreate?: Prisma.ModuleCreateOrConnectWithoutTenantsInput
-  upsert?: Prisma.ModuleUpsertWithoutTenantsInput
+export type ModuleUpdateOneRequiredWithoutTenantModulesNestedInput = {
+  create?: Prisma.XOR<Prisma.ModuleCreateWithoutTenantModulesInput, Prisma.ModuleUncheckedCreateWithoutTenantModulesInput>
+  connectOrCreate?: Prisma.ModuleCreateOrConnectWithoutTenantModulesInput
+  upsert?: Prisma.ModuleUpsertWithoutTenantModulesInput
   connect?: Prisma.ModuleWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.ModuleUpdateToOneWithWhereWithoutTenantsInput, Prisma.ModuleUpdateWithoutTenantsInput>, Prisma.ModuleUncheckedUpdateWithoutTenantsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ModuleUpdateToOneWithWhereWithoutTenantModulesInput, Prisma.ModuleUpdateWithoutTenantModulesInput>, Prisma.ModuleUncheckedUpdateWithoutTenantModulesInput>
 }
 
-export type ModuleCreateWithoutTenantsInput = {
+export type ModuleCreateWithoutTenantModulesInput = {
   id?: string
   code: $Enums.ModuleCode
   name: string
-  isActive?: boolean
+  description?: string | null
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type ModuleUncheckedCreateWithoutTenantsInput = {
+export type ModuleUncheckedCreateWithoutTenantModulesInput = {
   id?: string
   code: $Enums.ModuleCode
   name: string
-  isActive?: boolean
+  description?: string | null
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type ModuleCreateOrConnectWithoutTenantsInput = {
+export type ModuleCreateOrConnectWithoutTenantModulesInput = {
   where: Prisma.ModuleWhereUniqueInput
-  create: Prisma.XOR<Prisma.ModuleCreateWithoutTenantsInput, Prisma.ModuleUncheckedCreateWithoutTenantsInput>
+  create: Prisma.XOR<Prisma.ModuleCreateWithoutTenantModulesInput, Prisma.ModuleUncheckedCreateWithoutTenantModulesInput>
 }
 
-export type ModuleUpsertWithoutTenantsInput = {
-  update: Prisma.XOR<Prisma.ModuleUpdateWithoutTenantsInput, Prisma.ModuleUncheckedUpdateWithoutTenantsInput>
-  create: Prisma.XOR<Prisma.ModuleCreateWithoutTenantsInput, Prisma.ModuleUncheckedCreateWithoutTenantsInput>
+export type ModuleUpsertWithoutTenantModulesInput = {
+  update: Prisma.XOR<Prisma.ModuleUpdateWithoutTenantModulesInput, Prisma.ModuleUncheckedUpdateWithoutTenantModulesInput>
+  create: Prisma.XOR<Prisma.ModuleCreateWithoutTenantModulesInput, Prisma.ModuleUncheckedCreateWithoutTenantModulesInput>
   where?: Prisma.ModuleWhereInput
 }
 
-export type ModuleUpdateToOneWithWhereWithoutTenantsInput = {
+export type ModuleUpdateToOneWithWhereWithoutTenantModulesInput = {
   where?: Prisma.ModuleWhereInput
-  data: Prisma.XOR<Prisma.ModuleUpdateWithoutTenantsInput, Prisma.ModuleUncheckedUpdateWithoutTenantsInput>
+  data: Prisma.XOR<Prisma.ModuleUpdateWithoutTenantModulesInput, Prisma.ModuleUncheckedUpdateWithoutTenantModulesInput>
 }
 
-export type ModuleUpdateWithoutTenantsInput = {
+export type ModuleUpdateWithoutTenantModulesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.EnumModuleCodeFieldUpdateOperationsInput | $Enums.ModuleCode
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ModuleUncheckedUpdateWithoutTenantsInput = {
+export type ModuleUncheckedUpdateWithoutTenantModulesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.EnumModuleCodeFieldUpdateOperationsInput | $Enums.ModuleCode
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -422,11 +452,11 @@ export type ModuleUncheckedUpdateWithoutTenantsInput = {
  */
 
 export type ModuleCountOutputType = {
-  tenants: number
+  tenantModules: number
 }
 
 export type ModuleCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tenants?: boolean | ModuleCountOutputTypeCountTenantsArgs
+  tenantModules?: boolean | ModuleCountOutputTypeCountTenantModulesArgs
 }
 
 /**
@@ -442,7 +472,7 @@ export type ModuleCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Exten
 /**
  * ModuleCountOutputType without action
  */
-export type ModuleCountOutputTypeCountTenantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type ModuleCountOutputTypeCountTenantModulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.TenantModuleWhereInput
 }
 
@@ -451,10 +481,11 @@ export type ModuleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id?: boolean
   code?: boolean
   name?: boolean
-  isActive?: boolean
+  description?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  tenants?: boolean | Prisma.Module$tenantsArgs<ExtArgs>
+  tenantModules?: boolean | Prisma.Module$tenantModulesArgs<ExtArgs>
   _count?: boolean | Prisma.ModuleCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["module"]>
 
@@ -464,27 +495,29 @@ export type ModuleSelectScalar = {
   id?: boolean
   code?: boolean
   name?: boolean
-  isActive?: boolean
+  description?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ModuleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["module"]>
+export type ModuleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "code" | "name" | "description" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["module"]>
 export type ModuleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  tenants?: boolean | Prisma.Module$tenantsArgs<ExtArgs>
+  tenantModules?: boolean | Prisma.Module$tenantModulesArgs<ExtArgs>
   _count?: boolean | Prisma.ModuleCountOutputTypeDefaultArgs<ExtArgs>
 }
 
 export type $ModulePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Module"
   objects: {
-    tenants: Prisma.$TenantModulePayload<ExtArgs>[]
+    tenantModules: Prisma.$TenantModulePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     code: $Enums.ModuleCode
     name: string
-    isActive: boolean
+    description: string | null
+    status: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["module"]>
@@ -827,7 +860,7 @@ readonly fields: ModuleFieldRefs;
  */
 export interface Prisma__ModuleClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  tenants<T extends Prisma.Module$tenantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Module$tenantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  tenantModules<T extends Prisma.Module$tenantModulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Module$tenantModulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -860,7 +893,8 @@ export interface ModuleFieldRefs {
   readonly id: Prisma.FieldRef<"Module", 'String'>
   readonly code: Prisma.FieldRef<"Module", 'ModuleCode'>
   readonly name: Prisma.FieldRef<"Module", 'String'>
-  readonly isActive: Prisma.FieldRef<"Module", 'Boolean'>
+  readonly description: Prisma.FieldRef<"Module", 'String'>
+  readonly status: Prisma.FieldRef<"Module", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Module", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Module", 'DateTime'>
 }
@@ -1211,9 +1245,9 @@ export type ModuleDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
 }
 
 /**
- * Module.tenants
+ * Module.tenantModules
  */
-export type Module$tenantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Module$tenantModulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the TenantModule
    */

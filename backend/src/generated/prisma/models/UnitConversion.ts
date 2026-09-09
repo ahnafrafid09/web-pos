@@ -27,75 +27,69 @@ export type AggregateUnitConversion = {
 }
 
 export type UnitConversionAvgAggregateOutputType = {
-  multiplier: runtime.Decimal | null
+  factor: runtime.Decimal | null
 }
 
 export type UnitConversionSumAggregateOutputType = {
-  multiplier: runtime.Decimal | null
+  factor: runtime.Decimal | null
 }
 
 export type UnitConversionMinAggregateOutputType = {
   id: string | null
   fromUnitId: string | null
   toUnitId: string | null
-  multiplier: runtime.Decimal | null
+  factor: runtime.Decimal | null
   createdAt: Date | null
-  updatedAt: Date | null
 }
 
 export type UnitConversionMaxAggregateOutputType = {
   id: string | null
   fromUnitId: string | null
   toUnitId: string | null
-  multiplier: runtime.Decimal | null
+  factor: runtime.Decimal | null
   createdAt: Date | null
-  updatedAt: Date | null
 }
 
 export type UnitConversionCountAggregateOutputType = {
   id: number
   fromUnitId: number
   toUnitId: number
-  multiplier: number
+  factor: number
   createdAt: number
-  updatedAt: number
   _all: number
 }
 
 
 export type UnitConversionAvgAggregateInputType = {
-  multiplier?: true
+  factor?: true
 }
 
 export type UnitConversionSumAggregateInputType = {
-  multiplier?: true
+  factor?: true
 }
 
 export type UnitConversionMinAggregateInputType = {
   id?: true
   fromUnitId?: true
   toUnitId?: true
-  multiplier?: true
+  factor?: true
   createdAt?: true
-  updatedAt?: true
 }
 
 export type UnitConversionMaxAggregateInputType = {
   id?: true
   fromUnitId?: true
   toUnitId?: true
-  multiplier?: true
+  factor?: true
   createdAt?: true
-  updatedAt?: true
 }
 
 export type UnitConversionCountAggregateInputType = {
   id?: true
   fromUnitId?: true
   toUnitId?: true
-  multiplier?: true
+  factor?: true
   createdAt?: true
-  updatedAt?: true
   _all?: true
 }
 
@@ -189,9 +183,8 @@ export type UnitConversionGroupByOutputType = {
   id: string
   fromUnitId: string
   toUnitId: string
-  multiplier: runtime.Decimal
+  factor: runtime.Decimal
   createdAt: Date
-  updatedAt: Date
   _count: UnitConversionCountAggregateOutputType | null
   _avg: UnitConversionAvgAggregateOutputType | null
   _sum: UnitConversionSumAggregateOutputType | null
@@ -221,9 +214,8 @@ export type UnitConversionWhereInput = {
   id?: Prisma.StringFilter<"UnitConversion"> | string
   fromUnitId?: Prisma.StringFilter<"UnitConversion"> | string
   toUnitId?: Prisma.StringFilter<"UnitConversion"> | string
-  multiplier?: Prisma.DecimalFilter<"UnitConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor?: Prisma.DecimalFilter<"UnitConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"UnitConversion"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"UnitConversion"> | Date | string
   fromUnit?: Prisma.XOR<Prisma.UnitScalarRelationFilter, Prisma.UnitWhereInput>
   toUnit?: Prisma.XOR<Prisma.UnitScalarRelationFilter, Prisma.UnitWhereInput>
 }
@@ -232,9 +224,8 @@ export type UnitConversionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   fromUnitId?: Prisma.SortOrder
   toUnitId?: Prisma.SortOrder
-  multiplier?: Prisma.SortOrder
+  factor?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   fromUnit?: Prisma.UnitOrderByWithRelationInput
   toUnit?: Prisma.UnitOrderByWithRelationInput
   _relevance?: Prisma.UnitConversionOrderByRelevanceInput
@@ -248,9 +239,8 @@ export type UnitConversionWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UnitConversionWhereInput | Prisma.UnitConversionWhereInput[]
   fromUnitId?: Prisma.StringFilter<"UnitConversion"> | string
   toUnitId?: Prisma.StringFilter<"UnitConversion"> | string
-  multiplier?: Prisma.DecimalFilter<"UnitConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor?: Prisma.DecimalFilter<"UnitConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"UnitConversion"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"UnitConversion"> | Date | string
   fromUnit?: Prisma.XOR<Prisma.UnitScalarRelationFilter, Prisma.UnitWhereInput>
   toUnit?: Prisma.XOR<Prisma.UnitScalarRelationFilter, Prisma.UnitWhereInput>
 }, "id" | "fromUnitId_toUnitId">
@@ -259,9 +249,8 @@ export type UnitConversionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   fromUnitId?: Prisma.SortOrder
   toUnitId?: Prisma.SortOrder
-  multiplier?: Prisma.SortOrder
+  factor?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
   _count?: Prisma.UnitConversionCountOrderByAggregateInput
   _avg?: Prisma.UnitConversionAvgOrderByAggregateInput
   _max?: Prisma.UnitConversionMaxOrderByAggregateInput
@@ -276,16 +265,14 @@ export type UnitConversionScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"UnitConversion"> | string
   fromUnitId?: Prisma.StringWithAggregatesFilter<"UnitConversion"> | string
   toUnitId?: Prisma.StringWithAggregatesFilter<"UnitConversion"> | string
-  multiplier?: Prisma.DecimalWithAggregatesFilter<"UnitConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor?: Prisma.DecimalWithAggregatesFilter<"UnitConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"UnitConversion"> | Date | string
-  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"UnitConversion"> | Date | string
 }
 
 export type UnitConversionCreateInput = {
   id?: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
-  updatedAt?: Date | string
   fromUnit: Prisma.UnitCreateNestedOneWithoutConversionsFromInput
   toUnit: Prisma.UnitCreateNestedOneWithoutConversionsToInput
 }
@@ -294,16 +281,14 @@ export type UnitConversionUncheckedCreateInput = {
   id?: string
   fromUnitId: string
   toUnitId: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
 export type UnitConversionUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fromUnit?: Prisma.UnitUpdateOneRequiredWithoutConversionsFromNestedInput
   toUnit?: Prisma.UnitUpdateOneRequiredWithoutConversionsToNestedInput
 }
@@ -312,34 +297,30 @@ export type UnitConversionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fromUnitId?: Prisma.StringFieldUpdateOperationsInput | string
   toUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UnitConversionCreateManyInput = {
   id?: string
   fromUnitId: string
   toUnitId: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
 export type UnitConversionUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UnitConversionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fromUnitId?: Prisma.StringFieldUpdateOperationsInput | string
   toUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UnitConversionListRelationFilter = {
@@ -367,35 +348,32 @@ export type UnitConversionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fromUnitId?: Prisma.SortOrder
   toUnitId?: Prisma.SortOrder
-  multiplier?: Prisma.SortOrder
+  factor?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
 }
 
 export type UnitConversionAvgOrderByAggregateInput = {
-  multiplier?: Prisma.SortOrder
+  factor?: Prisma.SortOrder
 }
 
 export type UnitConversionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fromUnitId?: Prisma.SortOrder
   toUnitId?: Prisma.SortOrder
-  multiplier?: Prisma.SortOrder
+  factor?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
 }
 
 export type UnitConversionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   fromUnitId?: Prisma.SortOrder
   toUnitId?: Prisma.SortOrder
-  multiplier?: Prisma.SortOrder
+  factor?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
 }
 
 export type UnitConversionSumOrderByAggregateInput = {
-  multiplier?: Prisma.SortOrder
+  factor?: Prisma.SortOrder
 }
 
 export type UnitConversionCreateNestedManyWithoutFromUnitInput = {
@@ -484,18 +462,16 @@ export type UnitConversionUncheckedUpdateManyWithoutToUnitNestedInput = {
 
 export type UnitConversionCreateWithoutFromUnitInput = {
   id?: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
-  updatedAt?: Date | string
   toUnit: Prisma.UnitCreateNestedOneWithoutConversionsToInput
 }
 
 export type UnitConversionUncheckedCreateWithoutFromUnitInput = {
   id?: string
   toUnitId: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
 export type UnitConversionCreateOrConnectWithoutFromUnitInput = {
@@ -510,18 +486,16 @@ export type UnitConversionCreateManyFromUnitInputEnvelope = {
 
 export type UnitConversionCreateWithoutToUnitInput = {
   id?: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
-  updatedAt?: Date | string
   fromUnit: Prisma.UnitCreateNestedOneWithoutConversionsFromInput
 }
 
 export type UnitConversionUncheckedCreateWithoutToUnitInput = {
   id?: string
   fromUnitId: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
 export type UnitConversionCreateOrConnectWithoutToUnitInput = {
@@ -557,9 +531,8 @@ export type UnitConversionScalarWhereInput = {
   id?: Prisma.StringFilter<"UnitConversion"> | string
   fromUnitId?: Prisma.StringFilter<"UnitConversion"> | string
   toUnitId?: Prisma.StringFilter<"UnitConversion"> | string
-  multiplier?: Prisma.DecimalFilter<"UnitConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor?: Prisma.DecimalFilter<"UnitConversion"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"UnitConversion"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"UnitConversion"> | Date | string
 }
 
 export type UnitConversionUpsertWithWhereUniqueWithoutToUnitInput = {
@@ -581,65 +554,57 @@ export type UnitConversionUpdateManyWithWhereWithoutToUnitInput = {
 export type UnitConversionCreateManyFromUnitInput = {
   id?: string
   toUnitId: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
 export type UnitConversionCreateManyToUnitInput = {
   id?: string
   fromUnitId: string
-  multiplier: runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
-  updatedAt?: Date | string
 }
 
 export type UnitConversionUpdateWithoutFromUnitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   toUnit?: Prisma.UnitUpdateOneRequiredWithoutConversionsToNestedInput
 }
 
 export type UnitConversionUncheckedUpdateWithoutFromUnitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   toUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UnitConversionUncheckedUpdateManyWithoutFromUnitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   toUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UnitConversionUpdateWithoutToUnitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   fromUnit?: Prisma.UnitUpdateOneRequiredWithoutConversionsFromNestedInput
 }
 
 export type UnitConversionUncheckedUpdateWithoutToUnitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fromUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UnitConversionUncheckedUpdateManyWithoutToUnitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   fromUnitId?: Prisma.StringFieldUpdateOperationsInput | string
-  multiplier?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  factor?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -648,9 +613,8 @@ export type UnitConversionSelect<ExtArgs extends runtime.Types.Extensions.Intern
   id?: boolean
   fromUnitId?: boolean
   toUnitId?: boolean
-  multiplier?: boolean
+  factor?: boolean
   createdAt?: boolean
-  updatedAt?: boolean
   fromUnit?: boolean | Prisma.UnitDefaultArgs<ExtArgs>
   toUnit?: boolean | Prisma.UnitDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["unitConversion"]>
@@ -661,12 +625,11 @@ export type UnitConversionSelectScalar = {
   id?: boolean
   fromUnitId?: boolean
   toUnitId?: boolean
-  multiplier?: boolean
+  factor?: boolean
   createdAt?: boolean
-  updatedAt?: boolean
 }
 
-export type UnitConversionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fromUnitId" | "toUnitId" | "multiplier" | "createdAt" | "updatedAt", ExtArgs["result"]["unitConversion"]>
+export type UnitConversionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fromUnitId" | "toUnitId" | "factor" | "createdAt", ExtArgs["result"]["unitConversion"]>
 export type UnitConversionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   fromUnit?: boolean | Prisma.UnitDefaultArgs<ExtArgs>
   toUnit?: boolean | Prisma.UnitDefaultArgs<ExtArgs>
@@ -682,9 +645,8 @@ export type $UnitConversionPayload<ExtArgs extends runtime.Types.Extensions.Inte
     id: string
     fromUnitId: string
     toUnitId: string
-    multiplier: runtime.Decimal
+    factor: runtime.Decimal
     createdAt: Date
-    updatedAt: Date
   }, ExtArgs["result"]["unitConversion"]>
   composites: {}
 }
@@ -1059,9 +1021,8 @@ export interface UnitConversionFieldRefs {
   readonly id: Prisma.FieldRef<"UnitConversion", 'String'>
   readonly fromUnitId: Prisma.FieldRef<"UnitConversion", 'String'>
   readonly toUnitId: Prisma.FieldRef<"UnitConversion", 'String'>
-  readonly multiplier: Prisma.FieldRef<"UnitConversion", 'Decimal'>
+  readonly factor: Prisma.FieldRef<"UnitConversion", 'Decimal'>
   readonly createdAt: Prisma.FieldRef<"UnitConversion", 'DateTime'>
-  readonly updatedAt: Prisma.FieldRef<"UnitConversion", 'DateTime'>
 }
     
 

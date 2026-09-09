@@ -7,12 +7,6 @@ datasource db {
   provider = "mysql"
 }
 
-/**
- * |--------------------------------------------------------------------------
- * | ENUMS
- * |--------------------------------------------------------------------------
- */
-
 enum UserRole {
   SUPER_ADMIN
   OWNER
@@ -46,6 +40,13 @@ enum PurchaseType {
   DIRECT
 }
 
+
+// DRAFT      -> baru dibuat, belum dikirim ke supplier (khusus PO)
+// ORDERED    -> PO sudah dikirim/disetujui, menunggu barang datang
+// PARTIAL    -> sebagian item sudah diterima (sebagian atau sebagian qty)
+// RECEIVED   -> semua item sudah diterima penuh (stok sudah masuk semua)
+// COMPLETED  -> proses selesai (biasanya dipakai setelah RECEIVED + admin close)
+// CANCELLED  -> dibatalkan
 enum PurchaseStatus {
   DRAFT
   ORDERED
@@ -66,10 +67,11 @@ enum AdjustmentType {
   FIXED
 }
 
+// Menentukan di konteks mana sebuah metode pembayaran boleh dipakai
 enum PaymentMethodUsage {
-  PURCHASE
-  TRANSACTION
-  BOTH
+  PURCHASE // hanya untuk pembayaran ke supplier
+  TRANSACTION // hanya untuk kasir/transaksi penjualan
+  BOTH // dua-duanya
 }
 
 enum AuditLogAction {
@@ -97,287 +99,240 @@ enum TenantModuleStatus {
   SUSPENDED
 }
 
-/**
- * |--------------------------------------------------------------------------
- * | TENANT
- * |--------------------------------------------------------------------------
- */
-
 model Tenant {
-  id   String @id @default(uuid())
-  name String @db.VarChar(150)
-  code String @unique @db.VarChar(50)
+  id     String  @id @default(uuid())
+  name   String  @db.VarChar(150)
+  slug   String  @unique @db.VarChar(100)
+  status Boolean @default(true)
 
-  isActive Boolean @default(true) @map("is_active")
+  users User[]
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  categories     Category[]
+  products       Product[]
+  rawMaterials   RawMaterial[]
+  paymentMethods PaymentMethod[]
 
-  users              User[]
-  modules            TenantModule[]
-  categories         Category[]
-  products           Product[]
-  rawMaterials       RawMaterial[]
-  suppliers          Supplier[]
-  purchases          Purchase[]
-  stockMovements     StockMovement[]
-  transactions       Transaction[]
-  paymentMethods     PaymentMethod[]
-  refreshTokens      RefreshToken[]
-  auditLogs          AuditLog[]
+  purchases    Purchase[]
+  transactions Transaction[]
+
+  stockMovements StockMovement[]
+
+  suppliers Supplier[]
+
+  auditLogs AuditLog[]
+
+  modules TenantModule[]
   transactionSetting TransactionSetting?
 
-  @@index([isActive])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([status])
   @@map("tenant")
 }
 
-/**
- * |--------------------------------------------------------------------------
- * | MODULE
- * |--------------------------------------------------------------------------
- */
-
 model Module {
-  id   String     @id @default(uuid())
+  id String @id @default(uuid())
+
   code ModuleCode @unique
-  name String     @db.VarChar(100)
+  name String @db.VarChar(100)
+  description String? @db.Text
 
-  isActive Boolean @default(true) @map("is_active")
+  status Boolean @default(true)
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  tenantModules TenantModule[]
 
-  tenants TenantModule[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@index([isActive])
   @@map("module")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | TENANT MODULE
- * |--------------------------------------------------------------------------
- */
 
 model TenantModule {
   id String @id @default(uuid())
 
-  tenantId String @map("tenant_id")
-  moduleId String @map("module_id")
-
-  status    TenantModuleStatus @default(ACTIVE)
-  startedAt DateTime?          @map("started_at")
-  expiredAt DateTime?          @map("expired_at")
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
+  tenantId String
   tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  moduleId String
   module Module @relation(fields: [moduleId], references: [id], onDelete: Restrict)
 
-  @@unique([tenantId, moduleId])
-  @@index([tenantId, status])
-  @@index([moduleId])
-  @@index([expiredAt])
-  @@map("tenant_module")
-}
+  status TenantModuleStatus @default(ACTIVE)
 
-/**
- * |--------------------------------------------------------------------------
- * | USER
- * |--------------------------------------------------------------------------
- */
+  startedAt DateTime @default(now())
+  expiredAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([tenantId, moduleId])
+  @@index([tenantId])
+  @@index([moduleId])
+   @@map("tenant_module")
+}
 
 model User {
   id String @id @default(uuid())
 
-  tenantId String? @map("tenant_id")
+  tenantId String?
+  tenant   Tenant? @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
-  name     String  @db.VarChar(150)
-  username String  @db.VarChar(100)
-  email    String? @db.VarChar(150)
-  password String  @db.VarChar(255)
+  name     String @db.VarChar(150)
+  username String @db.VarChar(100)
+  email    String @unique @db.VarChar(150)
+  password String
 
-  role UserRole
+  role   UserRole @default(CASHIER)
+  status Boolean  @default(true)
 
-  isActive Boolean @default(true) @map("is_active")
-
-  lastLoginAt DateTime? @map("last_login_at")
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  tenant Tenant? @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-
-  transactions  Transaction[]
   refreshTokens RefreshToken[]
-  auditLogs     AuditLog[]
 
+  auditLogs AuditLog[]
+
+  transactions Transaction[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // username unik dalam satu tenant
   @@unique([tenantId, username])
   @@index([tenantId])
-  @@index([tenantId, role])
-  @@index([tenantId, isActive])
-  @@index([email])
+  @@index([role])
+  @@index([status])
   @@map("user")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | CATEGORY
- * |--------------------------------------------------------------------------
- */
 
 model Category {
   id String @id @default(uuid())
 
-  tenantId String @map("tenant_id")
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
-  name     String  @db.VarChar(100)
-  isActive Boolean @default(true) @map("is_active")
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  name   String  @db.VarChar(100)
+  status Boolean @default(true)
 
   products Product[]
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([tenantId, name])
   @@index([tenantId])
-  @@index([tenantId, isActive])
+  @@index([status])
   @@map("category")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | PRODUCT
- * |--------------------------------------------------------------------------
- */
 
 model Product {
   id String @id @default(uuid())
 
-  tenantId   String  @map("tenant_id")
-  categoryId String? @map("category_id")
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
-  name String  @db.VarChar(150)
-  sku  String? @db.VarChar(100)
+  categoryId String
+  category   Category @relation(fields: [categoryId], references: [id])
+
+  name String @db.VarChar(150)
 
   type ProductType
 
-  unit String @db.VarChar(50)
+  sku String? @db.VarChar(100)
 
-  sellingPrice Int @map("selling_price")
+  // MENU        -> portion
+  // MERCHANDISE -> pcs
+  unit String @db.VarChar(30)
+
+  sellingPrice Int @default(0)
   hpp          Int @default(0)
 
-  imageUrl String? @map("image_url") @db.Text
-  imageKey String? @map("image_key") @db.VarChar(255)
+  status Boolean @default(true)
 
-  isActive Boolean @default(true) @map("is_active")
+  imageUrl String?
+  imageKey String?
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  recipeItems RecipeItem[]
 
-  tenant   Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  category Category? @relation(fields: [categoryId], references: [id], onDelete: Restrict)
-
-  recipeItems      RecipeItem[]
   transactionItems TransactionItem[]
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Nama produk unik dalam tenant
+  @@unique([tenantId, name])
+  // SKU juga unik dalam tenant
   @@unique([tenantId, sku])
   @@index([tenantId])
-  @@index([tenantId, categoryId])
-  @@index([tenantId, type])
-  @@index([tenantId, isActive])
-  @@index([tenantId, name])
+  @@index([categoryId])
+  @@index([type])
+  @@index([status])
   @@map("product")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | RAW MATERIAL
- * |--------------------------------------------------------------------------
- */
 
 model RawMaterial {
   id String @id @default(uuid())
 
-  tenantId String @map("tenant_id")
-  unitId   String @map("unit_id")
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
-  name String  @db.VarChar(150)
-  code String? @db.VarChar(100)
+  name String @db.VarChar(150)
 
-  averageCost Int @default(0) @map("average_cost")
+  sku String? @db.VarChar(100)
 
-  isActive Boolean @default(true) @map("is_active")
+  // Base unit
+  unitId String
+  unit   Unit   @relation(fields: [unitId], references: [id])
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  // HPP rata-rata per base unit
+  averageCost Int @default(0)
 
-  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  unit   Unit   @relation(fields: [unitId], references: [id], onDelete: Restrict)
+  status Boolean @default(true)
 
   stock Stock?
 
-  recipeItems RecipeItem[]
-
-  purchaseItems PurchaseItem[]
-
-  stockMovements StockMovement[]
-
+  recipeItems     RecipeItem[]
+  purchaseItems   PurchaseItem[]
+  stockMovements  StockMovement[]
   unitConversions RawMaterialUnitConversion[]
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([tenantId, name])
-  @@unique([tenantId, code])
+  @@unique([tenantId, sku])
   @@index([tenantId])
-  @@index([tenantId, unitId])
-  @@index([tenantId, isActive])
+  @@index([unitId])
+  @@index([status])
   @@map("raw_material")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | STOCK
- * |--------------------------------------------------------------------------
- */
 
 model Stock {
   id String @id @default(uuid())
 
-  rawMaterialId String @unique @map("raw_material_id")
+  rawMaterialId String      @unique
+  rawMaterial   RawMaterial @relation(fields: [rawMaterialId], references: [id], onDelete: Cascade)
 
+  // Selalu base unit
   quantity Decimal @default(0) @db.Decimal(15, 3)
 
-  minQuantity Decimal? @map("min_quantity") @db.Decimal(15, 3)
-  maxQuantity Decimal? @map("max_quantity") @db.Decimal(15, 3)
+  minimumStock Decimal @default(0) @db.Decimal(15, 3)
 
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  rawMaterial RawMaterial @relation(fields: [rawMaterialId], references: [id], onDelete: Cascade)
-
+  updatedAt DateTime @updatedAt
   @@map("stock")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | RECIPE ITEM
- * |--------------------------------------------------------------------------
- */
 
 model RecipeItem {
   id String @id @default(uuid())
 
-  productId     String @map("product_id")
-  rawMaterialId String @map("raw_material_id")
+  productId String
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
 
+  rawMaterialId String
+  rawMaterial   RawMaterial @relation(fields: [rawMaterialId], references: [id], onDelete: Restrict)
+
+  // Jumlah bahan yang diperlukan untuk menghasilkan 1 unit Product
   quantity Decimal @db.Decimal(15, 3)
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  product     Product     @relation(fields: [productId], references: [id], onDelete: Restrict)
-  rawMaterial RawMaterial @relation(fields: [rawMaterialId], references: [id], onDelete: Restrict)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([productId, rawMaterialId])
   @@index([productId])
@@ -385,16 +340,10 @@ model RecipeItem {
   @@map("recipe_item")
 }
 
-/**
- * |--------------------------------------------------------------------------
- * | SUPPLIER
- * |--------------------------------------------------------------------------
- */
-
 model Supplier {
-  id String @id @default(uuid())
-
-  tenantId String @map("tenant_id")
+  id       String @id @default(uuid())
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
   code String @db.VarChar(50)
   name String @db.VarChar(150)
@@ -403,101 +352,95 @@ model Supplier {
   email   String? @db.VarChar(150)
   address String? @db.Text
 
-  isActive Boolean @default(true) @map("is_active")
+  status Boolean @default(true)
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  tenant    Tenant     @relation(fields: [tenantId], references: [id], onDelete: Cascade)
   purchases Purchase[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([tenantId, code])
   @@index([tenantId])
-  @@index([tenantId, isActive])
-  @@index([tenantId, name])
+  @@index([status])
   @@map("supplier")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | PURCHASE
- * |--------------------------------------------------------------------------
- */
 
 model Purchase {
   id String @id @default(uuid())
 
-  tenantId    String  @map("tenant_id")
-  supplierId  String  @map("supplier_id")
-  createdById String? @map("created_by_id")
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
 
-  purchaseNumber String  @map("purchase_number") @db.VarChar(100)
-  invoiceNumber  String? @map("invoice_number") @db.VarChar(100)
+  supplierId String
+  supplier   Supplier @relation(fields: [supplierId], references: [id], onDelete: Restrict)
 
-  type   PurchaseType
-  status PurchaseStatus @default(DRAFT)
+  purchaseNumber String  @db.VarChar(50)
+  invoiceNumber  String? @db.VarChar(100)
 
-  subtotal    Int @default(0)
-  discount    Int @default(0)
-  tax         Int @default(0)
-  totalAmount Int @default(0) @map("total_amount")
+  purchaseType PurchaseType
+  status       PurchaseStatus @default(DRAFT)
 
-  paymentStatus PurchasePaymentStatus @default(UNPAID) @map("payment_status")
+  purchaseDate DateTime @default(now())
 
-  notes String? @db.Text
+  subtotal Int @default(0)
 
-  purchasedAt DateTime? @map("purchased_at")
+  discountType  AdjustmentType?
+  discountValue Decimal?        @db.Decimal(15, 2)
+  discount      Int             @default(0)
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  taxType  AdjustmentType?
+  taxValue Decimal?        @db.Decimal(15, 2)
+  tax      Int             @default(0)
 
-  tenant   Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  supplier Supplier @relation(fields: [supplierId], references: [id], onDelete: Restrict)
+  totalAmount Int @default(0)
 
-  items PurchaseItem[]
+  paymentStatus PurchasePaymentStatus @default(UNPAID)
 
+  items      PurchaseItem[]
   receivings PurchaseReceiving[]
+  payments   PurchasePayment[]
 
-  payments PurchasePayment[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@unique([tenantId, purchaseNumber])
   @@index([tenantId])
-  @@index([tenantId, supplierId])
-  @@index([tenantId, status])
-  @@index([tenantId, paymentStatus])
-  @@index([tenantId, purchasedAt])
+  @@index([supplierId])
+  @@index([purchaseDate])
+  @@index([status])
+  @@index([purchaseType])
+  @@index([paymentStatus])
   @@map("purchase")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | PURCHASE ITEM
- * |--------------------------------------------------------------------------
- */
 
 model PurchaseItem {
   id String @id @default(uuid())
 
-  purchaseId    String @map("purchase_id")
-  rawMaterialId String @map("raw_material_id")
-  unitId        String @map("unit_id")
+  purchaseId String
+  purchase   Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
 
+  rawMaterialId String
+  rawMaterial   RawMaterial @relation(fields: [rawMaterialId], references: [id], onDelete: Restrict)
+
+  // Qty yang dibeli dalam unit pembelian
   quantity Decimal @db.Decimal(15, 3)
 
-  baseQuantity Decimal @map("base_quantity") @db.Decimal(15, 3)
+  // Unit pembelian
+  unitId String
+  unit   Unit   @relation(fields: [unitId], references: [id], onDelete: Restrict)
 
-  receivedBaseQuantity Decimal @default(0) @map("received_base_quantity") @db.Decimal(15, 3)
+  // Qty setelah konversi ke base unit
+  baseQuantity Decimal @db.Decimal(15, 3)
 
-  unitPrice Int @map("unit_price")
+  // Total qty yang sudah diterima
+  receivedBaseQuantity Decimal @default(0) @db.Decimal(15, 3)
+  unitPrice            Int
 
-  subtotal Int
+  // Harga total item
+  subtotal Int @default(0)
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now())
 
-  purchase       Purchase                @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
-  rawMaterial    RawMaterial             @relation(fields: [rawMaterialId], references: [id], onDelete: Restrict)
-  unit           Unit                    @relation(fields: [unitId], references: [id], onDelete: Restrict)
   receivingItems PurchaseReceivingItem[]
 
   @@index([purchaseId])
@@ -506,139 +449,127 @@ model PurchaseItem {
   @@map("purchase_item")
 }
 
-/**
- * |--------------------------------------------------------------------------
- * | PURCHASE RECEIVING
- * |--------------------------------------------------------------------------
- */
-
+// Header penerimaan barang. Satu Purchase (khusus PO) bisa punya banyak
+// PurchaseReceiving jika barang datang bertahap (parsial).
+// Untuk PurchaseType DIRECT, biasanya cukup 1 PurchaseReceiving yang dibuat
+// otomatis bersamaan dengan Purchase-nya (qty diterima = qty dibeli).
 model PurchaseReceiving {
   id String @id @default(uuid())
 
-  purchaseId String @map("purchase_id")
+  purchaseId String
+  purchase   Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
 
-  receivingNumber String @map("receiving_number") @db.VarChar(100)
+  receivingNumber String   @db.VarChar(50)
+  receivingDate   DateTime @default(now())
 
-  receivedAt DateTime @default(now()) @map("received_at")
-
-  notes String? @db.Text
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-
-  purchase Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+  note String? @db.Text
 
   items PurchaseReceivingItem[]
 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@unique([purchaseId, receivingNumber])
   @@index([purchaseId])
-  @@index([receivedAt])
+  @@index([receivingDate])
   @@map("purchase_receiving")
 }
 
-/**
- * |--------------------------------------------------------------------------
- * | PURCHASE RECEIVING ITEM
- * |--------------------------------------------------------------------------
- */
-
+// Detail per item yang diterima dalam satu event penerimaan.
+// Setiap baris di sini akan:
+// 1. Menambah receivedBaseQuantity di PurchaseItem terkait
+// 2. Membuat StockMovement (type PURCHASE) sebesar baseQuantity
+// 3. Menambah Stock.quantity milik RawMaterial terkait
 model PurchaseReceivingItem {
   id String @id @default(uuid())
 
-  receivingId    String @map("receiving_id")
-  purchaseItemId String @map("purchase_item_id")
+  purchaseReceivingId String
+  purchaseReceiving   PurchaseReceiving @relation(fields: [purchaseReceivingId], references: [id], onDelete: Cascade)
 
+  purchaseItemId String
+  purchaseItem   PurchaseItem @relation(fields: [purchaseItemId], references: [id], onDelete: Restrict)
+
+  // Qty dalam unit pembelian
   quantity Decimal @db.Decimal(15, 3)
 
-  createdAt DateTime @default(now()) @map("created_at")
+  // Qty dalam base unit
+  baseQuantity Decimal @db.Decimal(15, 3)
 
-  receiving    PurchaseReceiving @relation(fields: [receivingId], references: [id], onDelete: Cascade)
-  purchaseItem PurchaseItem      @relation(fields: [purchaseItemId], references: [id], onDelete: Restrict)
+  createdAt DateTime @default(now())
 
-  @@index([receivingId])
+  @@index([purchaseReceivingId])
   @@index([purchaseItemId])
   @@map("purchase_receiving_item")
 }
 
-/**
- * |--------------------------------------------------------------------------
- * | PURCHASE PAYMENT
- * |--------------------------------------------------------------------------
- */
-
+// Histori pembayaran ke supplier untuk satu Purchase. Bisa dicicil (parsial),
+// jumlah amount di-total lalu dibandingkan ke totalAmount Purchase untuk
+// menentukan paymentStatus (UNPAID/PARTIAL/PAID).
 model PurchasePayment {
   id String @id @default(uuid())
 
-  purchaseId      String @map("purchase_id")
-  paymentMethodId String @map("payment_method_id")
+  purchaseId String
+  purchase   Purchase @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
+
+  paymentMethodId String
+  paymentMethod   PaymentMethod @relation(fields: [paymentMethodId], references: [id])
 
   amount Int
 
-  reference String? @db.VarChar(150)
-  notes     String? @db.Text
+  paidAt DateTime @default(now())
 
-  paidAt DateTime @default(now()) @map("paid_at")
+  note String? @db.Text
 
-  createdAt DateTime @default(now()) @map("created_at")
-
-  purchase      Purchase      @relation(fields: [purchaseId], references: [id], onDelete: Cascade)
-  paymentMethod PaymentMethod @relation(fields: [paymentMethodId], references: [id], onDelete: Restrict)
+  createdAt DateTime @default(now())
 
   @@index([purchaseId])
   @@index([paymentMethodId])
-  @@index([paidAt])
   @@map("purchase_payment")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | STOCK MOVEMENT
- * |--------------------------------------------------------------------------
- */
 
 model StockMovement {
   id String @id @default(uuid())
 
-  tenantId      String @map("tenant_id")
-  rawMaterialId String @map("raw_material_id")
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  rawMaterialId String
+  rawMaterial   RawMaterial @relation(fields: [rawMaterialId], references: [id], onDelete: Restrict)
 
   type StockMovementType
 
+  // Selalu positif
   quantity Decimal @db.Decimal(15, 3)
 
-  unitCost Int @default(0) @map("unit_cost")
+  // HPP per base unit saat movement
+  unitCost Int @default(0)
 
-  referenceId   String? @map("reference_id")
-  referenceType String? @map("reference_type") @db.VarChar(50)
+  referenceId   String?
+  referenceType String?
 
-  notes String? @db.Text
+  note String?
 
-  createdAt DateTime @default(now()) @map("created_at")
-
-  tenant      Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  rawMaterial RawMaterial @relation(fields: [rawMaterialId], references: [id], onDelete: Restrict)
+  createdAt DateTime @default(now())
 
   @@index([tenantId])
-  @@index([tenantId, rawMaterialId])
-  @@index([tenantId, type])
-  @@index([tenantId, createdAt])
-  @@index([referenceId, referenceType])
+  @@index([rawMaterialId])
+  @@index([type])
+  @@index([createdAt])
+  @@index([referenceId])
   @@map("stock_movement")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | TRANSACTION
- * |--------------------------------------------------------------------------
- */
 
 model Transaction {
   id String @id @default(uuid())
 
-  tenantId  String  @map("tenant_id")
-  cashierId String? @map("cashier_id")
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
 
-  invoiceNumber String @map("invoice_number") @db.VarChar(100)
+cashierId String?
+cashier   User? @relation(fields: [cashierId], references: [id])
+
+
+  invoiceNumber String @db.VarChar(100)
 
   status TransactionStatus @default(PENDING)
 
@@ -646,311 +577,223 @@ model Transaction {
 
   discount Int @default(0)
 
-  serviceCharge Int @default(0) @map("service_charge")
-
-  tax Int @default(0)
+  serviceCharge Int @default(0)
+  tax           Int @default(0)
 
   total Int @default(0)
 
-  totalPaid Int @default(0) @map("total_paid")
+  totalPaid Int @default(0)
+  change    Int @default(0)
 
-  change Int @default(0)
+  totalHpp Int @default(0)
+  profit   Int @default(0)
 
-  totalHpp Int @default(0) @map("total_hpp")
-
-  profit Int @default(0)
-
-  notes String? @db.Text
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-  cashier   User?    @relation(fields: [cashierId], references: [id], onDelete: Restrict)
-
-  items TransactionItem[]
-
+  items    TransactionItem[]
   payments Payment[]
 
-  @@unique([tenantId, invoiceNumber])
-  @@index([tenantId])
-  @@index([tenantId, cashierId])
-  @@index([tenantId, status])
-  @@index([tenantId, createdAt])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   @@map("transaction")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | TRANSACTION ITEM
- * |--------------------------------------------------------------------------
- */
 
 model TransactionItem {
   id String @id @default(uuid())
 
-  transactionId String @map("transaction_id")
-  productId     String @map("product_id")
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
 
-  productName String @map("product_name") @db.VarChar(150)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  // Snapshot nama produk saat transaksi
+  productName String @db.VarChar(150)
 
   quantity Decimal @db.Decimal(15, 3)
 
-  sellingPrice Int @map("selling_price")
+  // Snapshot harga jual saat transaksi
+  sellingPrice Int
 
-  hpp Int @default(0)
+  // Snapshot HPP per unit saat transaksi
+  hpp Int
 
-  subtotal Int @default(0)
+  subtotal Int
 
-  profit Int @default(0)
+  // Profit total untuk item ini
+  profit Int
 
-  createdAt DateTime @default(now()) @map("created_at")
-
-  transaction Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  product     Product     @relation(fields: [productId], references: [id], onDelete: Restrict)
+  createdAt DateTime @default(now())
 
   @@index([transactionId])
   @@index([productId])
   @@map("transaction_item")
 }
 
-/**
- * |--------------------------------------------------------------------------
- * | PAYMENT METHOD
- * |--------------------------------------------------------------------------
- */
-
+// Master metode pembayaran. usageType menentukan di modul mana metode ini
+// boleh muncul/dipilih:
+// - PURCHASE    -> hanya tersedia di form PurchasePayment (bayar ke supplier)
+// - TRANSACTION -> hanya tersedia di form Payment (kasir/POS)
+// - BOTH        -> tersedia di keduanya
 model PaymentMethod {
   id String @id @default(uuid())
 
-  tenantId String @map("tenant_id")
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
 
-  code String @db.VarChar(50)
-  name String @db.VarChar(100)
+  code String @unique @db.VarChar(50)
+  name String @db.VarChar(150)
 
-  usageType PaymentMethodUsage @default(BOTH) @map("usage_type")
+  usageType PaymentMethodUsage @default(BOTH)
 
   status Boolean @default(true)
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  payments         Payment[]
+  purchasePayments PurchasePayment[]
 
-  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  payments            PurchasePayment[]
-  transactionPayments Payment[]
-
-  @@unique([tenantId, code])
-  @@index([tenantId])
-  @@index([tenantId, usageType])
-  @@index([tenantId, status])
+  @@index([usageType])
+  @@index([status])
   @@map("payment_method")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | PAYMENT
- * |--------------------------------------------------------------------------
- */
 
 model Payment {
   id String @id @default(uuid())
 
-  transactionId   String @map("transaction_id")
-  paymentMethodId String @map("payment_method_id")
+  transactionId String
+  transaction   Transaction @relation(fields: [transactionId], references: [id], onDelete: Cascade)
+
+  paymentMethodId String
+  paymentMethod   PaymentMethod @relation(fields: [paymentMethodId], references: [id], onDelete: Cascade)
 
   amount Int
 
-  reference String? @db.VarChar(150)
+  paidAt DateTime @default(now())
 
-  paidAt DateTime @default(now()) @map("paid_at")
-
-  createdAt DateTime @default(now()) @map("created_at")
-
-  transaction   Transaction   @relation(fields: [transactionId], references: [id], onDelete: Cascade)
-  paymentMethod PaymentMethod @relation(fields: [paymentMethodId], references: [id], onDelete: Restrict)
+  createdAt DateTime @default(now())
 
   @@index([transactionId])
   @@index([paymentMethodId])
-  @@index([paidAt])
   @@map("payment")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | REFRESH TOKEN
- * |--------------------------------------------------------------------------
- */
 
 model RefreshToken {
   id String @id @default(cuid())
 
-  userId   String  @map("user_id")
-  tenantId String? @map("tenant_id")
+  tokenHash String @unique
 
-  tokenHash String @map("token_hash") @db.VarChar(255)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  expiresAt DateTime  @map("expires_at")
-  revokedAt DateTime? @map("revoked_at")
+  expiresAt DateTime
+  revokedAt DateTime?
 
-  createdAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @default(now())
 
-  user   User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  tenant Tenant? @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-
-  @@unique([tokenHash])
   @@index([userId])
-  @@index([tenantId])
-  @@index([expiresAt])
-  @@index([revokedAt])
   @@map("refresh_token")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | UNIT
- * |--------------------------------------------------------------------------
- */
 
 model Unit {
   id String @id @default(uuid())
 
-  code String @unique @db.VarChar(30)
   name String @unique @db.VarChar(50)
+  code String @unique @db.VarChar(20)
 
-  isActive Boolean @default(true) @map("is_active")
+  conversionsFrom UnitConversion[] @relation("FromUnit")
+  conversionsTo   UnitConversion[] @relation("ToUnit")
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  rawMaterials    RawMaterial[]
+  purchaseItems   PurchaseItem[]
+  unitConversions RawMaterialUnitConversion[]
 
-  rawMaterials  RawMaterial[]
-  purchaseItems PurchaseItem[]
-
-  conversionsFrom UnitConversion[] @relation("conversionFrom")
-  conversionsTo   UnitConversion[] @relation("conversionTo")
-
-  rawMaterialConversionsFrom RawMaterialUnitConversion[] @relation("rawMaterialConversionFrom")
-  rawMaterialConversionsTo   RawMaterialUnitConversion[] @relation("rawMaterialConversionTo")
-
-  @@index([isActive])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
   @@map("unit")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | UNIT CONVERSION
- * |--------------------------------------------------------------------------
- */
 
 model UnitConversion {
   id String @id @default(uuid())
 
-  fromUnitId String @map("from_unit_id")
-  toUnitId   String @map("to_unit_id")
+  fromUnitId String
+  fromUnit   Unit   @relation("FromUnit", fields: [fromUnitId], references: [id])
 
-  multiplier Decimal @db.Decimal(15, 6)
+  toUnitId String
+  toUnit   Unit   @relation("ToUnit", fields: [toUnitId], references: [id])
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  // Contoh:
+  // 1 KG = 1000 GRAM
+  // factor = 1000
+  factor Decimal @db.Decimal(15, 6)
 
-  fromUnit Unit @relation("conversionFrom", fields: [fromUnitId], references: [id], onDelete: Restrict)
-
-  toUnit Unit @relation("conversionTo", fields: [toUnitId], references: [id], onDelete: Restrict)
+  createdAt DateTime @default(now())
 
   @@unique([fromUnitId, toUnitId])
-  @@index([fromUnitId])
-  @@index([toUnitId])
   @@map("unit_conversion")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | RAW MATERIAL UNIT CONVERSION
- * |--------------------------------------------------------------------------
- */
 
 model RawMaterialUnitConversion {
   id String @id @default(uuid())
 
-  rawMaterialId String @map("raw_material_id")
-  fromUnitId    String @map("from_unit_id")
-  toUnitId      String @map("to_unit_id")
+  rawMaterialId String
+  rawMaterial   RawMaterial @relation(fields: [rawMaterialId], references: [id], onDelete: Cascade)
 
-  multiplier Decimal @db.Decimal(15, 6)
+  unitId String
+  unit   Unit   @relation(fields: [unitId], references: [id])
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  factor Decimal @db.Decimal(15, 6)
 
-  rawMaterial RawMaterial @relation(fields: [rawMaterialId], references: [id], onDelete: Cascade)
-  fromUnit    Unit        @relation("rawMaterialConversionFrom", fields: [fromUnitId], references: [id], onDelete: Restrict)
-  toUnit      Unit        @relation("rawMaterialConversionTo", fields: [toUnitId], references: [id], onDelete: Restrict)
-
-  @@unique([rawMaterialId, fromUnitId, toUnitId])
-  @@index([rawMaterialId])
-  @@index([fromUnitId])
-  @@index([toUnitId])
+  @@unique([rawMaterialId, unitId])
   @@map("raw_material_unit_conversion")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | AUDIT LOG
- * |--------------------------------------------------------------------------
- */
 
 model AuditLog {
   id String @id @default(uuid())
 
-  tenantId String? @map("tenant_id")
-  userId   String? @map("user_id")
+  tenantId String?
+  tenant   Tenant? @relation(fields: [tenantId], references: [id])
+
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
 
   action AuditLogAction
+  module String         @db.VarChar(50)
 
-  module     String  @db.VarChar(50)
-  entityType String  @map("entity_type") @db.VarChar(100)
-  entityId   String? @map("entity_id")
+  entityType String  @db.VarChar(100)
+  entityId   String?
 
   description String? @db.Text
 
-  oldData Json? @map("old_data")
-  newData Json? @map("new_data")
+  oldData Json?
+  newData Json?
 
-  ipAddress String? @map("ip_address") @db.VarChar(45)
-  userAgent String? @map("user_agent") @db.Text
+  ipAddress String? @db.VarChar(45)
+  userAgent String? @db.Text
 
-  createdAt DateTime @default(now()) @map("created_at")
-
-  tenant Tenant? @relation(fields: [tenantId], references: [id], onDelete: Cascade)
-
-  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt DateTime @default(now())
 
   @@index([tenantId])
   @@index([userId])
-  @@index([tenantId, module])
-  @@index([tenantId, entityType, entityId])
-  @@index([tenantId, createdAt])
+  @@index([module])
+  @@index([entityType, entityId])
+  @@index([createdAt])
   @@map("audit_log")
 }
-
-/**
- * |--------------------------------------------------------------------------
- * | TRANSACTION SETTING
- * |--------------------------------------------------------------------------
- */
 
 model TransactionSetting {
   id String @id @default(uuid())
 
-  tenantId String @unique @map("tenant_id")
+  tenantId String @unique
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
 
-  taxEnabled Boolean @default(false) @map("tax_enabled")
-  taxRate    Decimal @default(0) @map("tax_rate") @db.Decimal(5, 2)
+  taxEnabled Boolean @default(false)
+  taxRate    Decimal @default(0) @db.Decimal(5, 2)
 
-  serviceChargeEnabled Boolean @default(false) @map("service_charge_enabled")
-  serviceChargeRate    Decimal @default(0) @map("service_charge_rate") @db.Decimal(5, 2)
+  serviceChargeEnabled Boolean @default(false)
+  serviceChargeRate    Decimal @default(0) @db.Decimal(5, 2)
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
-  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@map("transaction_setting")
 }

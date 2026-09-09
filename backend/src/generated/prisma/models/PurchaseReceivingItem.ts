@@ -28,33 +28,38 @@ export type AggregatePurchaseReceivingItem = {
 
 export type PurchaseReceivingItemAvgAggregateOutputType = {
   quantity: runtime.Decimal | null
+  baseQuantity: runtime.Decimal | null
 }
 
 export type PurchaseReceivingItemSumAggregateOutputType = {
   quantity: runtime.Decimal | null
+  baseQuantity: runtime.Decimal | null
 }
 
 export type PurchaseReceivingItemMinAggregateOutputType = {
   id: string | null
-  receivingId: string | null
+  purchaseReceivingId: string | null
   purchaseItemId: string | null
   quantity: runtime.Decimal | null
+  baseQuantity: runtime.Decimal | null
   createdAt: Date | null
 }
 
 export type PurchaseReceivingItemMaxAggregateOutputType = {
   id: string | null
-  receivingId: string | null
+  purchaseReceivingId: string | null
   purchaseItemId: string | null
   quantity: runtime.Decimal | null
+  baseQuantity: runtime.Decimal | null
   createdAt: Date | null
 }
 
 export type PurchaseReceivingItemCountAggregateOutputType = {
   id: number
-  receivingId: number
+  purchaseReceivingId: number
   purchaseItemId: number
   quantity: number
+  baseQuantity: number
   createdAt: number
   _all: number
 }
@@ -62,33 +67,38 @@ export type PurchaseReceivingItemCountAggregateOutputType = {
 
 export type PurchaseReceivingItemAvgAggregateInputType = {
   quantity?: true
+  baseQuantity?: true
 }
 
 export type PurchaseReceivingItemSumAggregateInputType = {
   quantity?: true
+  baseQuantity?: true
 }
 
 export type PurchaseReceivingItemMinAggregateInputType = {
   id?: true
-  receivingId?: true
+  purchaseReceivingId?: true
   purchaseItemId?: true
   quantity?: true
+  baseQuantity?: true
   createdAt?: true
 }
 
 export type PurchaseReceivingItemMaxAggregateInputType = {
   id?: true
-  receivingId?: true
+  purchaseReceivingId?: true
   purchaseItemId?: true
   quantity?: true
+  baseQuantity?: true
   createdAt?: true
 }
 
 export type PurchaseReceivingItemCountAggregateInputType = {
   id?: true
-  receivingId?: true
+  purchaseReceivingId?: true
   purchaseItemId?: true
   quantity?: true
+  baseQuantity?: true
   createdAt?: true
   _all?: true
 }
@@ -181,9 +191,10 @@ export type PurchaseReceivingItemGroupByArgs<ExtArgs extends runtime.Types.Exten
 
 export type PurchaseReceivingItemGroupByOutputType = {
   id: string
-  receivingId: string
+  purchaseReceivingId: string
   purchaseItemId: string
   quantity: runtime.Decimal
+  baseQuantity: runtime.Decimal
   createdAt: Date
   _count: PurchaseReceivingItemCountAggregateOutputType | null
   _avg: PurchaseReceivingItemAvgAggregateOutputType | null
@@ -212,21 +223,23 @@ export type PurchaseReceivingItemWhereInput = {
   OR?: Prisma.PurchaseReceivingItemWhereInput[]
   NOT?: Prisma.PurchaseReceivingItemWhereInput | Prisma.PurchaseReceivingItemWhereInput[]
   id?: Prisma.StringFilter<"PurchaseReceivingItem"> | string
-  receivingId?: Prisma.StringFilter<"PurchaseReceivingItem"> | string
+  purchaseReceivingId?: Prisma.StringFilter<"PurchaseReceivingItem"> | string
   purchaseItemId?: Prisma.StringFilter<"PurchaseReceivingItem"> | string
   quantity?: Prisma.DecimalFilter<"PurchaseReceivingItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity?: Prisma.DecimalFilter<"PurchaseReceivingItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"PurchaseReceivingItem"> | Date | string
-  receiving?: Prisma.XOR<Prisma.PurchaseReceivingScalarRelationFilter, Prisma.PurchaseReceivingWhereInput>
+  purchaseReceiving?: Prisma.XOR<Prisma.PurchaseReceivingScalarRelationFilter, Prisma.PurchaseReceivingWhereInput>
   purchaseItem?: Prisma.XOR<Prisma.PurchaseItemScalarRelationFilter, Prisma.PurchaseItemWhereInput>
 }
 
 export type PurchaseReceivingItemOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  receivingId?: Prisma.SortOrder
+  purchaseReceivingId?: Prisma.SortOrder
   purchaseItemId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  baseQuantity?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
-  receiving?: Prisma.PurchaseReceivingOrderByWithRelationInput
+  purchaseReceiving?: Prisma.PurchaseReceivingOrderByWithRelationInput
   purchaseItem?: Prisma.PurchaseItemOrderByWithRelationInput
   _relevance?: Prisma.PurchaseReceivingItemOrderByRelevanceInput
 }
@@ -236,19 +249,21 @@ export type PurchaseReceivingItemWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.PurchaseReceivingItemWhereInput | Prisma.PurchaseReceivingItemWhereInput[]
   OR?: Prisma.PurchaseReceivingItemWhereInput[]
   NOT?: Prisma.PurchaseReceivingItemWhereInput | Prisma.PurchaseReceivingItemWhereInput[]
-  receivingId?: Prisma.StringFilter<"PurchaseReceivingItem"> | string
+  purchaseReceivingId?: Prisma.StringFilter<"PurchaseReceivingItem"> | string
   purchaseItemId?: Prisma.StringFilter<"PurchaseReceivingItem"> | string
   quantity?: Prisma.DecimalFilter<"PurchaseReceivingItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity?: Prisma.DecimalFilter<"PurchaseReceivingItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"PurchaseReceivingItem"> | Date | string
-  receiving?: Prisma.XOR<Prisma.PurchaseReceivingScalarRelationFilter, Prisma.PurchaseReceivingWhereInput>
+  purchaseReceiving?: Prisma.XOR<Prisma.PurchaseReceivingScalarRelationFilter, Prisma.PurchaseReceivingWhereInput>
   purchaseItem?: Prisma.XOR<Prisma.PurchaseItemScalarRelationFilter, Prisma.PurchaseItemWhereInput>
 }, "id">
 
 export type PurchaseReceivingItemOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  receivingId?: Prisma.SortOrder
+  purchaseReceivingId?: Prisma.SortOrder
   purchaseItemId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  baseQuantity?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.PurchaseReceivingItemCountOrderByAggregateInput
   _avg?: Prisma.PurchaseReceivingItemAvgOrderByAggregateInput
@@ -262,63 +277,71 @@ export type PurchaseReceivingItemScalarWhereWithAggregatesInput = {
   OR?: Prisma.PurchaseReceivingItemScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PurchaseReceivingItemScalarWhereWithAggregatesInput | Prisma.PurchaseReceivingItemScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"PurchaseReceivingItem"> | string
-  receivingId?: Prisma.StringWithAggregatesFilter<"PurchaseReceivingItem"> | string
+  purchaseReceivingId?: Prisma.StringWithAggregatesFilter<"PurchaseReceivingItem"> | string
   purchaseItemId?: Prisma.StringWithAggregatesFilter<"PurchaseReceivingItem"> | string
   quantity?: Prisma.DecimalWithAggregatesFilter<"PurchaseReceivingItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity?: Prisma.DecimalWithAggregatesFilter<"PurchaseReceivingItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PurchaseReceivingItem"> | Date | string
 }
 
 export type PurchaseReceivingItemCreateInput = {
   id?: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
-  receiving: Prisma.PurchaseReceivingCreateNestedOneWithoutItemsInput
+  purchaseReceiving: Prisma.PurchaseReceivingCreateNestedOneWithoutItemsInput
   purchaseItem: Prisma.PurchaseItemCreateNestedOneWithoutReceivingItemsInput
 }
 
 export type PurchaseReceivingItemUncheckedCreateInput = {
   id?: string
-  receivingId: string
+  purchaseReceivingId: string
   purchaseItemId: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
 }
 
 export type PurchaseReceivingItemUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  receiving?: Prisma.PurchaseReceivingUpdateOneRequiredWithoutItemsNestedInput
+  purchaseReceiving?: Prisma.PurchaseReceivingUpdateOneRequiredWithoutItemsNestedInput
   purchaseItem?: Prisma.PurchaseItemUpdateOneRequiredWithoutReceivingItemsNestedInput
 }
 
 export type PurchaseReceivingItemUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  receivingId?: Prisma.StringFieldUpdateOperationsInput | string
+  purchaseReceivingId?: Prisma.StringFieldUpdateOperationsInput | string
   purchaseItemId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PurchaseReceivingItemCreateManyInput = {
   id?: string
-  receivingId: string
+  purchaseReceivingId: string
   purchaseItemId: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
 }
 
 export type PurchaseReceivingItemUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PurchaseReceivingItemUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  receivingId?: Prisma.StringFieldUpdateOperationsInput | string
+  purchaseReceivingId?: Prisma.StringFieldUpdateOperationsInput | string
   purchaseItemId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -340,34 +363,39 @@ export type PurchaseReceivingItemOrderByRelevanceInput = {
 
 export type PurchaseReceivingItemCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  receivingId?: Prisma.SortOrder
+  purchaseReceivingId?: Prisma.SortOrder
   purchaseItemId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  baseQuantity?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type PurchaseReceivingItemAvgOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
+  baseQuantity?: Prisma.SortOrder
 }
 
 export type PurchaseReceivingItemMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  receivingId?: Prisma.SortOrder
+  purchaseReceivingId?: Prisma.SortOrder
   purchaseItemId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  baseQuantity?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type PurchaseReceivingItemMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  receivingId?: Prisma.SortOrder
+  purchaseReceivingId?: Prisma.SortOrder
   purchaseItemId?: Prisma.SortOrder
   quantity?: Prisma.SortOrder
+  baseQuantity?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
 
 export type PurchaseReceivingItemSumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
+  baseQuantity?: Prisma.SortOrder
 }
 
 export type PurchaseReceivingItemCreateNestedManyWithoutPurchaseItemInput = {
@@ -412,59 +440,61 @@ export type PurchaseReceivingItemUncheckedUpdateManyWithoutPurchaseItemNestedInp
   deleteMany?: Prisma.PurchaseReceivingItemScalarWhereInput | Prisma.PurchaseReceivingItemScalarWhereInput[]
 }
 
-export type PurchaseReceivingItemCreateNestedManyWithoutReceivingInput = {
-  create?: Prisma.XOR<Prisma.PurchaseReceivingItemCreateWithoutReceivingInput, Prisma.PurchaseReceivingItemUncheckedCreateWithoutReceivingInput> | Prisma.PurchaseReceivingItemCreateWithoutReceivingInput[] | Prisma.PurchaseReceivingItemUncheckedCreateWithoutReceivingInput[]
-  connectOrCreate?: Prisma.PurchaseReceivingItemCreateOrConnectWithoutReceivingInput | Prisma.PurchaseReceivingItemCreateOrConnectWithoutReceivingInput[]
-  createMany?: Prisma.PurchaseReceivingItemCreateManyReceivingInputEnvelope
+export type PurchaseReceivingItemCreateNestedManyWithoutPurchaseReceivingInput = {
+  create?: Prisma.XOR<Prisma.PurchaseReceivingItemCreateWithoutPurchaseReceivingInput, Prisma.PurchaseReceivingItemUncheckedCreateWithoutPurchaseReceivingInput> | Prisma.PurchaseReceivingItemCreateWithoutPurchaseReceivingInput[] | Prisma.PurchaseReceivingItemUncheckedCreateWithoutPurchaseReceivingInput[]
+  connectOrCreate?: Prisma.PurchaseReceivingItemCreateOrConnectWithoutPurchaseReceivingInput | Prisma.PurchaseReceivingItemCreateOrConnectWithoutPurchaseReceivingInput[]
+  createMany?: Prisma.PurchaseReceivingItemCreateManyPurchaseReceivingInputEnvelope
   connect?: Prisma.PurchaseReceivingItemWhereUniqueInput | Prisma.PurchaseReceivingItemWhereUniqueInput[]
 }
 
-export type PurchaseReceivingItemUncheckedCreateNestedManyWithoutReceivingInput = {
-  create?: Prisma.XOR<Prisma.PurchaseReceivingItemCreateWithoutReceivingInput, Prisma.PurchaseReceivingItemUncheckedCreateWithoutReceivingInput> | Prisma.PurchaseReceivingItemCreateWithoutReceivingInput[] | Prisma.PurchaseReceivingItemUncheckedCreateWithoutReceivingInput[]
-  connectOrCreate?: Prisma.PurchaseReceivingItemCreateOrConnectWithoutReceivingInput | Prisma.PurchaseReceivingItemCreateOrConnectWithoutReceivingInput[]
-  createMany?: Prisma.PurchaseReceivingItemCreateManyReceivingInputEnvelope
+export type PurchaseReceivingItemUncheckedCreateNestedManyWithoutPurchaseReceivingInput = {
+  create?: Prisma.XOR<Prisma.PurchaseReceivingItemCreateWithoutPurchaseReceivingInput, Prisma.PurchaseReceivingItemUncheckedCreateWithoutPurchaseReceivingInput> | Prisma.PurchaseReceivingItemCreateWithoutPurchaseReceivingInput[] | Prisma.PurchaseReceivingItemUncheckedCreateWithoutPurchaseReceivingInput[]
+  connectOrCreate?: Prisma.PurchaseReceivingItemCreateOrConnectWithoutPurchaseReceivingInput | Prisma.PurchaseReceivingItemCreateOrConnectWithoutPurchaseReceivingInput[]
+  createMany?: Prisma.PurchaseReceivingItemCreateManyPurchaseReceivingInputEnvelope
   connect?: Prisma.PurchaseReceivingItemWhereUniqueInput | Prisma.PurchaseReceivingItemWhereUniqueInput[]
 }
 
-export type PurchaseReceivingItemUpdateManyWithoutReceivingNestedInput = {
-  create?: Prisma.XOR<Prisma.PurchaseReceivingItemCreateWithoutReceivingInput, Prisma.PurchaseReceivingItemUncheckedCreateWithoutReceivingInput> | Prisma.PurchaseReceivingItemCreateWithoutReceivingInput[] | Prisma.PurchaseReceivingItemUncheckedCreateWithoutReceivingInput[]
-  connectOrCreate?: Prisma.PurchaseReceivingItemCreateOrConnectWithoutReceivingInput | Prisma.PurchaseReceivingItemCreateOrConnectWithoutReceivingInput[]
-  upsert?: Prisma.PurchaseReceivingItemUpsertWithWhereUniqueWithoutReceivingInput | Prisma.PurchaseReceivingItemUpsertWithWhereUniqueWithoutReceivingInput[]
-  createMany?: Prisma.PurchaseReceivingItemCreateManyReceivingInputEnvelope
+export type PurchaseReceivingItemUpdateManyWithoutPurchaseReceivingNestedInput = {
+  create?: Prisma.XOR<Prisma.PurchaseReceivingItemCreateWithoutPurchaseReceivingInput, Prisma.PurchaseReceivingItemUncheckedCreateWithoutPurchaseReceivingInput> | Prisma.PurchaseReceivingItemCreateWithoutPurchaseReceivingInput[] | Prisma.PurchaseReceivingItemUncheckedCreateWithoutPurchaseReceivingInput[]
+  connectOrCreate?: Prisma.PurchaseReceivingItemCreateOrConnectWithoutPurchaseReceivingInput | Prisma.PurchaseReceivingItemCreateOrConnectWithoutPurchaseReceivingInput[]
+  upsert?: Prisma.PurchaseReceivingItemUpsertWithWhereUniqueWithoutPurchaseReceivingInput | Prisma.PurchaseReceivingItemUpsertWithWhereUniqueWithoutPurchaseReceivingInput[]
+  createMany?: Prisma.PurchaseReceivingItemCreateManyPurchaseReceivingInputEnvelope
   set?: Prisma.PurchaseReceivingItemWhereUniqueInput | Prisma.PurchaseReceivingItemWhereUniqueInput[]
   disconnect?: Prisma.PurchaseReceivingItemWhereUniqueInput | Prisma.PurchaseReceivingItemWhereUniqueInput[]
   delete?: Prisma.PurchaseReceivingItemWhereUniqueInput | Prisma.PurchaseReceivingItemWhereUniqueInput[]
   connect?: Prisma.PurchaseReceivingItemWhereUniqueInput | Prisma.PurchaseReceivingItemWhereUniqueInput[]
-  update?: Prisma.PurchaseReceivingItemUpdateWithWhereUniqueWithoutReceivingInput | Prisma.PurchaseReceivingItemUpdateWithWhereUniqueWithoutReceivingInput[]
-  updateMany?: Prisma.PurchaseReceivingItemUpdateManyWithWhereWithoutReceivingInput | Prisma.PurchaseReceivingItemUpdateManyWithWhereWithoutReceivingInput[]
+  update?: Prisma.PurchaseReceivingItemUpdateWithWhereUniqueWithoutPurchaseReceivingInput | Prisma.PurchaseReceivingItemUpdateWithWhereUniqueWithoutPurchaseReceivingInput[]
+  updateMany?: Prisma.PurchaseReceivingItemUpdateManyWithWhereWithoutPurchaseReceivingInput | Prisma.PurchaseReceivingItemUpdateManyWithWhereWithoutPurchaseReceivingInput[]
   deleteMany?: Prisma.PurchaseReceivingItemScalarWhereInput | Prisma.PurchaseReceivingItemScalarWhereInput[]
 }
 
-export type PurchaseReceivingItemUncheckedUpdateManyWithoutReceivingNestedInput = {
-  create?: Prisma.XOR<Prisma.PurchaseReceivingItemCreateWithoutReceivingInput, Prisma.PurchaseReceivingItemUncheckedCreateWithoutReceivingInput> | Prisma.PurchaseReceivingItemCreateWithoutReceivingInput[] | Prisma.PurchaseReceivingItemUncheckedCreateWithoutReceivingInput[]
-  connectOrCreate?: Prisma.PurchaseReceivingItemCreateOrConnectWithoutReceivingInput | Prisma.PurchaseReceivingItemCreateOrConnectWithoutReceivingInput[]
-  upsert?: Prisma.PurchaseReceivingItemUpsertWithWhereUniqueWithoutReceivingInput | Prisma.PurchaseReceivingItemUpsertWithWhereUniqueWithoutReceivingInput[]
-  createMany?: Prisma.PurchaseReceivingItemCreateManyReceivingInputEnvelope
+export type PurchaseReceivingItemUncheckedUpdateManyWithoutPurchaseReceivingNestedInput = {
+  create?: Prisma.XOR<Prisma.PurchaseReceivingItemCreateWithoutPurchaseReceivingInput, Prisma.PurchaseReceivingItemUncheckedCreateWithoutPurchaseReceivingInput> | Prisma.PurchaseReceivingItemCreateWithoutPurchaseReceivingInput[] | Prisma.PurchaseReceivingItemUncheckedCreateWithoutPurchaseReceivingInput[]
+  connectOrCreate?: Prisma.PurchaseReceivingItemCreateOrConnectWithoutPurchaseReceivingInput | Prisma.PurchaseReceivingItemCreateOrConnectWithoutPurchaseReceivingInput[]
+  upsert?: Prisma.PurchaseReceivingItemUpsertWithWhereUniqueWithoutPurchaseReceivingInput | Prisma.PurchaseReceivingItemUpsertWithWhereUniqueWithoutPurchaseReceivingInput[]
+  createMany?: Prisma.PurchaseReceivingItemCreateManyPurchaseReceivingInputEnvelope
   set?: Prisma.PurchaseReceivingItemWhereUniqueInput | Prisma.PurchaseReceivingItemWhereUniqueInput[]
   disconnect?: Prisma.PurchaseReceivingItemWhereUniqueInput | Prisma.PurchaseReceivingItemWhereUniqueInput[]
   delete?: Prisma.PurchaseReceivingItemWhereUniqueInput | Prisma.PurchaseReceivingItemWhereUniqueInput[]
   connect?: Prisma.PurchaseReceivingItemWhereUniqueInput | Prisma.PurchaseReceivingItemWhereUniqueInput[]
-  update?: Prisma.PurchaseReceivingItemUpdateWithWhereUniqueWithoutReceivingInput | Prisma.PurchaseReceivingItemUpdateWithWhereUniqueWithoutReceivingInput[]
-  updateMany?: Prisma.PurchaseReceivingItemUpdateManyWithWhereWithoutReceivingInput | Prisma.PurchaseReceivingItemUpdateManyWithWhereWithoutReceivingInput[]
+  update?: Prisma.PurchaseReceivingItemUpdateWithWhereUniqueWithoutPurchaseReceivingInput | Prisma.PurchaseReceivingItemUpdateWithWhereUniqueWithoutPurchaseReceivingInput[]
+  updateMany?: Prisma.PurchaseReceivingItemUpdateManyWithWhereWithoutPurchaseReceivingInput | Prisma.PurchaseReceivingItemUpdateManyWithWhereWithoutPurchaseReceivingInput[]
   deleteMany?: Prisma.PurchaseReceivingItemScalarWhereInput | Prisma.PurchaseReceivingItemScalarWhereInput[]
 }
 
 export type PurchaseReceivingItemCreateWithoutPurchaseItemInput = {
   id?: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
-  receiving: Prisma.PurchaseReceivingCreateNestedOneWithoutItemsInput
+  purchaseReceiving: Prisma.PurchaseReceivingCreateNestedOneWithoutItemsInput
 }
 
 export type PurchaseReceivingItemUncheckedCreateWithoutPurchaseItemInput = {
   id?: string
-  receivingId: string
+  purchaseReceivingId: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
 }
 
@@ -499,105 +529,116 @@ export type PurchaseReceivingItemScalarWhereInput = {
   OR?: Prisma.PurchaseReceivingItemScalarWhereInput[]
   NOT?: Prisma.PurchaseReceivingItemScalarWhereInput | Prisma.PurchaseReceivingItemScalarWhereInput[]
   id?: Prisma.StringFilter<"PurchaseReceivingItem"> | string
-  receivingId?: Prisma.StringFilter<"PurchaseReceivingItem"> | string
+  purchaseReceivingId?: Prisma.StringFilter<"PurchaseReceivingItem"> | string
   purchaseItemId?: Prisma.StringFilter<"PurchaseReceivingItem"> | string
   quantity?: Prisma.DecimalFilter<"PurchaseReceivingItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity?: Prisma.DecimalFilter<"PurchaseReceivingItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFilter<"PurchaseReceivingItem"> | Date | string
 }
 
-export type PurchaseReceivingItemCreateWithoutReceivingInput = {
+export type PurchaseReceivingItemCreateWithoutPurchaseReceivingInput = {
   id?: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
   purchaseItem: Prisma.PurchaseItemCreateNestedOneWithoutReceivingItemsInput
 }
 
-export type PurchaseReceivingItemUncheckedCreateWithoutReceivingInput = {
+export type PurchaseReceivingItemUncheckedCreateWithoutPurchaseReceivingInput = {
   id?: string
   purchaseItemId: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
 }
 
-export type PurchaseReceivingItemCreateOrConnectWithoutReceivingInput = {
+export type PurchaseReceivingItemCreateOrConnectWithoutPurchaseReceivingInput = {
   where: Prisma.PurchaseReceivingItemWhereUniqueInput
-  create: Prisma.XOR<Prisma.PurchaseReceivingItemCreateWithoutReceivingInput, Prisma.PurchaseReceivingItemUncheckedCreateWithoutReceivingInput>
+  create: Prisma.XOR<Prisma.PurchaseReceivingItemCreateWithoutPurchaseReceivingInput, Prisma.PurchaseReceivingItemUncheckedCreateWithoutPurchaseReceivingInput>
 }
 
-export type PurchaseReceivingItemCreateManyReceivingInputEnvelope = {
-  data: Prisma.PurchaseReceivingItemCreateManyReceivingInput | Prisma.PurchaseReceivingItemCreateManyReceivingInput[]
+export type PurchaseReceivingItemCreateManyPurchaseReceivingInputEnvelope = {
+  data: Prisma.PurchaseReceivingItemCreateManyPurchaseReceivingInput | Prisma.PurchaseReceivingItemCreateManyPurchaseReceivingInput[]
   skipDuplicates?: boolean
 }
 
-export type PurchaseReceivingItemUpsertWithWhereUniqueWithoutReceivingInput = {
+export type PurchaseReceivingItemUpsertWithWhereUniqueWithoutPurchaseReceivingInput = {
   where: Prisma.PurchaseReceivingItemWhereUniqueInput
-  update: Prisma.XOR<Prisma.PurchaseReceivingItemUpdateWithoutReceivingInput, Prisma.PurchaseReceivingItemUncheckedUpdateWithoutReceivingInput>
-  create: Prisma.XOR<Prisma.PurchaseReceivingItemCreateWithoutReceivingInput, Prisma.PurchaseReceivingItemUncheckedCreateWithoutReceivingInput>
+  update: Prisma.XOR<Prisma.PurchaseReceivingItemUpdateWithoutPurchaseReceivingInput, Prisma.PurchaseReceivingItemUncheckedUpdateWithoutPurchaseReceivingInput>
+  create: Prisma.XOR<Prisma.PurchaseReceivingItemCreateWithoutPurchaseReceivingInput, Prisma.PurchaseReceivingItemUncheckedCreateWithoutPurchaseReceivingInput>
 }
 
-export type PurchaseReceivingItemUpdateWithWhereUniqueWithoutReceivingInput = {
+export type PurchaseReceivingItemUpdateWithWhereUniqueWithoutPurchaseReceivingInput = {
   where: Prisma.PurchaseReceivingItemWhereUniqueInput
-  data: Prisma.XOR<Prisma.PurchaseReceivingItemUpdateWithoutReceivingInput, Prisma.PurchaseReceivingItemUncheckedUpdateWithoutReceivingInput>
+  data: Prisma.XOR<Prisma.PurchaseReceivingItemUpdateWithoutPurchaseReceivingInput, Prisma.PurchaseReceivingItemUncheckedUpdateWithoutPurchaseReceivingInput>
 }
 
-export type PurchaseReceivingItemUpdateManyWithWhereWithoutReceivingInput = {
+export type PurchaseReceivingItemUpdateManyWithWhereWithoutPurchaseReceivingInput = {
   where: Prisma.PurchaseReceivingItemScalarWhereInput
-  data: Prisma.XOR<Prisma.PurchaseReceivingItemUpdateManyMutationInput, Prisma.PurchaseReceivingItemUncheckedUpdateManyWithoutReceivingInput>
+  data: Prisma.XOR<Prisma.PurchaseReceivingItemUpdateManyMutationInput, Prisma.PurchaseReceivingItemUncheckedUpdateManyWithoutPurchaseReceivingInput>
 }
 
 export type PurchaseReceivingItemCreateManyPurchaseItemInput = {
   id?: string
-  receivingId: string
+  purchaseReceivingId: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
 }
 
 export type PurchaseReceivingItemUpdateWithoutPurchaseItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  receiving?: Prisma.PurchaseReceivingUpdateOneRequiredWithoutItemsNestedInput
+  purchaseReceiving?: Prisma.PurchaseReceivingUpdateOneRequiredWithoutItemsNestedInput
 }
 
 export type PurchaseReceivingItemUncheckedUpdateWithoutPurchaseItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  receivingId?: Prisma.StringFieldUpdateOperationsInput | string
+  purchaseReceivingId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PurchaseReceivingItemUncheckedUpdateManyWithoutPurchaseItemInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  receivingId?: Prisma.StringFieldUpdateOperationsInput | string
+  purchaseReceivingId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type PurchaseReceivingItemCreateManyReceivingInput = {
+export type PurchaseReceivingItemCreateManyPurchaseReceivingInput = {
   id?: string
   purchaseItemId: string
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Date | string
 }
 
-export type PurchaseReceivingItemUpdateWithoutReceivingInput = {
+export type PurchaseReceivingItemUpdateWithoutPurchaseReceivingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchaseItem?: Prisma.PurchaseItemUpdateOneRequiredWithoutReceivingItemsNestedInput
 }
 
-export type PurchaseReceivingItemUncheckedUpdateWithoutReceivingInput = {
+export type PurchaseReceivingItemUncheckedUpdateWithoutPurchaseReceivingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   purchaseItemId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type PurchaseReceivingItemUncheckedUpdateManyWithoutReceivingInput = {
+export type PurchaseReceivingItemUncheckedUpdateManyWithoutPurchaseReceivingInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   purchaseItemId?: Prisma.StringFieldUpdateOperationsInput | string
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -605,11 +646,12 @@ export type PurchaseReceivingItemUncheckedUpdateManyWithoutReceivingInput = {
 
 export type PurchaseReceivingItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  receivingId?: boolean
+  purchaseReceivingId?: boolean
   purchaseItemId?: boolean
   quantity?: boolean
+  baseQuantity?: boolean
   createdAt?: boolean
-  receiving?: boolean | Prisma.PurchaseReceivingDefaultArgs<ExtArgs>
+  purchaseReceiving?: boolean | Prisma.PurchaseReceivingDefaultArgs<ExtArgs>
   purchaseItem?: boolean | Prisma.PurchaseItemDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["purchaseReceivingItem"]>
 
@@ -617,29 +659,31 @@ export type PurchaseReceivingItemSelect<ExtArgs extends runtime.Types.Extensions
 
 export type PurchaseReceivingItemSelectScalar = {
   id?: boolean
-  receivingId?: boolean
+  purchaseReceivingId?: boolean
   purchaseItemId?: boolean
   quantity?: boolean
+  baseQuantity?: boolean
   createdAt?: boolean
 }
 
-export type PurchaseReceivingItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "receivingId" | "purchaseItemId" | "quantity" | "createdAt", ExtArgs["result"]["purchaseReceivingItem"]>
+export type PurchaseReceivingItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "purchaseReceivingId" | "purchaseItemId" | "quantity" | "baseQuantity" | "createdAt", ExtArgs["result"]["purchaseReceivingItem"]>
 export type PurchaseReceivingItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  receiving?: boolean | Prisma.PurchaseReceivingDefaultArgs<ExtArgs>
+  purchaseReceiving?: boolean | Prisma.PurchaseReceivingDefaultArgs<ExtArgs>
   purchaseItem?: boolean | Prisma.PurchaseItemDefaultArgs<ExtArgs>
 }
 
 export type $PurchaseReceivingItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PurchaseReceivingItem"
   objects: {
-    receiving: Prisma.$PurchaseReceivingPayload<ExtArgs>
+    purchaseReceiving: Prisma.$PurchaseReceivingPayload<ExtArgs>
     purchaseItem: Prisma.$PurchaseItemPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    receivingId: string
+    purchaseReceivingId: string
     purchaseItemId: string
     quantity: runtime.Decimal
+    baseQuantity: runtime.Decimal
     createdAt: Date
   }, ExtArgs["result"]["purchaseReceivingItem"]>
   composites: {}
@@ -981,7 +1025,7 @@ readonly fields: PurchaseReceivingItemFieldRefs;
  */
 export interface Prisma__PurchaseReceivingItemClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  receiving<T extends Prisma.PurchaseReceivingDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PurchaseReceivingDefaultArgs<ExtArgs>>): Prisma.Prisma__PurchaseReceivingClient<runtime.Types.Result.GetResult<Prisma.$PurchaseReceivingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  purchaseReceiving<T extends Prisma.PurchaseReceivingDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PurchaseReceivingDefaultArgs<ExtArgs>>): Prisma.Prisma__PurchaseReceivingClient<runtime.Types.Result.GetResult<Prisma.$PurchaseReceivingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   purchaseItem<T extends Prisma.PurchaseItemDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.PurchaseItemDefaultArgs<ExtArgs>>): Prisma.Prisma__PurchaseItemClient<runtime.Types.Result.GetResult<Prisma.$PurchaseItemPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1013,9 +1057,10 @@ export interface Prisma__PurchaseReceivingItemClient<T, Null = never, ExtArgs ex
  */
 export interface PurchaseReceivingItemFieldRefs {
   readonly id: Prisma.FieldRef<"PurchaseReceivingItem", 'String'>
-  readonly receivingId: Prisma.FieldRef<"PurchaseReceivingItem", 'String'>
+  readonly purchaseReceivingId: Prisma.FieldRef<"PurchaseReceivingItem", 'String'>
   readonly purchaseItemId: Prisma.FieldRef<"PurchaseReceivingItem", 'String'>
   readonly quantity: Prisma.FieldRef<"PurchaseReceivingItem", 'Decimal'>
+  readonly baseQuantity: Prisma.FieldRef<"PurchaseReceivingItem", 'Decimal'>
   readonly createdAt: Prisma.FieldRef<"PurchaseReceivingItem", 'DateTime'>
 }
     

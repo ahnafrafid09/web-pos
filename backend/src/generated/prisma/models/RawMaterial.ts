@@ -37,11 +37,11 @@ export type RawMaterialSumAggregateOutputType = {
 export type RawMaterialMinAggregateOutputType = {
   id: string | null
   tenantId: string | null
-  unitId: string | null
   name: string | null
-  code: string | null
+  sku: string | null
+  unitId: string | null
   averageCost: number | null
-  isActive: boolean | null
+  status: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -49,11 +49,11 @@ export type RawMaterialMinAggregateOutputType = {
 export type RawMaterialMaxAggregateOutputType = {
   id: string | null
   tenantId: string | null
-  unitId: string | null
   name: string | null
-  code: string | null
+  sku: string | null
+  unitId: string | null
   averageCost: number | null
-  isActive: boolean | null
+  status: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -61,11 +61,11 @@ export type RawMaterialMaxAggregateOutputType = {
 export type RawMaterialCountAggregateOutputType = {
   id: number
   tenantId: number
-  unitId: number
   name: number
-  code: number
+  sku: number
+  unitId: number
   averageCost: number
-  isActive: number
+  status: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -83,11 +83,11 @@ export type RawMaterialSumAggregateInputType = {
 export type RawMaterialMinAggregateInputType = {
   id?: true
   tenantId?: true
-  unitId?: true
   name?: true
-  code?: true
+  sku?: true
+  unitId?: true
   averageCost?: true
-  isActive?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -95,11 +95,11 @@ export type RawMaterialMinAggregateInputType = {
 export type RawMaterialMaxAggregateInputType = {
   id?: true
   tenantId?: true
-  unitId?: true
   name?: true
-  code?: true
+  sku?: true
+  unitId?: true
   averageCost?: true
-  isActive?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -107,11 +107,11 @@ export type RawMaterialMaxAggregateInputType = {
 export type RawMaterialCountAggregateInputType = {
   id?: true
   tenantId?: true
-  unitId?: true
   name?: true
-  code?: true
+  sku?: true
+  unitId?: true
   averageCost?: true
-  isActive?: true
+  status?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -206,11 +206,11 @@ export type RawMaterialGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type RawMaterialGroupByOutputType = {
   id: string
   tenantId: string
-  unitId: string
   name: string
-  code: string | null
+  sku: string | null
+  unitId: string
   averageCost: number
-  isActive: boolean
+  status: boolean
   createdAt: Date
   updatedAt: Date
   _count: RawMaterialCountAggregateOutputType | null
@@ -241,11 +241,11 @@ export type RawMaterialWhereInput = {
   NOT?: Prisma.RawMaterialWhereInput | Prisma.RawMaterialWhereInput[]
   id?: Prisma.StringFilter<"RawMaterial"> | string
   tenantId?: Prisma.StringFilter<"RawMaterial"> | string
-  unitId?: Prisma.StringFilter<"RawMaterial"> | string
   name?: Prisma.StringFilter<"RawMaterial"> | string
-  code?: Prisma.StringNullableFilter<"RawMaterial"> | string | null
+  sku?: Prisma.StringNullableFilter<"RawMaterial"> | string | null
+  unitId?: Prisma.StringFilter<"RawMaterial"> | string
   averageCost?: Prisma.IntFilter<"RawMaterial"> | number
-  isActive?: Prisma.BoolFilter<"RawMaterial"> | boolean
+  status?: Prisma.BoolFilter<"RawMaterial"> | boolean
   createdAt?: Prisma.DateTimeFilter<"RawMaterial"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RawMaterial"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -260,11 +260,11 @@ export type RawMaterialWhereInput = {
 export type RawMaterialOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  unitId?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  code?: Prisma.SortOrderInput | Prisma.SortOrder
+  sku?: Prisma.SortOrderInput | Prisma.SortOrder
+  unitId?: Prisma.SortOrder
   averageCost?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
@@ -280,16 +280,16 @@ export type RawMaterialOrderByWithRelationInput = {
 export type RawMaterialWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   tenantId_name?: Prisma.RawMaterialTenantIdNameCompoundUniqueInput
-  tenantId_code?: Prisma.RawMaterialTenantIdCodeCompoundUniqueInput
+  tenantId_sku?: Prisma.RawMaterialTenantIdSkuCompoundUniqueInput
   AND?: Prisma.RawMaterialWhereInput | Prisma.RawMaterialWhereInput[]
   OR?: Prisma.RawMaterialWhereInput[]
   NOT?: Prisma.RawMaterialWhereInput | Prisma.RawMaterialWhereInput[]
   tenantId?: Prisma.StringFilter<"RawMaterial"> | string
-  unitId?: Prisma.StringFilter<"RawMaterial"> | string
   name?: Prisma.StringFilter<"RawMaterial"> | string
-  code?: Prisma.StringNullableFilter<"RawMaterial"> | string | null
+  sku?: Prisma.StringNullableFilter<"RawMaterial"> | string | null
+  unitId?: Prisma.StringFilter<"RawMaterial"> | string
   averageCost?: Prisma.IntFilter<"RawMaterial"> | number
-  isActive?: Prisma.BoolFilter<"RawMaterial"> | boolean
+  status?: Prisma.BoolFilter<"RawMaterial"> | boolean
   createdAt?: Prisma.DateTimeFilter<"RawMaterial"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RawMaterial"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
@@ -299,16 +299,16 @@ export type RawMaterialWhereUniqueInput = Prisma.AtLeast<{
   purchaseItems?: Prisma.PurchaseItemListRelationFilter
   stockMovements?: Prisma.StockMovementListRelationFilter
   unitConversions?: Prisma.RawMaterialUnitConversionListRelationFilter
-}, "id" | "tenantId_name" | "tenantId_code">
+}, "id" | "tenantId_name" | "tenantId_sku">
 
 export type RawMaterialOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  unitId?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  code?: Prisma.SortOrderInput | Prisma.SortOrder
+  sku?: Prisma.SortOrderInput | Prisma.SortOrder
+  unitId?: Prisma.SortOrder
   averageCost?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.RawMaterialCountOrderByAggregateInput
@@ -324,11 +324,11 @@ export type RawMaterialScalarWhereWithAggregatesInput = {
   NOT?: Prisma.RawMaterialScalarWhereWithAggregatesInput | Prisma.RawMaterialScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"RawMaterial"> | string
   tenantId?: Prisma.StringWithAggregatesFilter<"RawMaterial"> | string
-  unitId?: Prisma.StringWithAggregatesFilter<"RawMaterial"> | string
   name?: Prisma.StringWithAggregatesFilter<"RawMaterial"> | string
-  code?: Prisma.StringNullableWithAggregatesFilter<"RawMaterial"> | string | null
+  sku?: Prisma.StringNullableWithAggregatesFilter<"RawMaterial"> | string | null
+  unitId?: Prisma.StringWithAggregatesFilter<"RawMaterial"> | string
   averageCost?: Prisma.IntWithAggregatesFilter<"RawMaterial"> | number
-  isActive?: Prisma.BoolWithAggregatesFilter<"RawMaterial"> | boolean
+  status?: Prisma.BoolWithAggregatesFilter<"RawMaterial"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"RawMaterial"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"RawMaterial"> | Date | string
 }
@@ -336,9 +336,9 @@ export type RawMaterialScalarWhereWithAggregatesInput = {
 export type RawMaterialCreateInput = {
   id?: string
   name: string
-  code?: string | null
+  sku?: string | null
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutRawMaterialsInput
@@ -353,11 +353,11 @@ export type RawMaterialCreateInput = {
 export type RawMaterialUncheckedCreateInput = {
   id?: string
   tenantId: string
-  unitId: string
   name: string
-  code?: string | null
+  sku?: string | null
+  unitId: string
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   stock?: Prisma.StockUncheckedCreateNestedOneWithoutRawMaterialInput
@@ -370,9 +370,9 @@ export type RawMaterialUncheckedCreateInput = {
 export type RawMaterialUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutRawMaterialsNestedInput
@@ -387,11 +387,11 @@ export type RawMaterialUpdateInput = {
 export type RawMaterialUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stock?: Prisma.StockUncheckedUpdateOneWithoutRawMaterialNestedInput
@@ -404,11 +404,11 @@ export type RawMaterialUncheckedUpdateInput = {
 export type RawMaterialCreateManyInput = {
   id?: string
   tenantId: string
-  unitId: string
   name: string
-  code?: string | null
+  sku?: string | null
+  unitId: string
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -416,9 +416,9 @@ export type RawMaterialCreateManyInput = {
 export type RawMaterialUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -426,11 +426,11 @@ export type RawMaterialUpdateManyMutationInput = {
 export type RawMaterialUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -456,19 +456,19 @@ export type RawMaterialTenantIdNameCompoundUniqueInput = {
   name: string
 }
 
-export type RawMaterialTenantIdCodeCompoundUniqueInput = {
+export type RawMaterialTenantIdSkuCompoundUniqueInput = {
   tenantId: string
-  code: string
+  sku: string
 }
 
 export type RawMaterialCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  unitId?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  code?: Prisma.SortOrder
+  sku?: Prisma.SortOrder
+  unitId?: Prisma.SortOrder
   averageCost?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -480,11 +480,11 @@ export type RawMaterialAvgOrderByAggregateInput = {
 export type RawMaterialMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  unitId?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  code?: Prisma.SortOrder
+  sku?: Prisma.SortOrder
+  unitId?: Prisma.SortOrder
   averageCost?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -492,11 +492,11 @@ export type RawMaterialMaxOrderByAggregateInput = {
 export type RawMaterialMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
-  unitId?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  code?: Prisma.SortOrder
+  sku?: Prisma.SortOrder
+  unitId?: Prisma.SortOrder
   averageCost?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
+  status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -667,9 +667,9 @@ export type RawMaterialUpdateOneRequiredWithoutUnitConversionsNestedInput = {
 export type RawMaterialCreateWithoutTenantInput = {
   id?: string
   name: string
-  code?: string | null
+  sku?: string | null
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   unit: Prisma.UnitCreateNestedOneWithoutRawMaterialsInput
@@ -682,11 +682,11 @@ export type RawMaterialCreateWithoutTenantInput = {
 
 export type RawMaterialUncheckedCreateWithoutTenantInput = {
   id?: string
-  unitId: string
   name: string
-  code?: string | null
+  sku?: string | null
+  unitId: string
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   stock?: Prisma.StockUncheckedCreateNestedOneWithoutRawMaterialInput
@@ -728,11 +728,11 @@ export type RawMaterialScalarWhereInput = {
   NOT?: Prisma.RawMaterialScalarWhereInput | Prisma.RawMaterialScalarWhereInput[]
   id?: Prisma.StringFilter<"RawMaterial"> | string
   tenantId?: Prisma.StringFilter<"RawMaterial"> | string
-  unitId?: Prisma.StringFilter<"RawMaterial"> | string
   name?: Prisma.StringFilter<"RawMaterial"> | string
-  code?: Prisma.StringNullableFilter<"RawMaterial"> | string | null
+  sku?: Prisma.StringNullableFilter<"RawMaterial"> | string | null
+  unitId?: Prisma.StringFilter<"RawMaterial"> | string
   averageCost?: Prisma.IntFilter<"RawMaterial"> | number
-  isActive?: Prisma.BoolFilter<"RawMaterial"> | boolean
+  status?: Prisma.BoolFilter<"RawMaterial"> | boolean
   createdAt?: Prisma.DateTimeFilter<"RawMaterial"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"RawMaterial"> | Date | string
 }
@@ -740,9 +740,9 @@ export type RawMaterialScalarWhereInput = {
 export type RawMaterialCreateWithoutStockInput = {
   id?: string
   name: string
-  code?: string | null
+  sku?: string | null
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutRawMaterialsInput
@@ -756,11 +756,11 @@ export type RawMaterialCreateWithoutStockInput = {
 export type RawMaterialUncheckedCreateWithoutStockInput = {
   id?: string
   tenantId: string
-  unitId: string
   name: string
-  code?: string | null
+  sku?: string | null
+  unitId: string
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   recipeItems?: Prisma.RecipeItemUncheckedCreateNestedManyWithoutRawMaterialInput
@@ -788,9 +788,9 @@ export type RawMaterialUpdateToOneWithWhereWithoutStockInput = {
 export type RawMaterialUpdateWithoutStockInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutRawMaterialsNestedInput
@@ -804,11 +804,11 @@ export type RawMaterialUpdateWithoutStockInput = {
 export type RawMaterialUncheckedUpdateWithoutStockInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   recipeItems?: Prisma.RecipeItemUncheckedUpdateManyWithoutRawMaterialNestedInput
@@ -820,9 +820,9 @@ export type RawMaterialUncheckedUpdateWithoutStockInput = {
 export type RawMaterialCreateWithoutRecipeItemsInput = {
   id?: string
   name: string
-  code?: string | null
+  sku?: string | null
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutRawMaterialsInput
@@ -836,11 +836,11 @@ export type RawMaterialCreateWithoutRecipeItemsInput = {
 export type RawMaterialUncheckedCreateWithoutRecipeItemsInput = {
   id?: string
   tenantId: string
-  unitId: string
   name: string
-  code?: string | null
+  sku?: string | null
+  unitId: string
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   stock?: Prisma.StockUncheckedCreateNestedOneWithoutRawMaterialInput
@@ -868,9 +868,9 @@ export type RawMaterialUpdateToOneWithWhereWithoutRecipeItemsInput = {
 export type RawMaterialUpdateWithoutRecipeItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutRawMaterialsNestedInput
@@ -884,11 +884,11 @@ export type RawMaterialUpdateWithoutRecipeItemsInput = {
 export type RawMaterialUncheckedUpdateWithoutRecipeItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stock?: Prisma.StockUncheckedUpdateOneWithoutRawMaterialNestedInput
@@ -900,9 +900,9 @@ export type RawMaterialUncheckedUpdateWithoutRecipeItemsInput = {
 export type RawMaterialCreateWithoutPurchaseItemsInput = {
   id?: string
   name: string
-  code?: string | null
+  sku?: string | null
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutRawMaterialsInput
@@ -916,11 +916,11 @@ export type RawMaterialCreateWithoutPurchaseItemsInput = {
 export type RawMaterialUncheckedCreateWithoutPurchaseItemsInput = {
   id?: string
   tenantId: string
-  unitId: string
   name: string
-  code?: string | null
+  sku?: string | null
+  unitId: string
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   stock?: Prisma.StockUncheckedCreateNestedOneWithoutRawMaterialInput
@@ -948,9 +948,9 @@ export type RawMaterialUpdateToOneWithWhereWithoutPurchaseItemsInput = {
 export type RawMaterialUpdateWithoutPurchaseItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutRawMaterialsNestedInput
@@ -964,11 +964,11 @@ export type RawMaterialUpdateWithoutPurchaseItemsInput = {
 export type RawMaterialUncheckedUpdateWithoutPurchaseItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stock?: Prisma.StockUncheckedUpdateOneWithoutRawMaterialNestedInput
@@ -980,9 +980,9 @@ export type RawMaterialUncheckedUpdateWithoutPurchaseItemsInput = {
 export type RawMaterialCreateWithoutStockMovementsInput = {
   id?: string
   name: string
-  code?: string | null
+  sku?: string | null
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutRawMaterialsInput
@@ -996,11 +996,11 @@ export type RawMaterialCreateWithoutStockMovementsInput = {
 export type RawMaterialUncheckedCreateWithoutStockMovementsInput = {
   id?: string
   tenantId: string
-  unitId: string
   name: string
-  code?: string | null
+  sku?: string | null
+  unitId: string
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   stock?: Prisma.StockUncheckedCreateNestedOneWithoutRawMaterialInput
@@ -1028,9 +1028,9 @@ export type RawMaterialUpdateToOneWithWhereWithoutStockMovementsInput = {
 export type RawMaterialUpdateWithoutStockMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutRawMaterialsNestedInput
@@ -1044,11 +1044,11 @@ export type RawMaterialUpdateWithoutStockMovementsInput = {
 export type RawMaterialUncheckedUpdateWithoutStockMovementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stock?: Prisma.StockUncheckedUpdateOneWithoutRawMaterialNestedInput
@@ -1060,9 +1060,9 @@ export type RawMaterialUncheckedUpdateWithoutStockMovementsInput = {
 export type RawMaterialCreateWithoutUnitInput = {
   id?: string
   name: string
-  code?: string | null
+  sku?: string | null
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutRawMaterialsInput
@@ -1077,9 +1077,9 @@ export type RawMaterialUncheckedCreateWithoutUnitInput = {
   id?: string
   tenantId: string
   name: string
-  code?: string | null
+  sku?: string | null
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   stock?: Prisma.StockUncheckedCreateNestedOneWithoutRawMaterialInput
@@ -1118,9 +1118,9 @@ export type RawMaterialUpdateManyWithWhereWithoutUnitInput = {
 export type RawMaterialCreateWithoutUnitConversionsInput = {
   id?: string
   name: string
-  code?: string | null
+  sku?: string | null
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutRawMaterialsInput
@@ -1134,11 +1134,11 @@ export type RawMaterialCreateWithoutUnitConversionsInput = {
 export type RawMaterialUncheckedCreateWithoutUnitConversionsInput = {
   id?: string
   tenantId: string
-  unitId: string
   name: string
-  code?: string | null
+  sku?: string | null
+  unitId: string
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   stock?: Prisma.StockUncheckedCreateNestedOneWithoutRawMaterialInput
@@ -1166,9 +1166,9 @@ export type RawMaterialUpdateToOneWithWhereWithoutUnitConversionsInput = {
 export type RawMaterialUpdateWithoutUnitConversionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutRawMaterialsNestedInput
@@ -1182,11 +1182,11 @@ export type RawMaterialUpdateWithoutUnitConversionsInput = {
 export type RawMaterialUncheckedUpdateWithoutUnitConversionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
-  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stock?: Prisma.StockUncheckedUpdateOneWithoutRawMaterialNestedInput
@@ -1197,11 +1197,11 @@ export type RawMaterialUncheckedUpdateWithoutUnitConversionsInput = {
 
 export type RawMaterialCreateManyTenantInput = {
   id?: string
-  unitId: string
   name: string
-  code?: string | null
+  sku?: string | null
+  unitId: string
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1209,9 +1209,9 @@ export type RawMaterialCreateManyTenantInput = {
 export type RawMaterialUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   unit?: Prisma.UnitUpdateOneRequiredWithoutRawMaterialsNestedInput
@@ -1224,11 +1224,11 @@ export type RawMaterialUpdateWithoutTenantInput = {
 
 export type RawMaterialUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stock?: Prisma.StockUncheckedUpdateOneWithoutRawMaterialNestedInput
@@ -1240,11 +1240,11 @@ export type RawMaterialUncheckedUpdateWithoutTenantInput = {
 
 export type RawMaterialUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitId?: Prisma.StringFieldUpdateOperationsInput | string
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1253,9 +1253,9 @@ export type RawMaterialCreateManyUnitInput = {
   id?: string
   tenantId: string
   name: string
-  code?: string | null
+  sku?: string | null
   averageCost?: number
-  isActive?: boolean
+  status?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1263,9 +1263,9 @@ export type RawMaterialCreateManyUnitInput = {
 export type RawMaterialUpdateWithoutUnitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutRawMaterialsNestedInput
@@ -1280,9 +1280,9 @@ export type RawMaterialUncheckedUpdateWithoutUnitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   stock?: Prisma.StockUncheckedUpdateOneWithoutRawMaterialNestedInput
@@ -1296,9 +1296,9 @@ export type RawMaterialUncheckedUpdateManyWithoutUnitInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  code?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   averageCost?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1364,11 +1364,11 @@ export type RawMaterialCountOutputTypeCountUnitConversionsArgs<ExtArgs extends r
 export type RawMaterialSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
-  unitId?: boolean
   name?: boolean
-  code?: boolean
+  sku?: boolean
+  unitId?: boolean
   averageCost?: boolean
-  isActive?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
@@ -1386,16 +1386,16 @@ export type RawMaterialSelect<ExtArgs extends runtime.Types.Extensions.InternalA
 export type RawMaterialSelectScalar = {
   id?: boolean
   tenantId?: boolean
-  unitId?: boolean
   name?: boolean
-  code?: boolean
+  sku?: boolean
+  unitId?: boolean
   averageCost?: boolean
-  isActive?: boolean
+  status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type RawMaterialOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "unitId" | "name" | "code" | "averageCost" | "isActive" | "createdAt" | "updatedAt", ExtArgs["result"]["rawMaterial"]>
+export type RawMaterialOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "sku" | "unitId" | "averageCost" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["rawMaterial"]>
 export type RawMaterialInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   unit?: boolean | Prisma.UnitDefaultArgs<ExtArgs>
@@ -1421,11 +1421,11 @@ export type $RawMaterialPayload<ExtArgs extends runtime.Types.Extensions.Interna
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     tenantId: string
-    unitId: string
     name: string
-    code: string | null
+    sku: string | null
+    unitId: string
     averageCost: number
-    isActive: boolean
+    status: boolean
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["rawMaterial"]>
@@ -1806,11 +1806,11 @@ export interface Prisma__RawMaterialClient<T, Null = never, ExtArgs extends runt
 export interface RawMaterialFieldRefs {
   readonly id: Prisma.FieldRef<"RawMaterial", 'String'>
   readonly tenantId: Prisma.FieldRef<"RawMaterial", 'String'>
-  readonly unitId: Prisma.FieldRef<"RawMaterial", 'String'>
   readonly name: Prisma.FieldRef<"RawMaterial", 'String'>
-  readonly code: Prisma.FieldRef<"RawMaterial", 'String'>
+  readonly sku: Prisma.FieldRef<"RawMaterial", 'String'>
+  readonly unitId: Prisma.FieldRef<"RawMaterial", 'String'>
   readonly averageCost: Prisma.FieldRef<"RawMaterial", 'Int'>
-  readonly isActive: Prisma.FieldRef<"RawMaterial", 'Boolean'>
+  readonly status: Prisma.FieldRef<"RawMaterial", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"RawMaterial", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"RawMaterial", 'DateTime'>
 }
