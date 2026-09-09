@@ -3,6 +3,19 @@ import * as fs from 'fs/promises';
 import * as path from 'path';
 import { randomUUID } from 'crypto';
 const sharp = require('sharp');
+
+export interface UploadedFile {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  size: number;
+  destination?: string;
+  filename?: string;
+  path?: string;
+  buffer: Buffer | string;
+}
+
 @Injectable()
 export class StorageService {
   private readonly storagePath = path.resolve(process.cwd(), '..', 'storage');
@@ -13,7 +26,7 @@ export class StorageService {
     process.env.STORAGE_URL || 'http://localhost:8000/storage';
 
   async saveProductImage(
-    file: Express.Multer.File,
+    file: UploadedFile,
     options: {
       tenantId: string;
       productId: string;
@@ -50,17 +63,11 @@ export class StorageService {
 
     return {
       fileName,
-
       filePath: relativePath,
-
       imageUrl: `${this.baseUrl}/${relativePath}`,
-
       mimeType: 'image/webp',
-
       size: result.size,
-
       width: result.width,
-
       height: result.height,
     };
   }
@@ -77,7 +84,7 @@ export class StorageService {
     }
   }
 
-  private validateImage(file: Express.Multer.File) {
+  private validateImage(file: UploadedFile) {
     if (!file) {
       throw new BadRequestException('Gambar wajib diupload');
     }

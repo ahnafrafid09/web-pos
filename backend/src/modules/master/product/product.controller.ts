@@ -30,6 +30,7 @@ import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interf
 import { ProductQueryDto } from './dto/product-query.dto';
 import { UpdateProductStatusDto } from './dto/update-product-status.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { UploadedFile as StorageUploadedFile } from 'src/storage/storage.service';
 
 @ApiTags('Master Data / Product')
 @ApiBearerAuth()
@@ -85,7 +86,7 @@ export class ProductController {
   async create(
     @CurrentUser() user: AuthenticatedUser,
     @Body() dto: CreateProductDto,
-    @UploadedFile() image?: Express.Multer.File,
+    @UploadedFile() image?: StorageUploadedFile,
   ) {
     return this.productService.create(user, dto, image);
   }
@@ -179,7 +180,7 @@ export class ProductController {
     @CurrentUser() user: AuthenticatedUser,
     @Param('id') id: string,
     @Body() dto: UpdateProductDto,
-    @UploadedFile() image?: Express.Multer.File,
+    @UploadedFile() image?: StorageUploadedFile,
   ) {
     return this.productService.update(user, id, dto, image);
   }

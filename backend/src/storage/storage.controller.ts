@@ -6,7 +6,10 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 
-import { StorageService } from './storage.service';
+import {
+  StorageService,
+  UploadedFile as StorageUploadedFile,
+} from './storage.service';
 
 @Controller('storage')
 export class StorageController {
@@ -14,7 +17,7 @@ export class StorageController {
 
   @Post('test')
   @UseInterceptors(FileInterceptor('image'))
-  async test(@UploadedFile() file: Express.Multer.File) {
+  async test(@UploadedFile() file: StorageUploadedFile) {
     return this.storageService.saveProductImage(file, {
       tenantId: 'test-tenant',
       productId: 'test-product',

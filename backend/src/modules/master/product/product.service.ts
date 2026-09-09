@@ -13,7 +13,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 import { UpdateProductStatusDto } from './dto/update-product-status.dto';
 import { getTenantId } from 'src/common/utils/tenant.util';
 import { AuditLogService } from 'src/audit-log/audit-log.service';
-import { StorageService } from 'src/storage/storage.service';
+import { StorageService, UploadedFile } from 'src/storage/storage.service';
 
 @Injectable()
 export class ProductService {
@@ -25,7 +25,7 @@ export class ProductService {
   async create(
     currentUser: AuthenticatedUser,
     dto: CreateProductDto,
-    image?: Express.Multer.File,
+    image?: UploadedFile,
   ) {
     const tenantId = getTenantId(currentUser);
 
@@ -216,7 +216,7 @@ export class ProductService {
     currentUser: AuthenticatedUser,
     id: string,
     dto: UpdateProductDto,
-    image?: Express.Multer.File,
+    image?: UploadedFile,
   ) {
     const tenantId = getTenantId(currentUser);
 
