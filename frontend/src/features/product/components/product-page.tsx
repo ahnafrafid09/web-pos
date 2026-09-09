@@ -17,6 +17,8 @@ import { DataTable } from "@/components/data-table/data-table";
 import { productColumns } from "./product-columns";
 import { DataTableToolbar } from "@/components/data-table/data-table-toolbar";
 import { categoryService } from "@/features/category/services/category.service";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/features/auth/provider/auth-provider";
 
 const productType = [
   {
@@ -70,8 +72,11 @@ export function ProductPage() {
   const [categoryId, setCategoryId] = useState("");
   const [status, setStatus] = useState<boolean | undefined>(undefined);
   const [categories, setCategories] = useState<Category[]>([]);
+  const { user } = useAuth();
 
   const debouncedSearch = useDebounce(search, 500);
+
+  const router = useRouter();
 
   useEffect(() => {
     setPagination((p) => ({ ...p, pageIndex: 0 }));
@@ -206,7 +211,14 @@ export function ProductPage() {
       )}
 
       <DataTable
-        columns={productColumns(setEditingProduct, handleUpdateStatus)}
+        columns={productColumns(
+          setEditingProduct,
+          handleUpdateStatus,
+          (product) => {
+            router.push(`/dashboard/products/${product.id}/recipe`);
+          },
+          user,
+        )}
         data={result?.data ?? []}
         loading={loading}
         pagination={pagination}

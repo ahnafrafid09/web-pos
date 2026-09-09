@@ -1,17 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import Link from "next/link";
+
+import { BarChart3, LockKeyhole, Store } from "lucide-react";
 
 import { DashboardHeader } from "./dashboard-header";
 import { DashboardSidebar } from "./dashboard-sidebar";
 
-import { authService } from "@/features/auth/services/auth.services";
-import type { MeResponse } from "@/features/auth/types/auth.types";
-import { authStorage } from "@/features/auth/lib/auth-storage";
+import { useAuth } from "@/features/auth/provider/auth-provider";
 
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BarChart3, LockKeyhole, LogIn, Store } from "lucide-react";
-import Link from "next/link";
 
 interface DashboardLayoutProps {
   children: React.ReactNode;
@@ -36,53 +35,21 @@ function DashboardPreviewCard({
 }
 
 export function DashboardLayout({ children }: DashboardLayoutProps) {
-  const [user, setUser] = useState<MeResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-
+  const { user, loading, loggingOut, isAuthenticated } = useAuth();
+  console.log(isAuthenticated);
   const [collapsed, setCollapsed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const token = authStorage.getAccessToken();
-
-        // Belum login → jangan redirect
-        // Dashboard tetap ditampilkan sebagai guest
-        if (!token) {
-          return;
-        }
-
-        const response = await authService.me();
-
-        setUser(response);
-      } catch (error) {
-        console.error("Gagal mengambil data user", error);
-
-        // Token mungkin invalid / expired
-        authStorage.clear();
-
-        // Jangan redirect langsung
-        setUser(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadUser();
-  }, []);
-
-  if (loading) {
+  if (loading || loggingOut) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-muted/30">
         <div className="border bg-background px-6 py-4 text-sm text-muted-foreground shadow-sm">
-          Memuat dashboard...
+          {loggingOut ? "Keluar dari akun..." : "Memuat dashboard..."}
         </div>
       </div>
     );
   }
 
-  // BELUM LOGIN
   if (!user) {
     return (
       <div className="relative flex min-h-screen overflow-hidden bg-background">
@@ -90,6 +57,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--border)_1px,transparent_1px),linear-gradient(to_bottom,var(--border)_1px,transparent_1px)] bg-[size:48px_48px] opacity-40" />
 
         <div className="absolute -right-40 -top-40 h-[500px] w-[500px] border-[80px] border-primary/10" />
+
         <div className="absolute -bottom-48 -left-48 h-[500px] w-[500px] border-[80px] border-primary/5" />
 
         <main className="relative z-10 mx-auto flex min-h-screen w-full max-w-6xl items-center px-6 py-10 lg:px-10">
@@ -103,6 +71,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
                 <div>
                   <p className="text-lg font-bold leading-none">WartegPOS</p>
+
                   <p className="mt-1 text-xs text-muted-foreground">
                     Point of Sale System
                   </p>
@@ -144,6 +113,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               <div className="flex items-center justify-between border-b px-6 py-5">
                 <div>
                   <p className="font-semibold">Dashboard Usaha</p>
+
                   <p className="mt-1 text-sm text-muted-foreground">
                     Masuk untuk melihat data Anda
                   </p>
@@ -172,6 +142,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-semibold">Ringkasan Penjualan</p>
+
                       <p className="mt-1 text-sm text-muted-foreground">
                         Data tersedia setelah Anda masuk
                       </p>
@@ -186,7 +157,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                       <div
                         key={index}
                         className="flex-1 bg-primary/10"
-                        style={{ height: `${height}%` }}
+                        style={{
+                          height: `${height}%`,
+                        }}
                       />
                     ))}
                   </div>
@@ -202,6 +175,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                       <p className="text-sm font-semibold">
                         Dashboard siap digunakan
                       </p>
+
                       <p className="text-xs text-muted-foreground">
                         Masuk ke akun Anda untuk mulai mengelola usaha.
                       </p>
@@ -215,8 +189,13 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       </div>
     );
   }
+
+  // =========================================================
+  // SUDAH LOGIN
+  // =========================================================
+
   return (
-    <div className="min-h-screen bg-muted/30">
+    <div className="flex min-h-screen flex-col bg-muted/30">
       <DashboardSidebar
         user={user}
         collapsed={collapsed}
@@ -226,7 +205,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       />
 
       <div
-        className={`min-h-screen transition-all duration-300 ${
+        className={`flex-1 transition-all duration-300 ${
           collapsed ? "lg:pl-[72px]" : "lg:pl-64"
         }`}
       >

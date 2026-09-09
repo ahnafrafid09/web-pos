@@ -1,5 +1,18 @@
 export type UserRole = "SUPER_ADMIN" | "OWNER" | "ADMIN" | "CASHIER";
 
+export type ModuleCode =
+  | "SALES"
+  | "INVENTORY"
+  | "PURCHASE"
+  | "RECIPE"
+  | "REPORTING";
+
+export type TenantModuleStatus =
+  | "ACTIVE"
+  | "INACTIVE"
+  | "EXPIRED"
+  | "SUSPENDED";
+
 export interface Tenant {
   id: string;
   name: string;
@@ -39,7 +52,16 @@ export interface LoginResponse {
   refresh_token: string;
   user: User;
 }
+
+export interface MeModule {
+  code: ModuleCode;
+  status: TenantModuleStatus;
+  startedAt: string | null;
+  expiredAt: string | null;
+}
+
 export interface MeResponse {
   tenant: Tenant | null;
   user: User;
+  modules: MeModule[];
 }

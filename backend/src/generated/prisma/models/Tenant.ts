@@ -200,6 +200,8 @@ export type TenantWhereInput = {
   stockMovements?: Prisma.StockMovementListRelationFilter
   suppliers?: Prisma.SupplierListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
+  modules?: Prisma.TenantModuleListRelationFilter
+  transactionSetting?: Prisma.XOR<Prisma.TransactionSettingNullableScalarRelationFilter, Prisma.TransactionSettingWhereInput> | null
 }
 
 export type TenantOrderByWithRelationInput = {
@@ -219,6 +221,8 @@ export type TenantOrderByWithRelationInput = {
   stockMovements?: Prisma.StockMovementOrderByRelationAggregateInput
   suppliers?: Prisma.SupplierOrderByRelationAggregateInput
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
+  modules?: Prisma.TenantModuleOrderByRelationAggregateInput
+  transactionSetting?: Prisma.TransactionSettingOrderByWithRelationInput
   _relevance?: Prisma.TenantOrderByRelevanceInput
 }
 
@@ -242,6 +246,8 @@ export type TenantWhereUniqueInput = Prisma.AtLeast<{
   stockMovements?: Prisma.StockMovementListRelationFilter
   suppliers?: Prisma.SupplierListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
+  modules?: Prisma.TenantModuleListRelationFilter
+  transactionSetting?: Prisma.XOR<Prisma.TransactionSettingNullableScalarRelationFilter, Prisma.TransactionSettingWhereInput> | null
 }, "id" | "slug">
 
 export type TenantOrderByWithAggregationInput = {
@@ -285,6 +291,8 @@ export type TenantCreateInput = {
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateInput = {
@@ -304,6 +312,8 @@ export type TenantUncheckedCreateInput = {
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUpdateInput = {
@@ -323,6 +333,8 @@ export type TenantUpdateInput = {
   stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateInput = {
@@ -342,6 +354,8 @@ export type TenantUncheckedUpdateInput = {
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateManyInput = {
@@ -404,14 +418,14 @@ export type TenantMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type TenantNullableScalarRelationFilter = {
-  is?: Prisma.TenantWhereInput | null
-  isNot?: Prisma.TenantWhereInput | null
-}
-
 export type TenantScalarRelationFilter = {
   is?: Prisma.TenantWhereInput
   isNot?: Prisma.TenantWhereInput
+}
+
+export type TenantNullableScalarRelationFilter = {
+  is?: Prisma.TenantWhereInput | null
+  isNot?: Prisma.TenantWhereInput | null
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -424,6 +438,20 @@ export type BoolFieldUpdateOperationsInput = {
 
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
+}
+
+export type TenantCreateNestedOneWithoutModulesInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutModulesInput, Prisma.TenantUncheckedCreateWithoutModulesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutModulesInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutModulesNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutModulesInput, Prisma.TenantUncheckedCreateWithoutModulesInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutModulesInput
+  upsert?: Prisma.TenantUpsertWithoutModulesInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutModulesInput, Prisma.TenantUpdateWithoutModulesInput>, Prisma.TenantUncheckedUpdateWithoutModulesInput>
 }
 
 export type TenantCreateNestedOneWithoutUsersInput = {
@@ -570,6 +598,116 @@ export type TenantUpdateOneWithoutAuditLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutAuditLogsInput, Prisma.TenantUpdateWithoutAuditLogsInput>, Prisma.TenantUncheckedUpdateWithoutAuditLogsInput>
 }
 
+export type TenantCreateNestedOneWithoutTransactionSettingInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutTransactionSettingInput, Prisma.TenantUncheckedCreateWithoutTransactionSettingInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutTransactionSettingInput
+  connect?: Prisma.TenantWhereUniqueInput
+}
+
+export type TenantUpdateOneRequiredWithoutTransactionSettingNestedInput = {
+  create?: Prisma.XOR<Prisma.TenantCreateWithoutTransactionSettingInput, Prisma.TenantUncheckedCreateWithoutTransactionSettingInput>
+  connectOrCreate?: Prisma.TenantCreateOrConnectWithoutTransactionSettingInput
+  upsert?: Prisma.TenantUpsertWithoutTransactionSettingInput
+  connect?: Prisma.TenantWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.TenantUpdateToOneWithWhereWithoutTransactionSettingInput, Prisma.TenantUpdateWithoutTransactionSettingInput>, Prisma.TenantUncheckedUpdateWithoutTransactionSettingInput>
+}
+
+export type TenantCreateWithoutModulesInput = {
+  id?: string
+  name: string
+  slug: string
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutModulesInput = {
+  id?: string
+  name: string
+  slug: string
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutModulesInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutModulesInput, Prisma.TenantUncheckedCreateWithoutModulesInput>
+}
+
+export type TenantUpsertWithoutModulesInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutModulesInput, Prisma.TenantUncheckedUpdateWithoutModulesInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutModulesInput, Prisma.TenantUncheckedCreateWithoutModulesInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutModulesInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutModulesInput, Prisma.TenantUncheckedUpdateWithoutModulesInput>
+}
+
+export type TenantUpdateWithoutModulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  rawMaterials?: Prisma.RawMaterialUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutModulesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
+}
+
 export type TenantCreateWithoutUsersInput = {
   id?: string
   name: string
@@ -586,6 +724,8 @@ export type TenantCreateWithoutUsersInput = {
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutUsersInput = {
@@ -604,6 +744,8 @@ export type TenantUncheckedCreateWithoutUsersInput = {
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutUsersInput = {
@@ -638,6 +780,8 @@ export type TenantUpdateWithoutUsersInput = {
   stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutUsersInput = {
@@ -656,6 +800,8 @@ export type TenantUncheckedUpdateWithoutUsersInput = {
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutCategoriesInput = {
@@ -674,6 +820,8 @@ export type TenantCreateWithoutCategoriesInput = {
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutCategoriesInput = {
@@ -692,6 +840,8 @@ export type TenantUncheckedCreateWithoutCategoriesInput = {
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutCategoriesInput = {
@@ -726,6 +876,8 @@ export type TenantUpdateWithoutCategoriesInput = {
   stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutCategoriesInput = {
@@ -744,6 +896,8 @@ export type TenantUncheckedUpdateWithoutCategoriesInput = {
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutProductsInput = {
@@ -762,6 +916,8 @@ export type TenantCreateWithoutProductsInput = {
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutProductsInput = {
@@ -780,6 +936,8 @@ export type TenantUncheckedCreateWithoutProductsInput = {
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutProductsInput = {
@@ -814,6 +972,8 @@ export type TenantUpdateWithoutProductsInput = {
   stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutProductsInput = {
@@ -832,6 +992,8 @@ export type TenantUncheckedUpdateWithoutProductsInput = {
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutRawMaterialsInput = {
@@ -850,6 +1012,8 @@ export type TenantCreateWithoutRawMaterialsInput = {
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutRawMaterialsInput = {
@@ -868,6 +1032,8 @@ export type TenantUncheckedCreateWithoutRawMaterialsInput = {
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutRawMaterialsInput = {
@@ -902,6 +1068,8 @@ export type TenantUpdateWithoutRawMaterialsInput = {
   stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutRawMaterialsInput = {
@@ -920,6 +1088,8 @@ export type TenantUncheckedUpdateWithoutRawMaterialsInput = {
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutSuppliersInput = {
@@ -938,6 +1108,8 @@ export type TenantCreateWithoutSuppliersInput = {
   transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutSuppliersInput = {
@@ -956,6 +1128,8 @@ export type TenantUncheckedCreateWithoutSuppliersInput = {
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutSuppliersInput = {
@@ -990,6 +1164,8 @@ export type TenantUpdateWithoutSuppliersInput = {
   transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutSuppliersInput = {
@@ -1008,6 +1184,8 @@ export type TenantUncheckedUpdateWithoutSuppliersInput = {
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPurchasesInput = {
@@ -1026,6 +1204,8 @@ export type TenantCreateWithoutPurchasesInput = {
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPurchasesInput = {
@@ -1044,6 +1224,8 @@ export type TenantUncheckedCreateWithoutPurchasesInput = {
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPurchasesInput = {
@@ -1078,6 +1260,8 @@ export type TenantUpdateWithoutPurchasesInput = {
   stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPurchasesInput = {
@@ -1096,6 +1280,8 @@ export type TenantUncheckedUpdateWithoutPurchasesInput = {
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutStockMovementsInput = {
@@ -1114,6 +1300,8 @@ export type TenantCreateWithoutStockMovementsInput = {
   transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutStockMovementsInput = {
@@ -1132,6 +1320,8 @@ export type TenantUncheckedCreateWithoutStockMovementsInput = {
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutStockMovementsInput = {
@@ -1166,6 +1356,8 @@ export type TenantUpdateWithoutStockMovementsInput = {
   transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutStockMovementsInput = {
@@ -1184,6 +1376,8 @@ export type TenantUncheckedUpdateWithoutStockMovementsInput = {
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutTransactionsInput = {
@@ -1202,6 +1396,8 @@ export type TenantCreateWithoutTransactionsInput = {
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutTransactionsInput = {
@@ -1220,6 +1416,8 @@ export type TenantUncheckedCreateWithoutTransactionsInput = {
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutTransactionsInput = {
@@ -1254,6 +1452,8 @@ export type TenantUpdateWithoutTransactionsInput = {
   stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutTransactionsInput = {
@@ -1272,6 +1472,8 @@ export type TenantUncheckedUpdateWithoutTransactionsInput = {
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutPaymentMethodsInput = {
@@ -1290,6 +1492,8 @@ export type TenantCreateWithoutPaymentMethodsInput = {
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutPaymentMethodsInput = {
@@ -1308,6 +1512,8 @@ export type TenantUncheckedCreateWithoutPaymentMethodsInput = {
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutPaymentMethodsInput = {
@@ -1342,6 +1548,8 @@ export type TenantUpdateWithoutPaymentMethodsInput = {
   stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutPaymentMethodsInput = {
@@ -1360,6 +1568,8 @@ export type TenantUncheckedUpdateWithoutPaymentMethodsInput = {
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantCreateWithoutAuditLogsInput = {
@@ -1378,6 +1588,8 @@ export type TenantCreateWithoutAuditLogsInput = {
   transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingCreateNestedOneWithoutTenantInput
 }
 
 export type TenantUncheckedCreateWithoutAuditLogsInput = {
@@ -1396,6 +1608,8 @@ export type TenantUncheckedCreateWithoutAuditLogsInput = {
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
   suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedCreateNestedOneWithoutTenantInput
 }
 
 export type TenantCreateOrConnectWithoutAuditLogsInput = {
@@ -1430,6 +1644,8 @@ export type TenantUpdateWithoutAuditLogsInput = {
   transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUpdateOneWithoutTenantNestedInput
 }
 
 export type TenantUncheckedUpdateWithoutAuditLogsInput = {
@@ -1448,6 +1664,104 @@ export type TenantUncheckedUpdateWithoutAuditLogsInput = {
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
   suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
+  transactionSetting?: Prisma.TransactionSettingUncheckedUpdateOneWithoutTenantNestedInput
+}
+
+export type TenantCreateWithoutTransactionSettingInput = {
+  id?: string
+  name: string
+  slug: string
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductCreateNestedManyWithoutTenantInput
+  rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleCreateNestedManyWithoutTenantInput
+}
+
+export type TenantUncheckedCreateWithoutTransactionSettingInput = {
+  id?: string
+  name: string
+  slug: string
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutTenantInput
+  categories?: Prisma.CategoryUncheckedCreateNestedManyWithoutTenantInput
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutTenantInput
+  rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutTenantInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutTenantInput
+  purchases?: Prisma.PurchaseUncheckedCreateNestedManyWithoutTenantInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutTenantInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutTenantInput
+  suppliers?: Prisma.SupplierUncheckedCreateNestedManyWithoutTenantInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutTenantInput
+  modules?: Prisma.TenantModuleUncheckedCreateNestedManyWithoutTenantInput
+}
+
+export type TenantCreateOrConnectWithoutTransactionSettingInput = {
+  where: Prisma.TenantWhereUniqueInput
+  create: Prisma.XOR<Prisma.TenantCreateWithoutTransactionSettingInput, Prisma.TenantUncheckedCreateWithoutTransactionSettingInput>
+}
+
+export type TenantUpsertWithoutTransactionSettingInput = {
+  update: Prisma.XOR<Prisma.TenantUpdateWithoutTransactionSettingInput, Prisma.TenantUncheckedUpdateWithoutTransactionSettingInput>
+  create: Prisma.XOR<Prisma.TenantCreateWithoutTransactionSettingInput, Prisma.TenantUncheckedCreateWithoutTransactionSettingInput>
+  where?: Prisma.TenantWhereInput
+}
+
+export type TenantUpdateToOneWithWhereWithoutTransactionSettingInput = {
+  where?: Prisma.TenantWhereInput
+  data: Prisma.XOR<Prisma.TenantUpdateWithoutTransactionSettingInput, Prisma.TenantUncheckedUpdateWithoutTransactionSettingInput>
+}
+
+export type TenantUpdateWithoutTransactionSettingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUpdateManyWithoutTenantNestedInput
+  rawMaterials?: Prisma.RawMaterialUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUpdateManyWithoutTenantNestedInput
+}
+
+export type TenantUncheckedUpdateWithoutTransactionSettingInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutTenantNestedInput
+  categories?: Prisma.CategoryUncheckedUpdateManyWithoutTenantNestedInput
+  products?: Prisma.ProductUncheckedUpdateManyWithoutTenantNestedInput
+  rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutTenantNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutTenantNestedInput
+  purchases?: Prisma.PurchaseUncheckedUpdateManyWithoutTenantNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutTenantNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutTenantNestedInput
+  suppliers?: Prisma.SupplierUncheckedUpdateManyWithoutTenantNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutTenantNestedInput
+  modules?: Prisma.TenantModuleUncheckedUpdateManyWithoutTenantNestedInput
 }
 
 
@@ -1466,6 +1780,7 @@ export type TenantCountOutputType = {
   stockMovements: number
   suppliers: number
   auditLogs: number
+  modules: number
 }
 
 export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1479,6 +1794,7 @@ export type TenantCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   stockMovements?: boolean | TenantCountOutputTypeCountStockMovementsArgs
   suppliers?: boolean | TenantCountOutputTypeCountSuppliersArgs
   auditLogs?: boolean | TenantCountOutputTypeCountAuditLogsArgs
+  modules?: boolean | TenantCountOutputTypeCountModulesArgs
 }
 
 /**
@@ -1561,6 +1877,13 @@ export type TenantCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Type
   where?: Prisma.AuditLogWhereInput
 }
 
+/**
+ * TenantCountOutputType without action
+ */
+export type TenantCountOutputTypeCountModulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TenantModuleWhereInput
+}
+
 
 export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1579,6 +1902,8 @@ export type TenantSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   stockMovements?: boolean | Prisma.Tenant$stockMovementsArgs<ExtArgs>
   suppliers?: boolean | Prisma.Tenant$suppliersArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Tenant$auditLogsArgs<ExtArgs>
+  modules?: boolean | Prisma.Tenant$modulesArgs<ExtArgs>
+  transactionSetting?: boolean | Prisma.Tenant$transactionSettingArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["tenant"]>
 
@@ -1605,6 +1930,8 @@ export type TenantInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   stockMovements?: boolean | Prisma.Tenant$stockMovementsArgs<ExtArgs>
   suppliers?: boolean | Prisma.Tenant$suppliersArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Tenant$auditLogsArgs<ExtArgs>
+  modules?: boolean | Prisma.Tenant$modulesArgs<ExtArgs>
+  transactionSetting?: boolean | Prisma.Tenant$transactionSettingArgs<ExtArgs>
   _count?: boolean | Prisma.TenantCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -1621,6 +1948,8 @@ export type $TenantPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     stockMovements: Prisma.$StockMovementPayload<ExtArgs>[]
     suppliers: Prisma.$SupplierPayload<ExtArgs>[]
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+    modules: Prisma.$TenantModulePayload<ExtArgs>[]
+    transactionSetting: Prisma.$TransactionSettingPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1979,6 +2308,8 @@ export interface Prisma__TenantClient<T, Null = never, ExtArgs extends runtime.T
   stockMovements<T extends Prisma.Tenant$stockMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$stockMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StockMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   suppliers<T extends Prisma.Tenant$suppliersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$suppliersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SupplierPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditLogs<T extends Prisma.Tenant$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  modules<T extends Prisma.Tenant$modulesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$modulesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TenantModulePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  transactionSetting<T extends Prisma.Tenant$transactionSettingArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Tenant$transactionSettingArgs<ExtArgs>>): Prisma.Prisma__TransactionSettingClient<runtime.Types.Result.GetResult<Prisma.$TransactionSettingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2599,6 +2930,49 @@ export type Tenant$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
+}
+
+/**
+ * Tenant.modules
+ */
+export type Tenant$modulesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TenantModule
+   */
+  select?: Prisma.TenantModuleSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TenantModule
+   */
+  omit?: Prisma.TenantModuleOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TenantModuleInclude<ExtArgs> | null
+  where?: Prisma.TenantModuleWhereInput
+  orderBy?: Prisma.TenantModuleOrderByWithRelationInput | Prisma.TenantModuleOrderByWithRelationInput[]
+  cursor?: Prisma.TenantModuleWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TenantModuleScalarFieldEnum | Prisma.TenantModuleScalarFieldEnum[]
+}
+
+/**
+ * Tenant.transactionSetting
+ */
+export type Tenant$transactionSettingArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the TransactionSetting
+   */
+  select?: Prisma.TransactionSettingSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the TransactionSetting
+   */
+  omit?: Prisma.TransactionSettingOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TransactionSettingInclude<ExtArgs> | null
+  where?: Prisma.TransactionSettingWhereInput
 }
 
 /**

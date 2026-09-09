@@ -69,17 +69,9 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.22 0.025 40);
 
-  /*
-    PRIMARY
-    Orange hangat untuk identitas POS makanan
-  */
   --primary: oklch(0.68 0.19 45);
   --primary-foreground: oklch(1 0 0);
 
-  /*
-    SECONDARY
-    Cream / orange sangat muda
-  */
   --secondary: oklch(0.95 0.035 75);
   --secondary-foreground: oklch(0.32 0.055 45);
 

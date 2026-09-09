@@ -21,17 +21,25 @@ export function DataTableToolbar({
   className,
 }: DataTableToolbarProps) {
   return (
-    <div className={`flex flex-wrap items-center gap-2 ${className ?? ""}`}>
+    <div
+      className={`flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-between ${className ?? ""}`}
+    >
       {search && (
-        <Input
-          value={search.value}
-          onChange={(event) => search.onChange(event.target.value)}
-          placeholder={search.placeholder ?? "Cari..."}
-          className="max-w-sm"
-        />
+        <div className="w-full sm:max-w-sm sm:flex-1">
+          <Input
+            value={search.value}
+            onChange={(event) => search.onChange(event.target.value)}
+            placeholder={search.placeholder ?? "Cari..."}
+            className="w-full"
+          />
+        </div>
       )}
 
-      {filters}
+      {filters && (
+        <div className="grid w-full grid-cols-1 gap-2 sm:flex sm:w-auto sm:flex-wrap">
+          {filters}
+        </div>
+      )}
     </div>
   );
 }

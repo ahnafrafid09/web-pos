@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -19,6 +19,7 @@ import { formatRupiahInput, parseRupiah } from "@/lib/utils/currency";
 interface ProductFormProps {
   categories: Category[];
   defaultValues?: Partial<ProductFormValues>;
+  imageUrl?: string | null;
   onSubmit: (data: ProductFormValues) => void | Promise<void>;
   submitLabel?: string;
   isLoading?: boolean;
@@ -28,6 +29,7 @@ interface ProductFormProps {
 export function ProductForm({
   categories,
   defaultValues,
+  imageUrl,
   onSubmit,
   submitLabel = "Simpan",
   isLoading = false,
@@ -35,6 +37,7 @@ export function ProductForm({
 }: ProductFormProps) {
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productSchema),
+
     defaultValues: {
       name: "",
       categoryId: "",
@@ -42,11 +45,24 @@ export function ProductForm({
       sku: "",
       unit: "",
       sellingPrice: undefined,
+      image: null,
+
       ...defaultValues,
     },
   });
 
   const type = form.watch("type");
+  const [imagePreview, setImagePreview] = useState<string | null>(
+    imageUrl ?? null,
+  );
+
+  useEffect(() => {
+    return () => {
+      if (imagePreview && imagePreview.startsWith("blob:")) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview]);
 
   return (
     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
@@ -166,6 +182,81 @@ export function ProductForm({
         {form.formState.errors.sellingPrice && (
           <p className="text-sm text-destructive">
             {form.formState.errors.sellingPrice.message}
+          </p>
+        )}
+      </div>
+
+      <div className="space-y-2">
+        <label htmlFor="hpp">HPP (Manual)</label>
+
+        <Input
+          id="hpp"
+          type="text"
+          inputMode="numeric"
+          placeholder="Masukkan hpp"
+          value={formatRupiahInput(form.watch("hpp"))}
+          onChange={(e) => {
+            form.setValue("hpp", parseRupiah(e.target.value), {
+              shouldValidate: true,
+              shouldDirty: true,
+            });
+          }}
+        />
+
+        {form.formState.errors.hpp && (
+          <p className="text-sm text-destructive">
+            {form.formState.errors.hpp.message}
+          </p>
+        )}
+      </div>
+
+      <div className="space-y-2">
+        <label htmlFor="image">Gambar Produk</label>
+
+        <Input
+          id="image"
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          disabled={isLoading}
+          onChange={(e) => {
+            const file = e.target.files?.[0];
+
+            if (!file) return;
+
+            if (file.size > 5 * 1024 * 1024) {
+              form.setError("image", {
+                message: "Ukuran gambar maksimal 5MB",
+              });
+
+              return;
+            }
+
+            form.clearErrors("image");
+
+            form.setValue("image", file, {
+              shouldDirty: true,
+              shouldValidate: true,
+            });
+
+            const url = URL.createObjectURL(file);
+
+            setImagePreview(url);
+          }}
+        />
+
+        {imagePreview && (
+          <div className="mt-3">
+            <img
+              src={imagePreview}
+              alt="Preview produk"
+              className="h-40 w-40 rounded-lg border object-cover"
+            />
+          </div>
+        )}
+
+        {form.formState.errors.image && (
+          <p className="text-sm text-destructive">
+            {String(form.formState.errors.image.message)}
           </p>
         )}
       </div>

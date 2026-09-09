@@ -30,6 +30,7 @@ export type PurchaseItemAvgAggregateOutputType = {
   quantity: runtime.Decimal | null
   baseQuantity: runtime.Decimal | null
   receivedBaseQuantity: runtime.Decimal | null
+  unitPrice: number | null
   subtotal: number | null
 }
 
@@ -37,6 +38,7 @@ export type PurchaseItemSumAggregateOutputType = {
   quantity: runtime.Decimal | null
   baseQuantity: runtime.Decimal | null
   receivedBaseQuantity: runtime.Decimal | null
+  unitPrice: number | null
   subtotal: number | null
 }
 
@@ -48,6 +50,7 @@ export type PurchaseItemMinAggregateOutputType = {
   unitId: string | null
   baseQuantity: runtime.Decimal | null
   receivedBaseQuantity: runtime.Decimal | null
+  unitPrice: number | null
   subtotal: number | null
   createdAt: Date | null
 }
@@ -60,6 +63,7 @@ export type PurchaseItemMaxAggregateOutputType = {
   unitId: string | null
   baseQuantity: runtime.Decimal | null
   receivedBaseQuantity: runtime.Decimal | null
+  unitPrice: number | null
   subtotal: number | null
   createdAt: Date | null
 }
@@ -72,6 +76,7 @@ export type PurchaseItemCountAggregateOutputType = {
   unitId: number
   baseQuantity: number
   receivedBaseQuantity: number
+  unitPrice: number
   subtotal: number
   createdAt: number
   _all: number
@@ -82,6 +87,7 @@ export type PurchaseItemAvgAggregateInputType = {
   quantity?: true
   baseQuantity?: true
   receivedBaseQuantity?: true
+  unitPrice?: true
   subtotal?: true
 }
 
@@ -89,6 +95,7 @@ export type PurchaseItemSumAggregateInputType = {
   quantity?: true
   baseQuantity?: true
   receivedBaseQuantity?: true
+  unitPrice?: true
   subtotal?: true
 }
 
@@ -100,6 +107,7 @@ export type PurchaseItemMinAggregateInputType = {
   unitId?: true
   baseQuantity?: true
   receivedBaseQuantity?: true
+  unitPrice?: true
   subtotal?: true
   createdAt?: true
 }
@@ -112,6 +120,7 @@ export type PurchaseItemMaxAggregateInputType = {
   unitId?: true
   baseQuantity?: true
   receivedBaseQuantity?: true
+  unitPrice?: true
   subtotal?: true
   createdAt?: true
 }
@@ -124,6 +133,7 @@ export type PurchaseItemCountAggregateInputType = {
   unitId?: true
   baseQuantity?: true
   receivedBaseQuantity?: true
+  unitPrice?: true
   subtotal?: true
   createdAt?: true
   _all?: true
@@ -223,6 +233,7 @@ export type PurchaseItemGroupByOutputType = {
   unitId: string
   baseQuantity: runtime.Decimal
   receivedBaseQuantity: runtime.Decimal
+  unitPrice: number
   subtotal: number
   createdAt: Date
   _count: PurchaseItemCountAggregateOutputType | null
@@ -258,6 +269,7 @@ export type PurchaseItemWhereInput = {
   unitId?: Prisma.StringFilter<"PurchaseItem"> | string
   baseQuantity?: Prisma.DecimalFilter<"PurchaseItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFilter<"PurchaseItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFilter<"PurchaseItem"> | number
   subtotal?: Prisma.IntFilter<"PurchaseItem"> | number
   createdAt?: Prisma.DateTimeFilter<"PurchaseItem"> | Date | string
   purchase?: Prisma.XOR<Prisma.PurchaseScalarRelationFilter, Prisma.PurchaseWhereInput>
@@ -274,6 +286,7 @@ export type PurchaseItemOrderByWithRelationInput = {
   unitId?: Prisma.SortOrder
   baseQuantity?: Prisma.SortOrder
   receivedBaseQuantity?: Prisma.SortOrder
+  unitPrice?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   purchase?: Prisma.PurchaseOrderByWithRelationInput
@@ -294,6 +307,7 @@ export type PurchaseItemWhereUniqueInput = Prisma.AtLeast<{
   unitId?: Prisma.StringFilter<"PurchaseItem"> | string
   baseQuantity?: Prisma.DecimalFilter<"PurchaseItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFilter<"PurchaseItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFilter<"PurchaseItem"> | number
   subtotal?: Prisma.IntFilter<"PurchaseItem"> | number
   createdAt?: Prisma.DateTimeFilter<"PurchaseItem"> | Date | string
   purchase?: Prisma.XOR<Prisma.PurchaseScalarRelationFilter, Prisma.PurchaseWhereInput>
@@ -310,6 +324,7 @@ export type PurchaseItemOrderByWithAggregationInput = {
   unitId?: Prisma.SortOrder
   baseQuantity?: Prisma.SortOrder
   receivedBaseQuantity?: Prisma.SortOrder
+  unitPrice?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   _count?: Prisma.PurchaseItemCountOrderByAggregateInput
@@ -330,6 +345,7 @@ export type PurchaseItemScalarWhereWithAggregatesInput = {
   unitId?: Prisma.StringWithAggregatesFilter<"PurchaseItem"> | string
   baseQuantity?: Prisma.DecimalWithAggregatesFilter<"PurchaseItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalWithAggregatesFilter<"PurchaseItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntWithAggregatesFilter<"PurchaseItem"> | number
   subtotal?: Prisma.IntWithAggregatesFilter<"PurchaseItem"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PurchaseItem"> | Date | string
 }
@@ -339,6 +355,7 @@ export type PurchaseItemCreateInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice: number
   subtotal?: number
   createdAt?: Date | string
   purchase: Prisma.PurchaseCreateNestedOneWithoutItemsInput
@@ -355,6 +372,7 @@ export type PurchaseItemUncheckedCreateInput = {
   unitId: string
   baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice: number
   subtotal?: number
   createdAt?: Date | string
   receivingItems?: Prisma.PurchaseReceivingItemUncheckedCreateNestedManyWithoutPurchaseItemInput
@@ -365,6 +383,7 @@ export type PurchaseItemUpdateInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchase?: Prisma.PurchaseUpdateOneRequiredWithoutItemsNestedInput
@@ -381,6 +400,7 @@ export type PurchaseItemUncheckedUpdateInput = {
   unitId?: Prisma.StringFieldUpdateOperationsInput | string
   baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivingItems?: Prisma.PurchaseReceivingItemUncheckedUpdateManyWithoutPurchaseItemNestedInput
@@ -394,6 +414,7 @@ export type PurchaseItemCreateManyInput = {
   unitId: string
   baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice: number
   subtotal?: number
   createdAt?: Date | string
 }
@@ -403,6 +424,7 @@ export type PurchaseItemUpdateManyMutationInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -415,6 +437,7 @@ export type PurchaseItemUncheckedUpdateManyInput = {
   unitId?: Prisma.StringFieldUpdateOperationsInput | string
   baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -443,6 +466,7 @@ export type PurchaseItemCountOrderByAggregateInput = {
   unitId?: Prisma.SortOrder
   baseQuantity?: Prisma.SortOrder
   receivedBaseQuantity?: Prisma.SortOrder
+  unitPrice?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -451,6 +475,7 @@ export type PurchaseItemAvgOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   baseQuantity?: Prisma.SortOrder
   receivedBaseQuantity?: Prisma.SortOrder
+  unitPrice?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
 }
 
@@ -462,6 +487,7 @@ export type PurchaseItemMaxOrderByAggregateInput = {
   unitId?: Prisma.SortOrder
   baseQuantity?: Prisma.SortOrder
   receivedBaseQuantity?: Prisma.SortOrder
+  unitPrice?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -474,6 +500,7 @@ export type PurchaseItemMinOrderByAggregateInput = {
   unitId?: Prisma.SortOrder
   baseQuantity?: Prisma.SortOrder
   receivedBaseQuantity?: Prisma.SortOrder
+  unitPrice?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
 }
@@ -482,6 +509,7 @@ export type PurchaseItemSumOrderByAggregateInput = {
   quantity?: Prisma.SortOrder
   baseQuantity?: Prisma.SortOrder
   receivedBaseQuantity?: Prisma.SortOrder
+  unitPrice?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
 }
 
@@ -635,6 +663,7 @@ export type PurchaseItemCreateWithoutRawMaterialInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice: number
   subtotal?: number
   createdAt?: Date | string
   purchase: Prisma.PurchaseCreateNestedOneWithoutItemsInput
@@ -649,6 +678,7 @@ export type PurchaseItemUncheckedCreateWithoutRawMaterialInput = {
   unitId: string
   baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice: number
   subtotal?: number
   createdAt?: Date | string
   receivingItems?: Prisma.PurchaseReceivingItemUncheckedCreateNestedManyWithoutPurchaseItemInput
@@ -691,6 +721,7 @@ export type PurchaseItemScalarWhereInput = {
   unitId?: Prisma.StringFilter<"PurchaseItem"> | string
   baseQuantity?: Prisma.DecimalFilter<"PurchaseItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFilter<"PurchaseItem"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFilter<"PurchaseItem"> | number
   subtotal?: Prisma.IntFilter<"PurchaseItem"> | number
   createdAt?: Prisma.DateTimeFilter<"PurchaseItem"> | Date | string
 }
@@ -700,6 +731,7 @@ export type PurchaseItemCreateWithoutPurchaseInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice: number
   subtotal?: number
   createdAt?: Date | string
   rawMaterial: Prisma.RawMaterialCreateNestedOneWithoutPurchaseItemsInput
@@ -714,6 +746,7 @@ export type PurchaseItemUncheckedCreateWithoutPurchaseInput = {
   unitId: string
   baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice: number
   subtotal?: number
   createdAt?: Date | string
   receivingItems?: Prisma.PurchaseReceivingItemUncheckedCreateNestedManyWithoutPurchaseItemInput
@@ -750,6 +783,7 @@ export type PurchaseItemCreateWithoutReceivingItemsInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice: number
   subtotal?: number
   createdAt?: Date | string
   purchase: Prisma.PurchaseCreateNestedOneWithoutItemsInput
@@ -765,6 +799,7 @@ export type PurchaseItemUncheckedCreateWithoutReceivingItemsInput = {
   unitId: string
   baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice: number
   subtotal?: number
   createdAt?: Date | string
 }
@@ -790,6 +825,7 @@ export type PurchaseItemUpdateWithoutReceivingItemsInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchase?: Prisma.PurchaseUpdateOneRequiredWithoutItemsNestedInput
@@ -805,6 +841,7 @@ export type PurchaseItemUncheckedUpdateWithoutReceivingItemsInput = {
   unitId?: Prisma.StringFieldUpdateOperationsInput | string
   baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -814,6 +851,7 @@ export type PurchaseItemCreateWithoutUnitInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice: number
   subtotal?: number
   createdAt?: Date | string
   purchase: Prisma.PurchaseCreateNestedOneWithoutItemsInput
@@ -828,6 +866,7 @@ export type PurchaseItemUncheckedCreateWithoutUnitInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice: number
   subtotal?: number
   createdAt?: Date | string
   receivingItems?: Prisma.PurchaseReceivingItemUncheckedCreateNestedManyWithoutPurchaseItemInput
@@ -866,6 +905,7 @@ export type PurchaseItemCreateManyRawMaterialInput = {
   unitId: string
   baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice: number
   subtotal?: number
   createdAt?: Date | string
 }
@@ -875,6 +915,7 @@ export type PurchaseItemUpdateWithoutRawMaterialInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchase?: Prisma.PurchaseUpdateOneRequiredWithoutItemsNestedInput
@@ -889,6 +930,7 @@ export type PurchaseItemUncheckedUpdateWithoutRawMaterialInput = {
   unitId?: Prisma.StringFieldUpdateOperationsInput | string
   baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivingItems?: Prisma.PurchaseReceivingItemUncheckedUpdateManyWithoutPurchaseItemNestedInput
@@ -901,6 +943,7 @@ export type PurchaseItemUncheckedUpdateManyWithoutRawMaterialInput = {
   unitId?: Prisma.StringFieldUpdateOperationsInput | string
   baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -912,6 +955,7 @@ export type PurchaseItemCreateManyPurchaseInput = {
   unitId: string
   baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice: number
   subtotal?: number
   createdAt?: Date | string
 }
@@ -921,6 +965,7 @@ export type PurchaseItemUpdateWithoutPurchaseInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   rawMaterial?: Prisma.RawMaterialUpdateOneRequiredWithoutPurchaseItemsNestedInput
@@ -935,6 +980,7 @@ export type PurchaseItemUncheckedUpdateWithoutPurchaseInput = {
   unitId?: Prisma.StringFieldUpdateOperationsInput | string
   baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivingItems?: Prisma.PurchaseReceivingItemUncheckedUpdateManyWithoutPurchaseItemNestedInput
@@ -947,6 +993,7 @@ export type PurchaseItemUncheckedUpdateManyWithoutPurchaseInput = {
   unitId?: Prisma.StringFieldUpdateOperationsInput | string
   baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -958,6 +1005,7 @@ export type PurchaseItemCreateManyUnitInput = {
   quantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   baseQuantity: runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice: number
   subtotal?: number
   createdAt?: Date | string
 }
@@ -967,6 +1015,7 @@ export type PurchaseItemUpdateWithoutUnitInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   purchase?: Prisma.PurchaseUpdateOneRequiredWithoutItemsNestedInput
@@ -981,6 +1030,7 @@ export type PurchaseItemUncheckedUpdateWithoutUnitInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   receivingItems?: Prisma.PurchaseReceivingItemUncheckedUpdateManyWithoutPurchaseItemNestedInput
@@ -993,6 +1043,7 @@ export type PurchaseItemUncheckedUpdateManyWithoutUnitInput = {
   quantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   baseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
   receivedBaseQuantity?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  unitPrice?: Prisma.IntFieldUpdateOperationsInput | number
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1036,6 +1087,7 @@ export type PurchaseItemSelect<ExtArgs extends runtime.Types.Extensions.Internal
   unitId?: boolean
   baseQuantity?: boolean
   receivedBaseQuantity?: boolean
+  unitPrice?: boolean
   subtotal?: boolean
   createdAt?: boolean
   purchase?: boolean | Prisma.PurchaseDefaultArgs<ExtArgs>
@@ -1055,11 +1107,12 @@ export type PurchaseItemSelectScalar = {
   unitId?: boolean
   baseQuantity?: boolean
   receivedBaseQuantity?: boolean
+  unitPrice?: boolean
   subtotal?: boolean
   createdAt?: boolean
 }
 
-export type PurchaseItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "purchaseId" | "rawMaterialId" | "quantity" | "unitId" | "baseQuantity" | "receivedBaseQuantity" | "subtotal" | "createdAt", ExtArgs["result"]["purchaseItem"]>
+export type PurchaseItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "purchaseId" | "rawMaterialId" | "quantity" | "unitId" | "baseQuantity" | "receivedBaseQuantity" | "unitPrice" | "subtotal" | "createdAt", ExtArgs["result"]["purchaseItem"]>
 export type PurchaseItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   purchase?: boolean | Prisma.PurchaseDefaultArgs<ExtArgs>
   rawMaterial?: boolean | Prisma.RawMaterialDefaultArgs<ExtArgs>
@@ -1084,6 +1137,7 @@ export type $PurchaseItemPayload<ExtArgs extends runtime.Types.Extensions.Intern
     unitId: string
     baseQuantity: runtime.Decimal
     receivedBaseQuantity: runtime.Decimal
+    unitPrice: number
     subtotal: number
     createdAt: Date
   }, ExtArgs["result"]["purchaseItem"]>
@@ -1466,6 +1520,7 @@ export interface PurchaseItemFieldRefs {
   readonly unitId: Prisma.FieldRef<"PurchaseItem", 'String'>
   readonly baseQuantity: Prisma.FieldRef<"PurchaseItem", 'Decimal'>
   readonly receivedBaseQuantity: Prisma.FieldRef<"PurchaseItem", 'Decimal'>
+  readonly unitPrice: Prisma.FieldRef<"PurchaseItem", 'Int'>
   readonly subtotal: Prisma.FieldRef<"PurchaseItem", 'Int'>
   readonly createdAt: Prisma.FieldRef<"PurchaseItem", 'DateTime'>
 }

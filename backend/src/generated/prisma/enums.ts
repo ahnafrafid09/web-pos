@@ -40,6 +40,7 @@ export type StockMovementType = (typeof StockMovementType)[keyof typeof StockMov
 
 
 export const TransactionStatus = {
+  PENDING: 'PENDING',
   COMPLETED: 'COMPLETED',
   CANCELLED: 'CANCELLED',
   REFUNDED: 'REFUNDED'
@@ -105,3 +106,24 @@ export const AuditLogAction = {
 } as const
 
 export type AuditLogAction = (typeof AuditLogAction)[keyof typeof AuditLogAction]
+
+
+export const ModuleCode = {
+  SALES: 'SALES',
+  INVENTORY: 'INVENTORY',
+  PURCHASE: 'PURCHASE',
+  RECIPE: 'RECIPE',
+  REPORTING: 'REPORTING'
+} as const
+
+export type ModuleCode = (typeof ModuleCode)[keyof typeof ModuleCode]
+
+
+export const TenantModuleStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  EXPIRED: 'EXPIRED',
+  SUSPENDED: 'SUSPENDED'
+} as const
+
+export type TenantModuleStatus = (typeof TenantModuleStatus)[keyof typeof TenantModuleStatus]

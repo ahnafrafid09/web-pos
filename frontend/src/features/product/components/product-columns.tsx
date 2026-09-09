@@ -1,6 +1,12 @@
 "use client";
 import { stockFeatures, type ColumnDef } from "@tanstack/react-table";
-import { MoreHorizontal, Pencil, Power } from "lucide-react";
+import {
+  MoreHorizontal,
+  Pencil,
+  Power,
+  Receipt,
+  ReceiptText,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -13,6 +19,9 @@ import {
 
 import type { Product } from "../types/product-types";
 import { formatRupiah } from "@/lib/utils/currency";
+import { hasModule } from "@/features/auth/utils/module-access";
+import { MeResponse } from "@/features/auth/types/auth.types";
+
 function getProductType(type: Product["type"]) {
   const types = {
     RAW_MATERIAL: "Bahan Baku",
@@ -26,7 +35,10 @@ function getProductType(type: Product["type"]) {
 export function productColumns(
   onEdit: (product: Product) => void,
   onUpdateStatus: (product: Product) => void,
+  onRecipe: (product: Product) => void,
+  user: MeResponse | null,
 ): Array<ColumnDef<typeof stockFeatures, Product>> {
+  const canUseRecipe = hasModule(user, "RECIPE");
   return [
     {
       accessorKey: "name",
@@ -76,6 +88,20 @@ export function productColumns(
     },
 
     {
+      accessorKey: "hpp",
+      header: "Hpp",
+      cell: ({ row }) => {
+        const hpp = row.original.hpp;
+
+        if (hpp > 0) {
+          return formatRupiah(Number(hpp));
+        } else {
+          <Badge variant="default">Hpp belum di input, harap input</Badge>;
+        }
+      },
+    },
+
+    {
       accessorKey: "status",
       header: "Status",
       cell: ({ row }) => {
@@ -97,21 +123,28 @@ export function productColumns(
           <DropdownMenu>
             <DropdownMenuTrigger
               render={
-                <Button variant="ghost" size="icon" className="h-8 w-8">
-                  <MoreHorizontal className="h-4 w-4" />
+                <Button variant="ghost" size="icon" className="h-9 w-9">
+                  <MoreHorizontal className="h-5 w-5" />
                 </Button>
               }
             />
 
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuItem onClick={() => onEdit(product)}>
                 <Pencil className="mr-2 h-4 w-4" />
                 Edit {product.name}
               </DropdownMenuItem>
+
               <DropdownMenuItem onClick={() => onUpdateStatus(product)}>
                 <Power className="mr-2 h-4 w-4" />
                 {product.status ? "Nonaktifkan Produk" : "Aktifkan Produk"}
               </DropdownMenuItem>
+              {canUseRecipe && (
+                <DropdownMenuItem onClick={() => onRecipe(product)}>
+                  <ReceiptText className="mr-2 h-4 w-4" />
+                  Buat Resep
+                </DropdownMenuItem>
+              )}
             </DropdownMenuContent>
           </DropdownMenu>
         );

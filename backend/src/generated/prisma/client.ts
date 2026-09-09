@@ -45,6 +45,16 @@ export { Prisma }
  */
 export type Tenant = Prisma.TenantModel
 /**
+ * Model Module
+ * 
+ */
+export type Module = Prisma.ModuleModel
+/**
+ * Model TenantModule
+ * 
+ */
+export type TenantModule = Prisma.TenantModuleModel
+/**
  * Model User
  * 
  */
@@ -145,7 +155,17 @@ export type Unit = Prisma.UnitModel
  */
 export type UnitConversion = Prisma.UnitConversionModel
 /**
+ * Model RawMaterialUnitConversion
+ * 
+ */
+export type RawMaterialUnitConversion = Prisma.RawMaterialUnitConversionModel
+/**
  * Model AuditLog
  * 
  */
 export type AuditLog = Prisma.AuditLogModel
+/**
+ * Model TransactionSetting
+ * 
+ */
+export type TransactionSetting = Prisma.TransactionSettingModel

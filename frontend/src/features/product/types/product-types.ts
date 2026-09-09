@@ -12,7 +12,9 @@ export interface Product {
   unit: string;
 
   sellingPrice: number;
+  hpp: number;
   status: boolean;
+  imageUrl: string | null;
 
   category?: {
     id: string;

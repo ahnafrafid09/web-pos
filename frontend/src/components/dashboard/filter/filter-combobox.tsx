@@ -62,11 +62,14 @@ export function DataTableFilterCombobox<T extends ComboboxValue>({
             role="combobox"
             aria-expanded={open}
             className={cn(
-              "border-input bg-background hover:bg-accent hover:text-accent-foreground flex h-9 w-50 items-center justify-between rounded-md border px-3 text-sm shadow-sm",
+              "border-input bg-background hover:bg-accent hover:text-accent-foreground",
+              "flex h-9 w-full items-center justify-between rounded-md border px-3",
+              "text-sm shadow-sm transition-colors",
+              "sm:w-[200px]",
               className,
             )}
           >
-            <span className="truncate">{buttonLabel}</span>
+            <span className="min-w-0 truncate">{buttonLabel}</span>
 
             <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
           </button>
@@ -74,7 +77,7 @@ export function DataTableFilterCombobox<T extends ComboboxValue>({
       />
 
       <PopoverContent
-        className="w-50 p-0"
+        className="w-[var(--radix-popover-trigger-width)] min-w-[200px] p-0"
         side="bottom"
         align="start"
         sideOffset={4}
@@ -96,11 +99,12 @@ export function DataTableFilterCombobox<T extends ComboboxValue>({
                 >
                   <Check
                     className={cn(
-                      "mr-2 h-4 w-4",
+                      "mr-2 h-4 w-4 shrink-0",
                       value === undefined ? "opacity-100" : "opacity-0",
                     )}
                   />
-                  {allLabel}
+
+                  <span className="truncate">{allLabel}</span>
                 </CommandItem>
               )}
 
@@ -115,11 +119,12 @@ export function DataTableFilterCombobox<T extends ComboboxValue>({
                 >
                   <Check
                     className={cn(
-                      "mr-2 h-4 w-4",
+                      "mr-2 h-4 w-4 shrink-0",
                       value === option.value ? "opacity-100" : "opacity-0",
                     )}
                   />
-                  {option.label}
+
+                  <span className="truncate">{option.label}</span>
                 </CommandItem>
               ))}
             </CommandGroup>

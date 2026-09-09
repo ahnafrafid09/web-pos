@@ -384,6 +384,8 @@ export class AuthService {
       email: user.email,
       role: user.role,
       tenantId: user.tenantId,
+
+      jti: crypto.randomUUID(),
     };
 
     return this.jwtService.signAsync(payload, {
@@ -455,10 +457,26 @@ export class AuthService {
         id: user.userId,
       },
       include: {
-        tenant: true,
+        tenant: {
+          include: {
+            modules: {
+              where: {
+                status: 'ACTIVE',
+              },
+              include: {
+                module: true,
+              },
+            },
+          },
+        },
       },
     });
 
+    // console.dir(data, {
+    //   depth: null,
+    // });
+
+    // console.log(data);
     if (!data) {
       throw new UnauthorizedException('User tidak ditemukan');
     }
@@ -507,6 +525,12 @@ export class AuthService {
         name: data.tenant.name,
         slug: data.tenant.slug,
       },
+      modules: data.tenant.modules.map((tenantModule) => ({
+        code: tenantModule.module.code,
+        status: tenantModule.status,
+        startedAt: tenantModule.startedAt,
+        expiredAt: tenantModule.expiredAt,
+      })),
     };
   }
 
@@ -636,6 +660,8 @@ export class AuthService {
         action: AuditLogAction.LOGOUT,
 
         description: `User "${user.username}" logout`,
+        ipAddress: meta?.ipAddress,
+        userAgent: meta?.userAgent,
       });
     }
 

@@ -1,6 +1,11 @@
 import { api } from "@/lib/api";
-import type { ProductListResponse, ProductQuery } from "../types/product-types";
+import type {
+  Product,
+  ProductListResponse,
+  ProductQuery,
+} from "../types/product-types";
 import { ProductFormValues } from "../schemas/product-schema";
+import { Console } from "console";
 
 export const productService = {
   async findAll(query: ProductQuery = {}): Promise<ProductListResponse> {
@@ -11,17 +16,52 @@ export const productService = {
     return response.data;
   },
 
-  async createProduct(data: ProductFormValues) {
-    // console.log(data);
-    const response = await api.post("/product", data);
+  async findOne(id: string): Promise<Product> {
+    const response = await api.get<Product>(`/product/${id}`);
 
     return response.data;
   },
 
-  async updateProduct(id: string, data: ProductFormValues) {
-    const response = await api.patch(`/product/${id}`, data);
+  async createProduct(data: ProductFormValues) {
+    const formData = new FormData();
 
-    return response.data;
+    formData.append("name", data.name);
+    formData.append("categoryId", data.categoryId);
+    formData.append("type", data.type);
+    formData.append("sku", data.sku || "");
+    formData.append("unit", data.unit);
+    formData.append("hpp", String(data.hpp));
+    formData.append("sellingPrice", String(data.sellingPrice));
+
+    if (data.image instanceof File) {
+      formData.append("imageUrl", data.image);
+    }
+
+    console.log(formData);
+
+    return api.post("/product", formData);
+  },
+  async updateProduct(id: string, data: ProductFormValues) {
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("categoryId", data.categoryId);
+    formData.append("type", data.type);
+    formData.append("sku", data.sku || "");
+    formData.append("unit", data.unit);
+    formData.append("hpp", String(data.hpp));
+    formData.append("sellingPrice", String(data.sellingPrice));
+
+    if (data.image instanceof File) {
+      formData.append("image", data.image);
+    }
+
+    console.log("FORM DATA:");
+
+    for (const [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
+
+    return api.patch(`/product/${id}`, formData);
   },
 
   async updateStatus(id: string, data: { status: boolean }) {

@@ -80,6 +80,7 @@ export function ProductEditDialog({
             sellingPrice: product.sellingPrice ?? undefined,
           }}
           onSubmit={handleSubmit}
+          imageUrl={product.imageUrl}
           submitLabel="Simpan Perubahan"
           isLoading={isLoading}
           onCancel={() => onOpenChange(false)}

@@ -29,8 +29,11 @@ export type AggregateTransaction = {
 export type TransactionAvgAggregateOutputType = {
   subtotal: number | null
   discount: number | null
+  serviceCharge: number | null
   tax: number | null
   total: number | null
+  totalPaid: number | null
+  change: number | null
   totalHpp: number | null
   profit: number | null
 }
@@ -38,8 +41,11 @@ export type TransactionAvgAggregateOutputType = {
 export type TransactionSumAggregateOutputType = {
   subtotal: number | null
   discount: number | null
+  serviceCharge: number | null
   tax: number | null
   total: number | null
+  totalPaid: number | null
+  change: number | null
   totalHpp: number | null
   profit: number | null
 }
@@ -47,12 +53,16 @@ export type TransactionSumAggregateOutputType = {
 export type TransactionMinAggregateOutputType = {
   id: string | null
   tenantId: string | null
+  cashierId: string | null
   invoiceNumber: string | null
   status: $Enums.TransactionStatus | null
   subtotal: number | null
   discount: number | null
+  serviceCharge: number | null
   tax: number | null
   total: number | null
+  totalPaid: number | null
+  change: number | null
   totalHpp: number | null
   profit: number | null
   createdAt: Date | null
@@ -62,12 +72,16 @@ export type TransactionMinAggregateOutputType = {
 export type TransactionMaxAggregateOutputType = {
   id: string | null
   tenantId: string | null
+  cashierId: string | null
   invoiceNumber: string | null
   status: $Enums.TransactionStatus | null
   subtotal: number | null
   discount: number | null
+  serviceCharge: number | null
   tax: number | null
   total: number | null
+  totalPaid: number | null
+  change: number | null
   totalHpp: number | null
   profit: number | null
   createdAt: Date | null
@@ -77,12 +91,16 @@ export type TransactionMaxAggregateOutputType = {
 export type TransactionCountAggregateOutputType = {
   id: number
   tenantId: number
+  cashierId: number
   invoiceNumber: number
   status: number
   subtotal: number
   discount: number
+  serviceCharge: number
   tax: number
   total: number
+  totalPaid: number
+  change: number
   totalHpp: number
   profit: number
   createdAt: number
@@ -94,8 +112,11 @@ export type TransactionCountAggregateOutputType = {
 export type TransactionAvgAggregateInputType = {
   subtotal?: true
   discount?: true
+  serviceCharge?: true
   tax?: true
   total?: true
+  totalPaid?: true
+  change?: true
   totalHpp?: true
   profit?: true
 }
@@ -103,8 +124,11 @@ export type TransactionAvgAggregateInputType = {
 export type TransactionSumAggregateInputType = {
   subtotal?: true
   discount?: true
+  serviceCharge?: true
   tax?: true
   total?: true
+  totalPaid?: true
+  change?: true
   totalHpp?: true
   profit?: true
 }
@@ -112,12 +136,16 @@ export type TransactionSumAggregateInputType = {
 export type TransactionMinAggregateInputType = {
   id?: true
   tenantId?: true
+  cashierId?: true
   invoiceNumber?: true
   status?: true
   subtotal?: true
   discount?: true
+  serviceCharge?: true
   tax?: true
   total?: true
+  totalPaid?: true
+  change?: true
   totalHpp?: true
   profit?: true
   createdAt?: true
@@ -127,12 +155,16 @@ export type TransactionMinAggregateInputType = {
 export type TransactionMaxAggregateInputType = {
   id?: true
   tenantId?: true
+  cashierId?: true
   invoiceNumber?: true
   status?: true
   subtotal?: true
   discount?: true
+  serviceCharge?: true
   tax?: true
   total?: true
+  totalPaid?: true
+  change?: true
   totalHpp?: true
   profit?: true
   createdAt?: true
@@ -142,12 +174,16 @@ export type TransactionMaxAggregateInputType = {
 export type TransactionCountAggregateInputType = {
   id?: true
   tenantId?: true
+  cashierId?: true
   invoiceNumber?: true
   status?: true
   subtotal?: true
   discount?: true
+  serviceCharge?: true
   tax?: true
   total?: true
+  totalPaid?: true
+  change?: true
   totalHpp?: true
   profit?: true
   createdAt?: true
@@ -244,12 +280,16 @@ export type TransactionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type TransactionGroupByOutputType = {
   id: string
   tenantId: string
+  cashierId: string | null
   invoiceNumber: string
   status: $Enums.TransactionStatus
   subtotal: number
   discount: number
+  serviceCharge: number
   tax: number
   total: number
+  totalPaid: number
+  change: number
   totalHpp: number
   profit: number
   createdAt: Date
@@ -282,17 +322,22 @@ export type TransactionWhereInput = {
   NOT?: Prisma.TransactionWhereInput | Prisma.TransactionWhereInput[]
   id?: Prisma.StringFilter<"Transaction"> | string
   tenantId?: Prisma.StringFilter<"Transaction"> | string
+  cashierId?: Prisma.StringNullableFilter<"Transaction"> | string | null
   invoiceNumber?: Prisma.StringFilter<"Transaction"> | string
   status?: Prisma.EnumTransactionStatusFilter<"Transaction"> | $Enums.TransactionStatus
   subtotal?: Prisma.IntFilter<"Transaction"> | number
   discount?: Prisma.IntFilter<"Transaction"> | number
+  serviceCharge?: Prisma.IntFilter<"Transaction"> | number
   tax?: Prisma.IntFilter<"Transaction"> | number
   total?: Prisma.IntFilter<"Transaction"> | number
+  totalPaid?: Prisma.IntFilter<"Transaction"> | number
+  change?: Prisma.IntFilter<"Transaction"> | number
   totalHpp?: Prisma.IntFilter<"Transaction"> | number
   profit?: Prisma.IntFilter<"Transaction"> | number
   createdAt?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  cashier?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   items?: Prisma.TransactionItemListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
 }
@@ -300,17 +345,22 @@ export type TransactionWhereInput = {
 export type TransactionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
+  cashierId?: Prisma.SortOrderInput | Prisma.SortOrder
   invoiceNumber?: Prisma.SortOrder
   status?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   discount?: Prisma.SortOrder
+  serviceCharge?: Prisma.SortOrder
   tax?: Prisma.SortOrder
   total?: Prisma.SortOrder
+  totalPaid?: Prisma.SortOrder
+  change?: Prisma.SortOrder
   totalHpp?: Prisma.SortOrder
   profit?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   tenant?: Prisma.TenantOrderByWithRelationInput
+  cashier?: Prisma.UserOrderByWithRelationInput
   items?: Prisma.TransactionItemOrderByRelationAggregateInput
   payments?: Prisma.PaymentOrderByRelationAggregateInput
   _relevance?: Prisma.TransactionOrderByRelevanceInput
@@ -318,35 +368,43 @@ export type TransactionOrderByWithRelationInput = {
 
 export type TransactionWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  tenantId_invoiceNumber?: Prisma.TransactionTenantIdInvoiceNumberCompoundUniqueInput
   AND?: Prisma.TransactionWhereInput | Prisma.TransactionWhereInput[]
   OR?: Prisma.TransactionWhereInput[]
   NOT?: Prisma.TransactionWhereInput | Prisma.TransactionWhereInput[]
   tenantId?: Prisma.StringFilter<"Transaction"> | string
+  cashierId?: Prisma.StringNullableFilter<"Transaction"> | string | null
   invoiceNumber?: Prisma.StringFilter<"Transaction"> | string
   status?: Prisma.EnumTransactionStatusFilter<"Transaction"> | $Enums.TransactionStatus
   subtotal?: Prisma.IntFilter<"Transaction"> | number
   discount?: Prisma.IntFilter<"Transaction"> | number
+  serviceCharge?: Prisma.IntFilter<"Transaction"> | number
   tax?: Prisma.IntFilter<"Transaction"> | number
   total?: Prisma.IntFilter<"Transaction"> | number
+  totalPaid?: Prisma.IntFilter<"Transaction"> | number
+  change?: Prisma.IntFilter<"Transaction"> | number
   totalHpp?: Prisma.IntFilter<"Transaction"> | number
   profit?: Prisma.IntFilter<"Transaction"> | number
   createdAt?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
+  cashier?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   items?: Prisma.TransactionItemListRelationFilter
   payments?: Prisma.PaymentListRelationFilter
-}, "id" | "tenantId_invoiceNumber">
+}, "id">
 
 export type TransactionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
+  cashierId?: Prisma.SortOrderInput | Prisma.SortOrder
   invoiceNumber?: Prisma.SortOrder
   status?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   discount?: Prisma.SortOrder
+  serviceCharge?: Prisma.SortOrder
   tax?: Prisma.SortOrder
   total?: Prisma.SortOrder
+  totalPaid?: Prisma.SortOrder
+  change?: Prisma.SortOrder
   totalHpp?: Prisma.SortOrder
   profit?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -364,12 +422,16 @@ export type TransactionScalarWhereWithAggregatesInput = {
   NOT?: Prisma.TransactionScalarWhereWithAggregatesInput | Prisma.TransactionScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Transaction"> | string
   tenantId?: Prisma.StringWithAggregatesFilter<"Transaction"> | string
+  cashierId?: Prisma.StringNullableWithAggregatesFilter<"Transaction"> | string | null
   invoiceNumber?: Prisma.StringWithAggregatesFilter<"Transaction"> | string
   status?: Prisma.EnumTransactionStatusWithAggregatesFilter<"Transaction"> | $Enums.TransactionStatus
   subtotal?: Prisma.IntWithAggregatesFilter<"Transaction"> | number
   discount?: Prisma.IntWithAggregatesFilter<"Transaction"> | number
+  serviceCharge?: Prisma.IntWithAggregatesFilter<"Transaction"> | number
   tax?: Prisma.IntWithAggregatesFilter<"Transaction"> | number
   total?: Prisma.IntWithAggregatesFilter<"Transaction"> | number
+  totalPaid?: Prisma.IntWithAggregatesFilter<"Transaction"> | number
+  change?: Prisma.IntWithAggregatesFilter<"Transaction"> | number
   totalHpp?: Prisma.IntWithAggregatesFilter<"Transaction"> | number
   profit?: Prisma.IntWithAggregatesFilter<"Transaction"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Transaction"> | Date | string
@@ -382,13 +444,17 @@ export type TransactionCreateInput = {
   status?: $Enums.TransactionStatus
   subtotal?: number
   discount?: number
+  serviceCharge?: number
   tax?: number
   total?: number
+  totalPaid?: number
+  change?: number
   totalHpp?: number
   profit?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTransactionsInput
+  cashier?: Prisma.UserCreateNestedOneWithoutTransactionsInput
   items?: Prisma.TransactionItemCreateNestedManyWithoutTransactionInput
   payments?: Prisma.PaymentCreateNestedManyWithoutTransactionInput
 }
@@ -396,12 +462,16 @@ export type TransactionCreateInput = {
 export type TransactionUncheckedCreateInput = {
   id?: string
   tenantId: string
+  cashierId?: string | null
   invoiceNumber: string
   status?: $Enums.TransactionStatus
   subtotal?: number
   discount?: number
+  serviceCharge?: number
   tax?: number
   total?: number
+  totalPaid?: number
+  change?: number
   totalHpp?: number
   profit?: number
   createdAt?: Date | string
@@ -416,13 +486,17 @@ export type TransactionUpdateInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   discount?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceCharge?: Prisma.IntFieldUpdateOperationsInput | number
   tax?: Prisma.IntFieldUpdateOperationsInput | number
   total?: Prisma.IntFieldUpdateOperationsInput | number
+  totalPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTransactionsNestedInput
+  cashier?: Prisma.UserUpdateOneWithoutTransactionsNestedInput
   items?: Prisma.TransactionItemUpdateManyWithoutTransactionNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutTransactionNestedInput
 }
@@ -430,12 +504,16 @@ export type TransactionUpdateInput = {
 export type TransactionUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  cashierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   discount?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceCharge?: Prisma.IntFieldUpdateOperationsInput | number
   tax?: Prisma.IntFieldUpdateOperationsInput | number
   total?: Prisma.IntFieldUpdateOperationsInput | number
+  totalPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -447,12 +525,16 @@ export type TransactionUncheckedUpdateInput = {
 export type TransactionCreateManyInput = {
   id?: string
   tenantId: string
+  cashierId?: string | null
   invoiceNumber: string
   status?: $Enums.TransactionStatus
   subtotal?: number
   discount?: number
+  serviceCharge?: number
   tax?: number
   total?: number
+  totalPaid?: number
+  change?: number
   totalHpp?: number
   profit?: number
   createdAt?: Date | string
@@ -465,8 +547,11 @@ export type TransactionUpdateManyMutationInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   discount?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceCharge?: Prisma.IntFieldUpdateOperationsInput | number
   tax?: Prisma.IntFieldUpdateOperationsInput | number
   total?: Prisma.IntFieldUpdateOperationsInput | number
+  totalPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -476,12 +561,16 @@ export type TransactionUpdateManyMutationInput = {
 export type TransactionUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  cashierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   discount?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceCharge?: Prisma.IntFieldUpdateOperationsInput | number
   tax?: Prisma.IntFieldUpdateOperationsInput | number
   total?: Prisma.IntFieldUpdateOperationsInput | number
+  totalPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -504,20 +593,19 @@ export type TransactionOrderByRelevanceInput = {
   search: string
 }
 
-export type TransactionTenantIdInvoiceNumberCompoundUniqueInput = {
-  tenantId: string
-  invoiceNumber: string
-}
-
 export type TransactionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
+  cashierId?: Prisma.SortOrder
   invoiceNumber?: Prisma.SortOrder
   status?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   discount?: Prisma.SortOrder
+  serviceCharge?: Prisma.SortOrder
   tax?: Prisma.SortOrder
   total?: Prisma.SortOrder
+  totalPaid?: Prisma.SortOrder
+  change?: Prisma.SortOrder
   totalHpp?: Prisma.SortOrder
   profit?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -527,8 +615,11 @@ export type TransactionCountOrderByAggregateInput = {
 export type TransactionAvgOrderByAggregateInput = {
   subtotal?: Prisma.SortOrder
   discount?: Prisma.SortOrder
+  serviceCharge?: Prisma.SortOrder
   tax?: Prisma.SortOrder
   total?: Prisma.SortOrder
+  totalPaid?: Prisma.SortOrder
+  change?: Prisma.SortOrder
   totalHpp?: Prisma.SortOrder
   profit?: Prisma.SortOrder
 }
@@ -536,12 +627,16 @@ export type TransactionAvgOrderByAggregateInput = {
 export type TransactionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
+  cashierId?: Prisma.SortOrder
   invoiceNumber?: Prisma.SortOrder
   status?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   discount?: Prisma.SortOrder
+  serviceCharge?: Prisma.SortOrder
   tax?: Prisma.SortOrder
   total?: Prisma.SortOrder
+  totalPaid?: Prisma.SortOrder
+  change?: Prisma.SortOrder
   totalHpp?: Prisma.SortOrder
   profit?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -551,12 +646,16 @@ export type TransactionMaxOrderByAggregateInput = {
 export type TransactionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   tenantId?: Prisma.SortOrder
+  cashierId?: Prisma.SortOrder
   invoiceNumber?: Prisma.SortOrder
   status?: Prisma.SortOrder
   subtotal?: Prisma.SortOrder
   discount?: Prisma.SortOrder
+  serviceCharge?: Prisma.SortOrder
   tax?: Prisma.SortOrder
   total?: Prisma.SortOrder
+  totalPaid?: Prisma.SortOrder
+  change?: Prisma.SortOrder
   totalHpp?: Prisma.SortOrder
   profit?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -566,8 +665,11 @@ export type TransactionMinOrderByAggregateInput = {
 export type TransactionSumOrderByAggregateInput = {
   subtotal?: Prisma.SortOrder
   discount?: Prisma.SortOrder
+  serviceCharge?: Prisma.SortOrder
   tax?: Prisma.SortOrder
   total?: Prisma.SortOrder
+  totalPaid?: Prisma.SortOrder
+  change?: Prisma.SortOrder
   totalHpp?: Prisma.SortOrder
   profit?: Prisma.SortOrder
 }
@@ -619,6 +721,48 @@ export type TransactionUncheckedUpdateManyWithoutTenantNestedInput = {
   deleteMany?: Prisma.TransactionScalarWhereInput | Prisma.TransactionScalarWhereInput[]
 }
 
+export type TransactionCreateNestedManyWithoutCashierInput = {
+  create?: Prisma.XOR<Prisma.TransactionCreateWithoutCashierInput, Prisma.TransactionUncheckedCreateWithoutCashierInput> | Prisma.TransactionCreateWithoutCashierInput[] | Prisma.TransactionUncheckedCreateWithoutCashierInput[]
+  connectOrCreate?: Prisma.TransactionCreateOrConnectWithoutCashierInput | Prisma.TransactionCreateOrConnectWithoutCashierInput[]
+  createMany?: Prisma.TransactionCreateManyCashierInputEnvelope
+  connect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+}
+
+export type TransactionUncheckedCreateNestedManyWithoutCashierInput = {
+  create?: Prisma.XOR<Prisma.TransactionCreateWithoutCashierInput, Prisma.TransactionUncheckedCreateWithoutCashierInput> | Prisma.TransactionCreateWithoutCashierInput[] | Prisma.TransactionUncheckedCreateWithoutCashierInput[]
+  connectOrCreate?: Prisma.TransactionCreateOrConnectWithoutCashierInput | Prisma.TransactionCreateOrConnectWithoutCashierInput[]
+  createMany?: Prisma.TransactionCreateManyCashierInputEnvelope
+  connect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+}
+
+export type TransactionUpdateManyWithoutCashierNestedInput = {
+  create?: Prisma.XOR<Prisma.TransactionCreateWithoutCashierInput, Prisma.TransactionUncheckedCreateWithoutCashierInput> | Prisma.TransactionCreateWithoutCashierInput[] | Prisma.TransactionUncheckedCreateWithoutCashierInput[]
+  connectOrCreate?: Prisma.TransactionCreateOrConnectWithoutCashierInput | Prisma.TransactionCreateOrConnectWithoutCashierInput[]
+  upsert?: Prisma.TransactionUpsertWithWhereUniqueWithoutCashierInput | Prisma.TransactionUpsertWithWhereUniqueWithoutCashierInput[]
+  createMany?: Prisma.TransactionCreateManyCashierInputEnvelope
+  set?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+  disconnect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+  delete?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+  connect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+  update?: Prisma.TransactionUpdateWithWhereUniqueWithoutCashierInput | Prisma.TransactionUpdateWithWhereUniqueWithoutCashierInput[]
+  updateMany?: Prisma.TransactionUpdateManyWithWhereWithoutCashierInput | Prisma.TransactionUpdateManyWithWhereWithoutCashierInput[]
+  deleteMany?: Prisma.TransactionScalarWhereInput | Prisma.TransactionScalarWhereInput[]
+}
+
+export type TransactionUncheckedUpdateManyWithoutCashierNestedInput = {
+  create?: Prisma.XOR<Prisma.TransactionCreateWithoutCashierInput, Prisma.TransactionUncheckedCreateWithoutCashierInput> | Prisma.TransactionCreateWithoutCashierInput[] | Prisma.TransactionUncheckedCreateWithoutCashierInput[]
+  connectOrCreate?: Prisma.TransactionCreateOrConnectWithoutCashierInput | Prisma.TransactionCreateOrConnectWithoutCashierInput[]
+  upsert?: Prisma.TransactionUpsertWithWhereUniqueWithoutCashierInput | Prisma.TransactionUpsertWithWhereUniqueWithoutCashierInput[]
+  createMany?: Prisma.TransactionCreateManyCashierInputEnvelope
+  set?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+  disconnect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+  delete?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+  connect?: Prisma.TransactionWhereUniqueInput | Prisma.TransactionWhereUniqueInput[]
+  update?: Prisma.TransactionUpdateWithWhereUniqueWithoutCashierInput | Prisma.TransactionUpdateWithWhereUniqueWithoutCashierInput[]
+  updateMany?: Prisma.TransactionUpdateManyWithWhereWithoutCashierInput | Prisma.TransactionUpdateManyWithWhereWithoutCashierInput[]
+  deleteMany?: Prisma.TransactionScalarWhereInput | Prisma.TransactionScalarWhereInput[]
+}
+
 export type EnumTransactionStatusFieldUpdateOperationsInput = {
   set?: $Enums.TransactionStatus
 }
@@ -657,24 +801,32 @@ export type TransactionCreateWithoutTenantInput = {
   status?: $Enums.TransactionStatus
   subtotal?: number
   discount?: number
+  serviceCharge?: number
   tax?: number
   total?: number
+  totalPaid?: number
+  change?: number
   totalHpp?: number
   profit?: number
   createdAt?: Date | string
   updatedAt?: Date | string
+  cashier?: Prisma.UserCreateNestedOneWithoutTransactionsInput
   items?: Prisma.TransactionItemCreateNestedManyWithoutTransactionInput
   payments?: Prisma.PaymentCreateNestedManyWithoutTransactionInput
 }
 
 export type TransactionUncheckedCreateWithoutTenantInput = {
   id?: string
+  cashierId?: string | null
   invoiceNumber: string
   status?: $Enums.TransactionStatus
   subtotal?: number
   discount?: number
+  serviceCharge?: number
   tax?: number
   total?: number
+  totalPaid?: number
+  change?: number
   totalHpp?: number
   profit?: number
   createdAt?: Date | string
@@ -715,16 +867,86 @@ export type TransactionScalarWhereInput = {
   NOT?: Prisma.TransactionScalarWhereInput | Prisma.TransactionScalarWhereInput[]
   id?: Prisma.StringFilter<"Transaction"> | string
   tenantId?: Prisma.StringFilter<"Transaction"> | string
+  cashierId?: Prisma.StringNullableFilter<"Transaction"> | string | null
   invoiceNumber?: Prisma.StringFilter<"Transaction"> | string
   status?: Prisma.EnumTransactionStatusFilter<"Transaction"> | $Enums.TransactionStatus
   subtotal?: Prisma.IntFilter<"Transaction"> | number
   discount?: Prisma.IntFilter<"Transaction"> | number
+  serviceCharge?: Prisma.IntFilter<"Transaction"> | number
   tax?: Prisma.IntFilter<"Transaction"> | number
   total?: Prisma.IntFilter<"Transaction"> | number
+  totalPaid?: Prisma.IntFilter<"Transaction"> | number
+  change?: Prisma.IntFilter<"Transaction"> | number
   totalHpp?: Prisma.IntFilter<"Transaction"> | number
   profit?: Prisma.IntFilter<"Transaction"> | number
   createdAt?: Prisma.DateTimeFilter<"Transaction"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Transaction"> | Date | string
+}
+
+export type TransactionCreateWithoutCashierInput = {
+  id?: string
+  invoiceNumber: string
+  status?: $Enums.TransactionStatus
+  subtotal?: number
+  discount?: number
+  serviceCharge?: number
+  tax?: number
+  total?: number
+  totalPaid?: number
+  change?: number
+  totalHpp?: number
+  profit?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutTransactionsInput
+  items?: Prisma.TransactionItemCreateNestedManyWithoutTransactionInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutTransactionInput
+}
+
+export type TransactionUncheckedCreateWithoutCashierInput = {
+  id?: string
+  tenantId: string
+  invoiceNumber: string
+  status?: $Enums.TransactionStatus
+  subtotal?: number
+  discount?: number
+  serviceCharge?: number
+  tax?: number
+  total?: number
+  totalPaid?: number
+  change?: number
+  totalHpp?: number
+  profit?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  items?: Prisma.TransactionItemUncheckedCreateNestedManyWithoutTransactionInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutTransactionInput
+}
+
+export type TransactionCreateOrConnectWithoutCashierInput = {
+  where: Prisma.TransactionWhereUniqueInput
+  create: Prisma.XOR<Prisma.TransactionCreateWithoutCashierInput, Prisma.TransactionUncheckedCreateWithoutCashierInput>
+}
+
+export type TransactionCreateManyCashierInputEnvelope = {
+  data: Prisma.TransactionCreateManyCashierInput | Prisma.TransactionCreateManyCashierInput[]
+  skipDuplicates?: boolean
+}
+
+export type TransactionUpsertWithWhereUniqueWithoutCashierInput = {
+  where: Prisma.TransactionWhereUniqueInput
+  update: Prisma.XOR<Prisma.TransactionUpdateWithoutCashierInput, Prisma.TransactionUncheckedUpdateWithoutCashierInput>
+  create: Prisma.XOR<Prisma.TransactionCreateWithoutCashierInput, Prisma.TransactionUncheckedCreateWithoutCashierInput>
+}
+
+export type TransactionUpdateWithWhereUniqueWithoutCashierInput = {
+  where: Prisma.TransactionWhereUniqueInput
+  data: Prisma.XOR<Prisma.TransactionUpdateWithoutCashierInput, Prisma.TransactionUncheckedUpdateWithoutCashierInput>
+}
+
+export type TransactionUpdateManyWithWhereWithoutCashierInput = {
+  where: Prisma.TransactionScalarWhereInput
+  data: Prisma.XOR<Prisma.TransactionUpdateManyMutationInput, Prisma.TransactionUncheckedUpdateManyWithoutCashierInput>
 }
 
 export type TransactionCreateWithoutItemsInput = {
@@ -733,25 +955,33 @@ export type TransactionCreateWithoutItemsInput = {
   status?: $Enums.TransactionStatus
   subtotal?: number
   discount?: number
+  serviceCharge?: number
   tax?: number
   total?: number
+  totalPaid?: number
+  change?: number
   totalHpp?: number
   profit?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTransactionsInput
+  cashier?: Prisma.UserCreateNestedOneWithoutTransactionsInput
   payments?: Prisma.PaymentCreateNestedManyWithoutTransactionInput
 }
 
 export type TransactionUncheckedCreateWithoutItemsInput = {
   id?: string
   tenantId: string
+  cashierId?: string | null
   invoiceNumber: string
   status?: $Enums.TransactionStatus
   subtotal?: number
   discount?: number
+  serviceCharge?: number
   tax?: number
   total?: number
+  totalPaid?: number
+  change?: number
   totalHpp?: number
   profit?: number
   createdAt?: Date | string
@@ -781,25 +1011,33 @@ export type TransactionUpdateWithoutItemsInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   discount?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceCharge?: Prisma.IntFieldUpdateOperationsInput | number
   tax?: Prisma.IntFieldUpdateOperationsInput | number
   total?: Prisma.IntFieldUpdateOperationsInput | number
+  totalPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTransactionsNestedInput
+  cashier?: Prisma.UserUpdateOneWithoutTransactionsNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateWithoutItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  cashierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   discount?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceCharge?: Prisma.IntFieldUpdateOperationsInput | number
   tax?: Prisma.IntFieldUpdateOperationsInput | number
   total?: Prisma.IntFieldUpdateOperationsInput | number
+  totalPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -813,25 +1051,33 @@ export type TransactionCreateWithoutPaymentsInput = {
   status?: $Enums.TransactionStatus
   subtotal?: number
   discount?: number
+  serviceCharge?: number
   tax?: number
   total?: number
+  totalPaid?: number
+  change?: number
   totalHpp?: number
   profit?: number
   createdAt?: Date | string
   updatedAt?: Date | string
   tenant: Prisma.TenantCreateNestedOneWithoutTransactionsInput
+  cashier?: Prisma.UserCreateNestedOneWithoutTransactionsInput
   items?: Prisma.TransactionItemCreateNestedManyWithoutTransactionInput
 }
 
 export type TransactionUncheckedCreateWithoutPaymentsInput = {
   id?: string
   tenantId: string
+  cashierId?: string | null
   invoiceNumber: string
   status?: $Enums.TransactionStatus
   subtotal?: number
   discount?: number
+  serviceCharge?: number
   tax?: number
   total?: number
+  totalPaid?: number
+  change?: number
   totalHpp?: number
   profit?: number
   createdAt?: Date | string
@@ -861,25 +1107,33 @@ export type TransactionUpdateWithoutPaymentsInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   discount?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceCharge?: Prisma.IntFieldUpdateOperationsInput | number
   tax?: Prisma.IntFieldUpdateOperationsInput | number
   total?: Prisma.IntFieldUpdateOperationsInput | number
+  totalPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   tenant?: Prisma.TenantUpdateOneRequiredWithoutTransactionsNestedInput
+  cashier?: Prisma.UserUpdateOneWithoutTransactionsNestedInput
   items?: Prisma.TransactionItemUpdateManyWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateWithoutPaymentsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  cashierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   discount?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceCharge?: Prisma.IntFieldUpdateOperationsInput | number
   tax?: Prisma.IntFieldUpdateOperationsInput | number
   total?: Prisma.IntFieldUpdateOperationsInput | number
+  totalPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -889,12 +1143,16 @@ export type TransactionUncheckedUpdateWithoutPaymentsInput = {
 
 export type TransactionCreateManyTenantInput = {
   id?: string
+  cashierId?: string | null
   invoiceNumber: string
   status?: $Enums.TransactionStatus
   subtotal?: number
   discount?: number
+  serviceCharge?: number
   tax?: number
   total?: number
+  totalPaid?: number
+  change?: number
   totalHpp?: number
   profit?: number
   createdAt?: Date | string
@@ -907,24 +1165,32 @@ export type TransactionUpdateWithoutTenantInput = {
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   discount?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceCharge?: Prisma.IntFieldUpdateOperationsInput | number
   tax?: Prisma.IntFieldUpdateOperationsInput | number
   total?: Prisma.IntFieldUpdateOperationsInput | number
+  totalPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  cashier?: Prisma.UserUpdateOneWithoutTransactionsNestedInput
   items?: Prisma.TransactionItemUpdateManyWithoutTransactionNestedInput
   payments?: Prisma.PaymentUpdateManyWithoutTransactionNestedInput
 }
 
 export type TransactionUncheckedUpdateWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  cashierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   discount?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceCharge?: Prisma.IntFieldUpdateOperationsInput | number
   tax?: Prisma.IntFieldUpdateOperationsInput | number
   total?: Prisma.IntFieldUpdateOperationsInput | number
+  totalPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -935,12 +1201,92 @@ export type TransactionUncheckedUpdateWithoutTenantInput = {
 
 export type TransactionUncheckedUpdateManyWithoutTenantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  cashierId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
   subtotal?: Prisma.IntFieldUpdateOperationsInput | number
   discount?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceCharge?: Prisma.IntFieldUpdateOperationsInput | number
   tax?: Prisma.IntFieldUpdateOperationsInput | number
   total?: Prisma.IntFieldUpdateOperationsInput | number
+  totalPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  change?: Prisma.IntFieldUpdateOperationsInput | number
+  totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
+  profit?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TransactionCreateManyCashierInput = {
+  id?: string
+  tenantId: string
+  invoiceNumber: string
+  status?: $Enums.TransactionStatus
+  subtotal?: number
+  discount?: number
+  serviceCharge?: number
+  tax?: number
+  total?: number
+  totalPaid?: number
+  change?: number
+  totalHpp?: number
+  profit?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TransactionUpdateWithoutCashierInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+  subtotal?: Prisma.IntFieldUpdateOperationsInput | number
+  discount?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceCharge?: Prisma.IntFieldUpdateOperationsInput | number
+  tax?: Prisma.IntFieldUpdateOperationsInput | number
+  total?: Prisma.IntFieldUpdateOperationsInput | number
+  totalPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  change?: Prisma.IntFieldUpdateOperationsInput | number
+  totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
+  profit?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutTransactionsNestedInput
+  items?: Prisma.TransactionItemUpdateManyWithoutTransactionNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutTransactionNestedInput
+}
+
+export type TransactionUncheckedUpdateWithoutCashierInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+  subtotal?: Prisma.IntFieldUpdateOperationsInput | number
+  discount?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceCharge?: Prisma.IntFieldUpdateOperationsInput | number
+  tax?: Prisma.IntFieldUpdateOperationsInput | number
+  total?: Prisma.IntFieldUpdateOperationsInput | number
+  totalPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  change?: Prisma.IntFieldUpdateOperationsInput | number
+  totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
+  profit?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  items?: Prisma.TransactionItemUncheckedUpdateManyWithoutTransactionNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutTransactionNestedInput
+}
+
+export type TransactionUncheckedUpdateManyWithoutCashierInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  invoiceNumber?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumTransactionStatusFieldUpdateOperationsInput | $Enums.TransactionStatus
+  subtotal?: Prisma.IntFieldUpdateOperationsInput | number
+  discount?: Prisma.IntFieldUpdateOperationsInput | number
+  serviceCharge?: Prisma.IntFieldUpdateOperationsInput | number
+  tax?: Prisma.IntFieldUpdateOperationsInput | number
+  total?: Prisma.IntFieldUpdateOperationsInput | number
+  totalPaid?: Prisma.IntFieldUpdateOperationsInput | number
+  change?: Prisma.IntFieldUpdateOperationsInput | number
   totalHpp?: Prisma.IntFieldUpdateOperationsInput | number
   profit?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -990,17 +1336,22 @@ export type TransactionCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.
 export type TransactionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   tenantId?: boolean
+  cashierId?: boolean
   invoiceNumber?: boolean
   status?: boolean
   subtotal?: boolean
   discount?: boolean
+  serviceCharge?: boolean
   tax?: boolean
   total?: boolean
+  totalPaid?: boolean
+  change?: boolean
   totalHpp?: boolean
   profit?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  cashier?: boolean | Prisma.Transaction$cashierArgs<ExtArgs>
   items?: boolean | Prisma.Transaction$itemsArgs<ExtArgs>
   payments?: boolean | Prisma.Transaction$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.TransactionCountOutputTypeDefaultArgs<ExtArgs>
@@ -1011,21 +1362,26 @@ export type TransactionSelect<ExtArgs extends runtime.Types.Extensions.InternalA
 export type TransactionSelectScalar = {
   id?: boolean
   tenantId?: boolean
+  cashierId?: boolean
   invoiceNumber?: boolean
   status?: boolean
   subtotal?: boolean
   discount?: boolean
+  serviceCharge?: boolean
   tax?: boolean
   total?: boolean
+  totalPaid?: boolean
+  change?: boolean
   totalHpp?: boolean
   profit?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "invoiceNumber" | "status" | "subtotal" | "discount" | "tax" | "total" | "totalHpp" | "profit" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
+export type TransactionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "cashierId" | "invoiceNumber" | "status" | "subtotal" | "discount" | "serviceCharge" | "tax" | "total" | "totalPaid" | "change" | "totalHpp" | "profit" | "createdAt" | "updatedAt", ExtArgs["result"]["transaction"]>
 export type TransactionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
+  cashier?: boolean | Prisma.Transaction$cashierArgs<ExtArgs>
   items?: boolean | Prisma.Transaction$itemsArgs<ExtArgs>
   payments?: boolean | Prisma.Transaction$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.TransactionCountOutputTypeDefaultArgs<ExtArgs>
@@ -1035,18 +1391,23 @@ export type $TransactionPayload<ExtArgs extends runtime.Types.Extensions.Interna
   name: "Transaction"
   objects: {
     tenant: Prisma.$TenantPayload<ExtArgs>
+    cashier: Prisma.$UserPayload<ExtArgs> | null
     items: Prisma.$TransactionItemPayload<ExtArgs>[]
     payments: Prisma.$PaymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     tenantId: string
+    cashierId: string | null
     invoiceNumber: string
     status: $Enums.TransactionStatus
     subtotal: number
     discount: number
+    serviceCharge: number
     tax: number
     total: number
+    totalPaid: number
+    change: number
     totalHpp: number
     profit: number
     createdAt: Date
@@ -1392,6 +1753,7 @@ readonly fields: TransactionFieldRefs;
 export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  cashier<T extends Prisma.Transaction$cashierArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transaction$cashierArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   items<T extends Prisma.Transaction$itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transaction$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransactionItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   payments<T extends Prisma.Transaction$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Transaction$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1425,12 +1787,16 @@ export interface Prisma__TransactionClient<T, Null = never, ExtArgs extends runt
 export interface TransactionFieldRefs {
   readonly id: Prisma.FieldRef<"Transaction", 'String'>
   readonly tenantId: Prisma.FieldRef<"Transaction", 'String'>
+  readonly cashierId: Prisma.FieldRef<"Transaction", 'String'>
   readonly invoiceNumber: Prisma.FieldRef<"Transaction", 'String'>
   readonly status: Prisma.FieldRef<"Transaction", 'TransactionStatus'>
   readonly subtotal: Prisma.FieldRef<"Transaction", 'Int'>
   readonly discount: Prisma.FieldRef<"Transaction", 'Int'>
+  readonly serviceCharge: Prisma.FieldRef<"Transaction", 'Int'>
   readonly tax: Prisma.FieldRef<"Transaction", 'Int'>
   readonly total: Prisma.FieldRef<"Transaction", 'Int'>
+  readonly totalPaid: Prisma.FieldRef<"Transaction", 'Int'>
+  readonly change: Prisma.FieldRef<"Transaction", 'Int'>
   readonly totalHpp: Prisma.FieldRef<"Transaction", 'Int'>
   readonly profit: Prisma.FieldRef<"Transaction", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Transaction", 'DateTime'>
@@ -1780,6 +2146,25 @@ export type TransactionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many Transactions to delete.
    */
   limit?: number
+}
+
+/**
+ * Transaction.cashier
+ */
+export type Transaction$cashierArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
 }
 
 /**

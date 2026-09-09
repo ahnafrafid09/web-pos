@@ -22,6 +22,9 @@ export const productSchema = z
       .number()
       .min(0, "Harga jual tidak boleh kurang dari 0")
       .optional(),
+
+    hpp: z.number().min(0, "Hpp tidak boleh kurang dari 0").optional(),
+    image: z.instanceof(File).optional().nullable(),
   })
   .superRefine((data, ctx) => {
     if (

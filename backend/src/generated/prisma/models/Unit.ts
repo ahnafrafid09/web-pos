@@ -186,6 +186,7 @@ export type UnitWhereInput = {
   conversionsTo?: Prisma.UnitConversionListRelationFilter
   rawMaterials?: Prisma.RawMaterialListRelationFilter
   purchaseItems?: Prisma.PurchaseItemListRelationFilter
+  unitConversions?: Prisma.RawMaterialUnitConversionListRelationFilter
 }
 
 export type UnitOrderByWithRelationInput = {
@@ -198,6 +199,7 @@ export type UnitOrderByWithRelationInput = {
   conversionsTo?: Prisma.UnitConversionOrderByRelationAggregateInput
   rawMaterials?: Prisma.RawMaterialOrderByRelationAggregateInput
   purchaseItems?: Prisma.PurchaseItemOrderByRelationAggregateInput
+  unitConversions?: Prisma.RawMaterialUnitConversionOrderByRelationAggregateInput
   _relevance?: Prisma.UnitOrderByRelevanceInput
 }
 
@@ -214,6 +216,7 @@ export type UnitWhereUniqueInput = Prisma.AtLeast<{
   conversionsTo?: Prisma.UnitConversionListRelationFilter
   rawMaterials?: Prisma.RawMaterialListRelationFilter
   purchaseItems?: Prisma.PurchaseItemListRelationFilter
+  unitConversions?: Prisma.RawMaterialUnitConversionListRelationFilter
 }, "id" | "name" | "code">
 
 export type UnitOrderByWithAggregationInput = {
@@ -248,6 +251,7 @@ export type UnitCreateInput = {
   conversionsTo?: Prisma.UnitConversionCreateNestedManyWithoutToUnitInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutUnitInput
   purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutUnitInput
+  unitConversions?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutUnitInput
 }
 
 export type UnitUncheckedCreateInput = {
@@ -260,6 +264,7 @@ export type UnitUncheckedCreateInput = {
   conversionsTo?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutToUnitInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutUnitInput
   purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutUnitInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutUnitInput
 }
 
 export type UnitUpdateInput = {
@@ -272,6 +277,7 @@ export type UnitUpdateInput = {
   conversionsTo?: Prisma.UnitConversionUpdateManyWithoutToUnitNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutUnitNestedInput
   purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutUnitNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUpdateManyWithoutUnitNestedInput
 }
 
 export type UnitUncheckedUpdateInput = {
@@ -284,6 +290,7 @@ export type UnitUncheckedUpdateInput = {
   conversionsTo?: Prisma.UnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutUnitNestedInput
   purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutUnitNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutUnitNestedInput
 }
 
 export type UnitCreateManyInput = {
@@ -401,6 +408,20 @@ export type UnitUpdateOneRequiredWithoutConversionsToNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UnitUpdateToOneWithWhereWithoutConversionsToInput, Prisma.UnitUpdateWithoutConversionsToInput>, Prisma.UnitUncheckedUpdateWithoutConversionsToInput>
 }
 
+export type UnitCreateNestedOneWithoutUnitConversionsInput = {
+  create?: Prisma.XOR<Prisma.UnitCreateWithoutUnitConversionsInput, Prisma.UnitUncheckedCreateWithoutUnitConversionsInput>
+  connectOrCreate?: Prisma.UnitCreateOrConnectWithoutUnitConversionsInput
+  connect?: Prisma.UnitWhereUniqueInput
+}
+
+export type UnitUpdateOneRequiredWithoutUnitConversionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UnitCreateWithoutUnitConversionsInput, Prisma.UnitUncheckedCreateWithoutUnitConversionsInput>
+  connectOrCreate?: Prisma.UnitCreateOrConnectWithoutUnitConversionsInput
+  upsert?: Prisma.UnitUpsertWithoutUnitConversionsInput
+  connect?: Prisma.UnitWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UnitUpdateToOneWithWhereWithoutUnitConversionsInput, Prisma.UnitUpdateWithoutUnitConversionsInput>, Prisma.UnitUncheckedUpdateWithoutUnitConversionsInput>
+}
+
 export type UnitCreateWithoutRawMaterialsInput = {
   id?: string
   name: string
@@ -410,6 +431,7 @@ export type UnitCreateWithoutRawMaterialsInput = {
   conversionsFrom?: Prisma.UnitConversionCreateNestedManyWithoutFromUnitInput
   conversionsTo?: Prisma.UnitConversionCreateNestedManyWithoutToUnitInput
   purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutUnitInput
+  unitConversions?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutUnitInput
 }
 
 export type UnitUncheckedCreateWithoutRawMaterialsInput = {
@@ -421,6 +443,7 @@ export type UnitUncheckedCreateWithoutRawMaterialsInput = {
   conversionsFrom?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
   conversionsTo?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutToUnitInput
   purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutUnitInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutUnitInput
 }
 
 export type UnitCreateOrConnectWithoutRawMaterialsInput = {
@@ -448,6 +471,7 @@ export type UnitUpdateWithoutRawMaterialsInput = {
   conversionsFrom?: Prisma.UnitConversionUpdateManyWithoutFromUnitNestedInput
   conversionsTo?: Prisma.UnitConversionUpdateManyWithoutToUnitNestedInput
   purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutUnitNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUpdateManyWithoutUnitNestedInput
 }
 
 export type UnitUncheckedUpdateWithoutRawMaterialsInput = {
@@ -459,6 +483,7 @@ export type UnitUncheckedUpdateWithoutRawMaterialsInput = {
   conversionsFrom?: Prisma.UnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
   conversionsTo?: Prisma.UnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
   purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutUnitNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutUnitNestedInput
 }
 
 export type UnitCreateWithoutPurchaseItemsInput = {
@@ -470,6 +495,7 @@ export type UnitCreateWithoutPurchaseItemsInput = {
   conversionsFrom?: Prisma.UnitConversionCreateNestedManyWithoutFromUnitInput
   conversionsTo?: Prisma.UnitConversionCreateNestedManyWithoutToUnitInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutUnitInput
+  unitConversions?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutUnitInput
 }
 
 export type UnitUncheckedCreateWithoutPurchaseItemsInput = {
@@ -481,6 +507,7 @@ export type UnitUncheckedCreateWithoutPurchaseItemsInput = {
   conversionsFrom?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
   conversionsTo?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutToUnitInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutUnitInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutUnitInput
 }
 
 export type UnitCreateOrConnectWithoutPurchaseItemsInput = {
@@ -508,6 +535,7 @@ export type UnitUpdateWithoutPurchaseItemsInput = {
   conversionsFrom?: Prisma.UnitConversionUpdateManyWithoutFromUnitNestedInput
   conversionsTo?: Prisma.UnitConversionUpdateManyWithoutToUnitNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutUnitNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUpdateManyWithoutUnitNestedInput
 }
 
 export type UnitUncheckedUpdateWithoutPurchaseItemsInput = {
@@ -519,6 +547,7 @@ export type UnitUncheckedUpdateWithoutPurchaseItemsInput = {
   conversionsFrom?: Prisma.UnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
   conversionsTo?: Prisma.UnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutUnitNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutUnitNestedInput
 }
 
 export type UnitCreateWithoutConversionsFromInput = {
@@ -530,6 +559,7 @@ export type UnitCreateWithoutConversionsFromInput = {
   conversionsTo?: Prisma.UnitConversionCreateNestedManyWithoutToUnitInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutUnitInput
   purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutUnitInput
+  unitConversions?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutUnitInput
 }
 
 export type UnitUncheckedCreateWithoutConversionsFromInput = {
@@ -541,6 +571,7 @@ export type UnitUncheckedCreateWithoutConversionsFromInput = {
   conversionsTo?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutToUnitInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutUnitInput
   purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutUnitInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutUnitInput
 }
 
 export type UnitCreateOrConnectWithoutConversionsFromInput = {
@@ -557,6 +588,7 @@ export type UnitCreateWithoutConversionsToInput = {
   conversionsFrom?: Prisma.UnitConversionCreateNestedManyWithoutFromUnitInput
   rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutUnitInput
   purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutUnitInput
+  unitConversions?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutUnitInput
 }
 
 export type UnitUncheckedCreateWithoutConversionsToInput = {
@@ -568,6 +600,7 @@ export type UnitUncheckedCreateWithoutConversionsToInput = {
   conversionsFrom?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
   rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutUnitInput
   purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutUnitInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutUnitInput
 }
 
 export type UnitCreateOrConnectWithoutConversionsToInput = {
@@ -595,6 +628,7 @@ export type UnitUpdateWithoutConversionsFromInput = {
   conversionsTo?: Prisma.UnitConversionUpdateManyWithoutToUnitNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutUnitNestedInput
   purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutUnitNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUpdateManyWithoutUnitNestedInput
 }
 
 export type UnitUncheckedUpdateWithoutConversionsFromInput = {
@@ -606,6 +640,7 @@ export type UnitUncheckedUpdateWithoutConversionsFromInput = {
   conversionsTo?: Prisma.UnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutUnitNestedInput
   purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutUnitNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutUnitNestedInput
 }
 
 export type UnitUpsertWithoutConversionsToInput = {
@@ -628,6 +663,7 @@ export type UnitUpdateWithoutConversionsToInput = {
   conversionsFrom?: Prisma.UnitConversionUpdateManyWithoutFromUnitNestedInput
   rawMaterials?: Prisma.RawMaterialUpdateManyWithoutUnitNestedInput
   purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutUnitNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUpdateManyWithoutUnitNestedInput
 }
 
 export type UnitUncheckedUpdateWithoutConversionsToInput = {
@@ -637,6 +673,71 @@ export type UnitUncheckedUpdateWithoutConversionsToInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   conversionsFrom?: Prisma.UnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
+  rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutUnitNestedInput
+  purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutUnitNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutUnitNestedInput
+}
+
+export type UnitCreateWithoutUnitConversionsInput = {
+  id?: string
+  name: string
+  code: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  conversionsFrom?: Prisma.UnitConversionCreateNestedManyWithoutFromUnitInput
+  conversionsTo?: Prisma.UnitConversionCreateNestedManyWithoutToUnitInput
+  rawMaterials?: Prisma.RawMaterialCreateNestedManyWithoutUnitInput
+  purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutUnitInput
+}
+
+export type UnitUncheckedCreateWithoutUnitConversionsInput = {
+  id?: string
+  name: string
+  code: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  conversionsFrom?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutFromUnitInput
+  conversionsTo?: Prisma.UnitConversionUncheckedCreateNestedManyWithoutToUnitInput
+  rawMaterials?: Prisma.RawMaterialUncheckedCreateNestedManyWithoutUnitInput
+  purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutUnitInput
+}
+
+export type UnitCreateOrConnectWithoutUnitConversionsInput = {
+  where: Prisma.UnitWhereUniqueInput
+  create: Prisma.XOR<Prisma.UnitCreateWithoutUnitConversionsInput, Prisma.UnitUncheckedCreateWithoutUnitConversionsInput>
+}
+
+export type UnitUpsertWithoutUnitConversionsInput = {
+  update: Prisma.XOR<Prisma.UnitUpdateWithoutUnitConversionsInput, Prisma.UnitUncheckedUpdateWithoutUnitConversionsInput>
+  create: Prisma.XOR<Prisma.UnitCreateWithoutUnitConversionsInput, Prisma.UnitUncheckedCreateWithoutUnitConversionsInput>
+  where?: Prisma.UnitWhereInput
+}
+
+export type UnitUpdateToOneWithWhereWithoutUnitConversionsInput = {
+  where?: Prisma.UnitWhereInput
+  data: Prisma.XOR<Prisma.UnitUpdateWithoutUnitConversionsInput, Prisma.UnitUncheckedUpdateWithoutUnitConversionsInput>
+}
+
+export type UnitUpdateWithoutUnitConversionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  conversionsFrom?: Prisma.UnitConversionUpdateManyWithoutFromUnitNestedInput
+  conversionsTo?: Prisma.UnitConversionUpdateManyWithoutToUnitNestedInput
+  rawMaterials?: Prisma.RawMaterialUpdateManyWithoutUnitNestedInput
+  purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutUnitNestedInput
+}
+
+export type UnitUncheckedUpdateWithoutUnitConversionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  conversionsFrom?: Prisma.UnitConversionUncheckedUpdateManyWithoutFromUnitNestedInput
+  conversionsTo?: Prisma.UnitConversionUncheckedUpdateManyWithoutToUnitNestedInput
   rawMaterials?: Prisma.RawMaterialUncheckedUpdateManyWithoutUnitNestedInput
   purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutUnitNestedInput
 }
@@ -651,6 +752,7 @@ export type UnitCountOutputType = {
   conversionsTo: number
   rawMaterials: number
   purchaseItems: number
+  unitConversions: number
 }
 
 export type UnitCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -658,6 +760,7 @@ export type UnitCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   conversionsTo?: boolean | UnitCountOutputTypeCountConversionsToArgs
   rawMaterials?: boolean | UnitCountOutputTypeCountRawMaterialsArgs
   purchaseItems?: boolean | UnitCountOutputTypeCountPurchaseItemsArgs
+  unitConversions?: boolean | UnitCountOutputTypeCountUnitConversionsArgs
 }
 
 /**
@@ -698,6 +801,13 @@ export type UnitCountOutputTypeCountPurchaseItemsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.PurchaseItemWhereInput
 }
 
+/**
+ * UnitCountOutputType without action
+ */
+export type UnitCountOutputTypeCountUnitConversionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RawMaterialUnitConversionWhereInput
+}
+
 
 export type UnitSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -709,6 +819,7 @@ export type UnitSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   conversionsTo?: boolean | Prisma.Unit$conversionsToArgs<ExtArgs>
   rawMaterials?: boolean | Prisma.Unit$rawMaterialsArgs<ExtArgs>
   purchaseItems?: boolean | Prisma.Unit$purchaseItemsArgs<ExtArgs>
+  unitConversions?: boolean | Prisma.Unit$unitConversionsArgs<ExtArgs>
   _count?: boolean | Prisma.UnitCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["unit"]>
 
@@ -728,6 +839,7 @@ export type UnitInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   conversionsTo?: boolean | Prisma.Unit$conversionsToArgs<ExtArgs>
   rawMaterials?: boolean | Prisma.Unit$rawMaterialsArgs<ExtArgs>
   purchaseItems?: boolean | Prisma.Unit$purchaseItemsArgs<ExtArgs>
+  unitConversions?: boolean | Prisma.Unit$unitConversionsArgs<ExtArgs>
   _count?: boolean | Prisma.UnitCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -738,6 +850,7 @@ export type $UnitPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     conversionsTo: Prisma.$UnitConversionPayload<ExtArgs>[]
     rawMaterials: Prisma.$RawMaterialPayload<ExtArgs>[]
     purchaseItems: Prisma.$PurchaseItemPayload<ExtArgs>[]
+    unitConversions: Prisma.$RawMaterialUnitConversionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1089,6 +1202,7 @@ export interface Prisma__UnitClient<T, Null = never, ExtArgs extends runtime.Typ
   conversionsTo<T extends Prisma.Unit$conversionsToArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Unit$conversionsToArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UnitConversionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   rawMaterials<T extends Prisma.Unit$rawMaterialsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Unit$rawMaterialsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RawMaterialPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   purchaseItems<T extends Prisma.Unit$purchaseItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Unit$purchaseItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchaseItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  unitConversions<T extends Prisma.Unit$unitConversionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Unit$unitConversionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RawMaterialUnitConversionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1564,6 +1678,30 @@ export type Unit$purchaseItemsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.PurchaseItemScalarFieldEnum | Prisma.PurchaseItemScalarFieldEnum[]
+}
+
+/**
+ * Unit.unitConversions
+ */
+export type Unit$unitConversionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RawMaterialUnitConversion
+   */
+  select?: Prisma.RawMaterialUnitConversionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RawMaterialUnitConversion
+   */
+  omit?: Prisma.RawMaterialUnitConversionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RawMaterialUnitConversionInclude<ExtArgs> | null
+  where?: Prisma.RawMaterialUnitConversionWhereInput
+  orderBy?: Prisma.RawMaterialUnitConversionOrderByWithRelationInput | Prisma.RawMaterialUnitConversionOrderByWithRelationInput[]
+  cursor?: Prisma.RawMaterialUnitConversionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RawMaterialUnitConversionScalarFieldEnum | Prisma.RawMaterialUnitConversionScalarFieldEnum[]
 }
 
 /**

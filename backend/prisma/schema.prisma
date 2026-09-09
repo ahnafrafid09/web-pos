@@ -29,6 +29,7 @@ enum StockMovementType {
 }
 
 enum TransactionStatus {
+  PENDING
   COMPLETED
   CANCELLED
   REFUNDED
@@ -38,6 +39,7 @@ enum PurchaseType {
   PO
   DIRECT
 }
+
 
 // DRAFT      -> baru dibuat, belum dikirim ke supplier (khusus PO)
 // ORDERED    -> PO sudah dikirim/disetujui, menunggu barang datang
@@ -67,9 +69,9 @@ enum AdjustmentType {
 
 // Menentukan di konteks mana sebuah metode pembayaran boleh dipakai
 enum PaymentMethodUsage {
-  PURCHASE    // hanya untuk pembayaran ke supplier
+  PURCHASE // hanya untuk pembayaran ke supplier
   TRANSACTION // hanya untuk kasir/transaksi penjualan
-  BOTH        // dua-duanya
+  BOTH // dua-duanya
 }
 
 enum AuditLogAction {
@@ -82,6 +84,21 @@ enum AuditLogAction {
   LOGOUT
 }
 
+enum ModuleCode {
+  SALES
+  INVENTORY
+  PURCHASE
+  RECIPE
+  REPORTING
+}
+
+enum TenantModuleStatus {
+  ACTIVE
+  INACTIVE
+  EXPIRED
+  SUSPENDED
+}
+
 model Tenant {
   id     String  @id @default(uuid())
   name   String  @db.VarChar(150)
@@ -90,9 +107,9 @@ model Tenant {
 
   users User[]
 
-  categories   Category[]
-  products     Product[]
-  rawMaterials RawMaterial[]
+  categories     Category[]
+  products       Product[]
+  rawMaterials   RawMaterial[]
   paymentMethods PaymentMethod[]
 
   purchases    Purchase[]
@@ -104,10 +121,50 @@ model Tenant {
 
   auditLogs AuditLog[]
 
+  modules TenantModule[]
+  transactionSetting TransactionSetting?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([status])
+}
+
+model Module {
+  id String @id @default(uuid())
+
+  code ModuleCode @unique
+  name String @db.VarChar(100)
+  description String? @db.Text
+
+  status Boolean @default(true)
+
+  tenantModules TenantModule[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TenantModule {
+  id String @id @default(uuid())
+
+  tenantId String
+  tenant Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  moduleId String
+  module Module @relation(fields: [moduleId], references: [id], onDelete: Restrict)
+
+  status TenantModuleStatus @default(ACTIVE)
+
+  startedAt DateTime @default(now())
+  expiredAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([tenantId, moduleId])
+  @@index([tenantId])
+  @@index([moduleId])
 }
 
 model User {
@@ -128,12 +185,13 @@ model User {
 
   auditLogs AuditLog[]
 
+  transactions Transaction[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // username unik dalam satu tenant
   @@unique([tenantId, username])
-
   @@index([tenantId])
   @@index([role])
   @@index([status])
@@ -154,7 +212,6 @@ model Category {
   updatedAt DateTime @updatedAt
 
   @@unique([tenantId, name])
-
   @@index([tenantId])
   @@index([status])
 }
@@ -179,8 +236,12 @@ model Product {
   unit String @db.VarChar(30)
 
   sellingPrice Int @default(0)
+  hpp          Int @default(0)
 
   status Boolean @default(true)
+
+  imageUrl String?
+  imageKey String?
 
   recipeItems RecipeItem[]
 
@@ -191,16 +252,13 @@ model Product {
 
   // Nama produk unik dalam tenant
   @@unique([tenantId, name])
-
   // SKU juga unik dalam tenant
   @@unique([tenantId, sku])
-
   @@index([tenantId])
   @@index([categoryId])
   @@index([type])
   @@index([status])
 }
-
 
 model RawMaterial {
   id String @id @default(uuid())
@@ -214,7 +272,7 @@ model RawMaterial {
 
   // Base unit
   unitId String
-  unit   Unit @relation(fields: [unitId], references: [id])
+  unit   Unit   @relation(fields: [unitId], references: [id])
 
   // HPP rata-rata per base unit
   averageCost Int @default(0)
@@ -223,16 +281,16 @@ model RawMaterial {
 
   stock Stock?
 
-  recipeItems    RecipeItem[]
-  purchaseItems  PurchaseItem[]
-  stockMovements StockMovement[]
+  recipeItems     RecipeItem[]
+  purchaseItems   PurchaseItem[]
+  stockMovements  StockMovement[]
+  unitConversions RawMaterialUnitConversion[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@unique([tenantId, name])
   @@unique([tenantId, sku])
-
   @@index([tenantId])
   @@index([unitId])
   @@index([status])
@@ -261,7 +319,6 @@ model RecipeItem {
   rawMaterialId String
   rawMaterial   RawMaterial @relation(fields: [rawMaterialId], references: [id], onDelete: Restrict)
 
-
   // Jumlah bahan yang diperlukan untuk menghasilkan 1 unit Product
   quantity Decimal @db.Decimal(15, 3)
 
@@ -272,7 +329,6 @@ model RecipeItem {
   @@index([productId])
   @@index([rawMaterialId])
 }
-
 
 model Supplier {
   id       String @id @default(uuid())
@@ -318,12 +374,12 @@ model Purchase {
   subtotal Int @default(0)
 
   discountType  AdjustmentType?
-  discountValue Decimal? @db.Decimal(15, 2)
-  discount      Int @default(0)
+  discountValue Decimal?        @db.Decimal(15, 2)
+  discount      Int             @default(0)
 
   taxType  AdjustmentType?
-  taxValue Decimal? @db.Decimal(15, 2)
-  tax      Int @default(0)
+  taxValue Decimal?        @db.Decimal(15, 2)
+  tax      Int             @default(0)
 
   totalAmount Int @default(0)
 
@@ -337,7 +393,6 @@ model Purchase {
   updatedAt DateTime @updatedAt
 
   @@unique([tenantId, purchaseNumber])
-
   @@index([tenantId])
   @@index([supplierId])
   @@index([purchaseDate])
@@ -360,13 +415,14 @@ model PurchaseItem {
 
   // Unit pembelian
   unitId String
-  unit   Unit @relation(fields: [unitId], references: [id], onDelete: Restrict)
+  unit   Unit   @relation(fields: [unitId], references: [id], onDelete: Restrict)
 
   // Qty setelah konversi ke base unit
   baseQuantity Decimal @db.Decimal(15, 3)
 
   // Total qty yang sudah diterima
   receivedBaseQuantity Decimal @default(0) @db.Decimal(15, 3)
+  unitPrice            Int
 
   // Harga total item
   subtotal Int @default(0)
@@ -492,31 +548,34 @@ model Transaction {
   tenantId String
   tenant   Tenant @relation(fields: [tenantId], references: [id])
 
+cashierId String?
+cashier   User? @relation(fields: [cashierId], references: [id])
+
+
   invoiceNumber String @db.VarChar(100)
 
-  status TransactionStatus @default(COMPLETED)
+  status TransactionStatus @default(PENDING)
 
   subtotal Int @default(0)
+
   discount Int @default(0)
-  tax      Int @default(0)
-  total    Int @default(0)
 
-  // Total HPP semua item
+  serviceCharge Int @default(0)
+  tax           Int @default(0)
+
+  total Int @default(0)
+
+  totalPaid Int @default(0)
+  change    Int @default(0)
+
   totalHpp Int @default(0)
-
-  // Total keuntungan
-  profit Int @default(0)
+  profit   Int @default(0)
 
   items    TransactionItem[]
   payments Payment[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  @@unique([tenantId, invoiceNumber])
-  @@index([tenantId])
-  @@index([createdAt])
-  @@index([status])
 }
 
 model TransactionItem {
@@ -622,8 +681,9 @@ model Unit {
   conversionsFrom UnitConversion[] @relation("FromUnit")
   conversionsTo   UnitConversion[] @relation("ToUnit")
 
-  rawMaterials  RawMaterial[]
-  purchaseItems PurchaseItem[]
+  rawMaterials    RawMaterial[]
+  purchaseItems   PurchaseItem[]
+  unitConversions RawMaterialUnitConversion[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -648,6 +708,20 @@ model UnitConversion {
   @@unique([fromUnitId, toUnitId])
 }
 
+model RawMaterialUnitConversion {
+  id String @id @default(uuid())
+
+  rawMaterialId String
+  rawMaterial   RawMaterial @relation(fields: [rawMaterialId], references: [id], onDelete: Cascade)
+
+  unitId String
+  unit   Unit   @relation(fields: [unitId], references: [id])
+
+  factor Decimal @db.Decimal(15, 6)
+
+  @@unique([rawMaterialId, unitId])
+}
+
 model AuditLog {
   id String @id @default(uuid())
 
@@ -655,12 +729,12 @@ model AuditLog {
   tenant   Tenant? @relation(fields: [tenantId], references: [id])
 
   userId String?
-  user   User? @relation(fields: [userId], references: [id])
+  user   User?   @relation(fields: [userId], references: [id])
 
   action AuditLogAction
-  module String @db.VarChar(50)
+  module String         @db.VarChar(50)
 
-  entityType String @db.VarChar(100)
+  entityType String  @db.VarChar(100)
   entityId   String?
 
   description String? @db.Text
@@ -678,4 +752,20 @@ model AuditLog {
   @@index([module])
   @@index([entityType, entityId])
   @@index([createdAt])
+}
+
+model TransactionSetting {
+  id String @id @default(uuid())
+
+  tenantId String @unique
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+
+  taxEnabled Boolean @default(false)
+  taxRate    Decimal @default(0) @db.Decimal(5, 2)
+
+  serviceChargeEnabled Boolean @default(false)
+  serviceChargeRate    Decimal @default(0) @db.Decimal(5, 2)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

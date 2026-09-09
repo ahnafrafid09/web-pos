@@ -254,6 +254,7 @@ export type RawMaterialWhereInput = {
   recipeItems?: Prisma.RecipeItemListRelationFilter
   purchaseItems?: Prisma.PurchaseItemListRelationFilter
   stockMovements?: Prisma.StockMovementListRelationFilter
+  unitConversions?: Prisma.RawMaterialUnitConversionListRelationFilter
 }
 
 export type RawMaterialOrderByWithRelationInput = {
@@ -272,6 +273,7 @@ export type RawMaterialOrderByWithRelationInput = {
   recipeItems?: Prisma.RecipeItemOrderByRelationAggregateInput
   purchaseItems?: Prisma.PurchaseItemOrderByRelationAggregateInput
   stockMovements?: Prisma.StockMovementOrderByRelationAggregateInput
+  unitConversions?: Prisma.RawMaterialUnitConversionOrderByRelationAggregateInput
   _relevance?: Prisma.RawMaterialOrderByRelevanceInput
 }
 
@@ -296,6 +298,7 @@ export type RawMaterialWhereUniqueInput = Prisma.AtLeast<{
   recipeItems?: Prisma.RecipeItemListRelationFilter
   purchaseItems?: Prisma.PurchaseItemListRelationFilter
   stockMovements?: Prisma.StockMovementListRelationFilter
+  unitConversions?: Prisma.RawMaterialUnitConversionListRelationFilter
 }, "id" | "tenantId_name" | "tenantId_sku">
 
 export type RawMaterialOrderByWithAggregationInput = {
@@ -344,6 +347,7 @@ export type RawMaterialCreateInput = {
   recipeItems?: Prisma.RecipeItemCreateNestedManyWithoutRawMaterialInput
   purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutRawMaterialInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutRawMaterialInput
+  unitConversions?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutRawMaterialInput
 }
 
 export type RawMaterialUncheckedCreateInput = {
@@ -360,6 +364,7 @@ export type RawMaterialUncheckedCreateInput = {
   recipeItems?: Prisma.RecipeItemUncheckedCreateNestedManyWithoutRawMaterialInput
   purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutRawMaterialInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutRawMaterialInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutRawMaterialInput
 }
 
 export type RawMaterialUpdateInput = {
@@ -376,6 +381,7 @@ export type RawMaterialUpdateInput = {
   recipeItems?: Prisma.RecipeItemUpdateManyWithoutRawMaterialNestedInput
   purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutRawMaterialNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutRawMaterialNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUpdateManyWithoutRawMaterialNestedInput
 }
 
 export type RawMaterialUncheckedUpdateInput = {
@@ -392,6 +398,7 @@ export type RawMaterialUncheckedUpdateInput = {
   recipeItems?: Prisma.RecipeItemUncheckedUpdateManyWithoutRawMaterialNestedInput
   purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutRawMaterialNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutRawMaterialNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutRawMaterialNestedInput
 }
 
 export type RawMaterialCreateManyInput = {
@@ -643,6 +650,20 @@ export type RawMaterialUncheckedUpdateManyWithoutUnitNestedInput = {
   deleteMany?: Prisma.RawMaterialScalarWhereInput | Prisma.RawMaterialScalarWhereInput[]
 }
 
+export type RawMaterialCreateNestedOneWithoutUnitConversionsInput = {
+  create?: Prisma.XOR<Prisma.RawMaterialCreateWithoutUnitConversionsInput, Prisma.RawMaterialUncheckedCreateWithoutUnitConversionsInput>
+  connectOrCreate?: Prisma.RawMaterialCreateOrConnectWithoutUnitConversionsInput
+  connect?: Prisma.RawMaterialWhereUniqueInput
+}
+
+export type RawMaterialUpdateOneRequiredWithoutUnitConversionsNestedInput = {
+  create?: Prisma.XOR<Prisma.RawMaterialCreateWithoutUnitConversionsInput, Prisma.RawMaterialUncheckedCreateWithoutUnitConversionsInput>
+  connectOrCreate?: Prisma.RawMaterialCreateOrConnectWithoutUnitConversionsInput
+  upsert?: Prisma.RawMaterialUpsertWithoutUnitConversionsInput
+  connect?: Prisma.RawMaterialWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.RawMaterialUpdateToOneWithWhereWithoutUnitConversionsInput, Prisma.RawMaterialUpdateWithoutUnitConversionsInput>, Prisma.RawMaterialUncheckedUpdateWithoutUnitConversionsInput>
+}
+
 export type RawMaterialCreateWithoutTenantInput = {
   id?: string
   name: string
@@ -656,6 +677,7 @@ export type RawMaterialCreateWithoutTenantInput = {
   recipeItems?: Prisma.RecipeItemCreateNestedManyWithoutRawMaterialInput
   purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutRawMaterialInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutRawMaterialInput
+  unitConversions?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutRawMaterialInput
 }
 
 export type RawMaterialUncheckedCreateWithoutTenantInput = {
@@ -671,6 +693,7 @@ export type RawMaterialUncheckedCreateWithoutTenantInput = {
   recipeItems?: Prisma.RecipeItemUncheckedCreateNestedManyWithoutRawMaterialInput
   purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutRawMaterialInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutRawMaterialInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutRawMaterialInput
 }
 
 export type RawMaterialCreateOrConnectWithoutTenantInput = {
@@ -727,6 +750,7 @@ export type RawMaterialCreateWithoutStockInput = {
   recipeItems?: Prisma.RecipeItemCreateNestedManyWithoutRawMaterialInput
   purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutRawMaterialInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutRawMaterialInput
+  unitConversions?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutRawMaterialInput
 }
 
 export type RawMaterialUncheckedCreateWithoutStockInput = {
@@ -742,6 +766,7 @@ export type RawMaterialUncheckedCreateWithoutStockInput = {
   recipeItems?: Prisma.RecipeItemUncheckedCreateNestedManyWithoutRawMaterialInput
   purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutRawMaterialInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutRawMaterialInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutRawMaterialInput
 }
 
 export type RawMaterialCreateOrConnectWithoutStockInput = {
@@ -773,6 +798,7 @@ export type RawMaterialUpdateWithoutStockInput = {
   recipeItems?: Prisma.RecipeItemUpdateManyWithoutRawMaterialNestedInput
   purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutRawMaterialNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutRawMaterialNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUpdateManyWithoutRawMaterialNestedInput
 }
 
 export type RawMaterialUncheckedUpdateWithoutStockInput = {
@@ -788,6 +814,7 @@ export type RawMaterialUncheckedUpdateWithoutStockInput = {
   recipeItems?: Prisma.RecipeItemUncheckedUpdateManyWithoutRawMaterialNestedInput
   purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutRawMaterialNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutRawMaterialNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutRawMaterialNestedInput
 }
 
 export type RawMaterialCreateWithoutRecipeItemsInput = {
@@ -803,6 +830,7 @@ export type RawMaterialCreateWithoutRecipeItemsInput = {
   stock?: Prisma.StockCreateNestedOneWithoutRawMaterialInput
   purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutRawMaterialInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutRawMaterialInput
+  unitConversions?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutRawMaterialInput
 }
 
 export type RawMaterialUncheckedCreateWithoutRecipeItemsInput = {
@@ -818,6 +846,7 @@ export type RawMaterialUncheckedCreateWithoutRecipeItemsInput = {
   stock?: Prisma.StockUncheckedCreateNestedOneWithoutRawMaterialInput
   purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutRawMaterialInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutRawMaterialInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutRawMaterialInput
 }
 
 export type RawMaterialCreateOrConnectWithoutRecipeItemsInput = {
@@ -849,6 +878,7 @@ export type RawMaterialUpdateWithoutRecipeItemsInput = {
   stock?: Prisma.StockUpdateOneWithoutRawMaterialNestedInput
   purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutRawMaterialNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutRawMaterialNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUpdateManyWithoutRawMaterialNestedInput
 }
 
 export type RawMaterialUncheckedUpdateWithoutRecipeItemsInput = {
@@ -864,6 +894,7 @@ export type RawMaterialUncheckedUpdateWithoutRecipeItemsInput = {
   stock?: Prisma.StockUncheckedUpdateOneWithoutRawMaterialNestedInput
   purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutRawMaterialNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutRawMaterialNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutRawMaterialNestedInput
 }
 
 export type RawMaterialCreateWithoutPurchaseItemsInput = {
@@ -879,6 +910,7 @@ export type RawMaterialCreateWithoutPurchaseItemsInput = {
   stock?: Prisma.StockCreateNestedOneWithoutRawMaterialInput
   recipeItems?: Prisma.RecipeItemCreateNestedManyWithoutRawMaterialInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutRawMaterialInput
+  unitConversions?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutRawMaterialInput
 }
 
 export type RawMaterialUncheckedCreateWithoutPurchaseItemsInput = {
@@ -894,6 +926,7 @@ export type RawMaterialUncheckedCreateWithoutPurchaseItemsInput = {
   stock?: Prisma.StockUncheckedCreateNestedOneWithoutRawMaterialInput
   recipeItems?: Prisma.RecipeItemUncheckedCreateNestedManyWithoutRawMaterialInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutRawMaterialInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutRawMaterialInput
 }
 
 export type RawMaterialCreateOrConnectWithoutPurchaseItemsInput = {
@@ -925,6 +958,7 @@ export type RawMaterialUpdateWithoutPurchaseItemsInput = {
   stock?: Prisma.StockUpdateOneWithoutRawMaterialNestedInput
   recipeItems?: Prisma.RecipeItemUpdateManyWithoutRawMaterialNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutRawMaterialNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUpdateManyWithoutRawMaterialNestedInput
 }
 
 export type RawMaterialUncheckedUpdateWithoutPurchaseItemsInput = {
@@ -940,6 +974,7 @@ export type RawMaterialUncheckedUpdateWithoutPurchaseItemsInput = {
   stock?: Prisma.StockUncheckedUpdateOneWithoutRawMaterialNestedInput
   recipeItems?: Prisma.RecipeItemUncheckedUpdateManyWithoutRawMaterialNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutRawMaterialNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutRawMaterialNestedInput
 }
 
 export type RawMaterialCreateWithoutStockMovementsInput = {
@@ -955,6 +990,7 @@ export type RawMaterialCreateWithoutStockMovementsInput = {
   stock?: Prisma.StockCreateNestedOneWithoutRawMaterialInput
   recipeItems?: Prisma.RecipeItemCreateNestedManyWithoutRawMaterialInput
   purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutRawMaterialInput
+  unitConversions?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutRawMaterialInput
 }
 
 export type RawMaterialUncheckedCreateWithoutStockMovementsInput = {
@@ -970,6 +1006,7 @@ export type RawMaterialUncheckedCreateWithoutStockMovementsInput = {
   stock?: Prisma.StockUncheckedCreateNestedOneWithoutRawMaterialInput
   recipeItems?: Prisma.RecipeItemUncheckedCreateNestedManyWithoutRawMaterialInput
   purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutRawMaterialInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutRawMaterialInput
 }
 
 export type RawMaterialCreateOrConnectWithoutStockMovementsInput = {
@@ -1001,6 +1038,7 @@ export type RawMaterialUpdateWithoutStockMovementsInput = {
   stock?: Prisma.StockUpdateOneWithoutRawMaterialNestedInput
   recipeItems?: Prisma.RecipeItemUpdateManyWithoutRawMaterialNestedInput
   purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutRawMaterialNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUpdateManyWithoutRawMaterialNestedInput
 }
 
 export type RawMaterialUncheckedUpdateWithoutStockMovementsInput = {
@@ -1016,6 +1054,7 @@ export type RawMaterialUncheckedUpdateWithoutStockMovementsInput = {
   stock?: Prisma.StockUncheckedUpdateOneWithoutRawMaterialNestedInput
   recipeItems?: Prisma.RecipeItemUncheckedUpdateManyWithoutRawMaterialNestedInput
   purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutRawMaterialNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutRawMaterialNestedInput
 }
 
 export type RawMaterialCreateWithoutUnitInput = {
@@ -1031,6 +1070,7 @@ export type RawMaterialCreateWithoutUnitInput = {
   recipeItems?: Prisma.RecipeItemCreateNestedManyWithoutRawMaterialInput
   purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutRawMaterialInput
   stockMovements?: Prisma.StockMovementCreateNestedManyWithoutRawMaterialInput
+  unitConversions?: Prisma.RawMaterialUnitConversionCreateNestedManyWithoutRawMaterialInput
 }
 
 export type RawMaterialUncheckedCreateWithoutUnitInput = {
@@ -1046,6 +1086,7 @@ export type RawMaterialUncheckedCreateWithoutUnitInput = {
   recipeItems?: Prisma.RecipeItemUncheckedCreateNestedManyWithoutRawMaterialInput
   purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutRawMaterialInput
   stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutRawMaterialInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedCreateNestedManyWithoutRawMaterialInput
 }
 
 export type RawMaterialCreateOrConnectWithoutUnitInput = {
@@ -1074,6 +1115,86 @@ export type RawMaterialUpdateManyWithWhereWithoutUnitInput = {
   data: Prisma.XOR<Prisma.RawMaterialUpdateManyMutationInput, Prisma.RawMaterialUncheckedUpdateManyWithoutUnitInput>
 }
 
+export type RawMaterialCreateWithoutUnitConversionsInput = {
+  id?: string
+  name: string
+  sku?: string | null
+  averageCost?: number
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  tenant: Prisma.TenantCreateNestedOneWithoutRawMaterialsInput
+  unit: Prisma.UnitCreateNestedOneWithoutRawMaterialsInput
+  stock?: Prisma.StockCreateNestedOneWithoutRawMaterialInput
+  recipeItems?: Prisma.RecipeItemCreateNestedManyWithoutRawMaterialInput
+  purchaseItems?: Prisma.PurchaseItemCreateNestedManyWithoutRawMaterialInput
+  stockMovements?: Prisma.StockMovementCreateNestedManyWithoutRawMaterialInput
+}
+
+export type RawMaterialUncheckedCreateWithoutUnitConversionsInput = {
+  id?: string
+  tenantId: string
+  name: string
+  sku?: string | null
+  unitId: string
+  averageCost?: number
+  status?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  stock?: Prisma.StockUncheckedCreateNestedOneWithoutRawMaterialInput
+  recipeItems?: Prisma.RecipeItemUncheckedCreateNestedManyWithoutRawMaterialInput
+  purchaseItems?: Prisma.PurchaseItemUncheckedCreateNestedManyWithoutRawMaterialInput
+  stockMovements?: Prisma.StockMovementUncheckedCreateNestedManyWithoutRawMaterialInput
+}
+
+export type RawMaterialCreateOrConnectWithoutUnitConversionsInput = {
+  where: Prisma.RawMaterialWhereUniqueInput
+  create: Prisma.XOR<Prisma.RawMaterialCreateWithoutUnitConversionsInput, Prisma.RawMaterialUncheckedCreateWithoutUnitConversionsInput>
+}
+
+export type RawMaterialUpsertWithoutUnitConversionsInput = {
+  update: Prisma.XOR<Prisma.RawMaterialUpdateWithoutUnitConversionsInput, Prisma.RawMaterialUncheckedUpdateWithoutUnitConversionsInput>
+  create: Prisma.XOR<Prisma.RawMaterialCreateWithoutUnitConversionsInput, Prisma.RawMaterialUncheckedCreateWithoutUnitConversionsInput>
+  where?: Prisma.RawMaterialWhereInput
+}
+
+export type RawMaterialUpdateToOneWithWhereWithoutUnitConversionsInput = {
+  where?: Prisma.RawMaterialWhereInput
+  data: Prisma.XOR<Prisma.RawMaterialUpdateWithoutUnitConversionsInput, Prisma.RawMaterialUncheckedUpdateWithoutUnitConversionsInput>
+}
+
+export type RawMaterialUpdateWithoutUnitConversionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  averageCost?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutRawMaterialsNestedInput
+  unit?: Prisma.UnitUpdateOneRequiredWithoutRawMaterialsNestedInput
+  stock?: Prisma.StockUpdateOneWithoutRawMaterialNestedInput
+  recipeItems?: Prisma.RecipeItemUpdateManyWithoutRawMaterialNestedInput
+  purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutRawMaterialNestedInput
+  stockMovements?: Prisma.StockMovementUpdateManyWithoutRawMaterialNestedInput
+}
+
+export type RawMaterialUncheckedUpdateWithoutUnitConversionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  tenantId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  sku?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  unitId?: Prisma.StringFieldUpdateOperationsInput | string
+  averageCost?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  stock?: Prisma.StockUncheckedUpdateOneWithoutRawMaterialNestedInput
+  recipeItems?: Prisma.RecipeItemUncheckedUpdateManyWithoutRawMaterialNestedInput
+  purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutRawMaterialNestedInput
+  stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutRawMaterialNestedInput
+}
+
 export type RawMaterialCreateManyTenantInput = {
   id?: string
   name: string
@@ -1098,6 +1219,7 @@ export type RawMaterialUpdateWithoutTenantInput = {
   recipeItems?: Prisma.RecipeItemUpdateManyWithoutRawMaterialNestedInput
   purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutRawMaterialNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutRawMaterialNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUpdateManyWithoutRawMaterialNestedInput
 }
 
 export type RawMaterialUncheckedUpdateWithoutTenantInput = {
@@ -1113,6 +1235,7 @@ export type RawMaterialUncheckedUpdateWithoutTenantInput = {
   recipeItems?: Prisma.RecipeItemUncheckedUpdateManyWithoutRawMaterialNestedInput
   purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutRawMaterialNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutRawMaterialNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutRawMaterialNestedInput
 }
 
 export type RawMaterialUncheckedUpdateManyWithoutTenantInput = {
@@ -1150,6 +1273,7 @@ export type RawMaterialUpdateWithoutUnitInput = {
   recipeItems?: Prisma.RecipeItemUpdateManyWithoutRawMaterialNestedInput
   purchaseItems?: Prisma.PurchaseItemUpdateManyWithoutRawMaterialNestedInput
   stockMovements?: Prisma.StockMovementUpdateManyWithoutRawMaterialNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUpdateManyWithoutRawMaterialNestedInput
 }
 
 export type RawMaterialUncheckedUpdateWithoutUnitInput = {
@@ -1165,6 +1289,7 @@ export type RawMaterialUncheckedUpdateWithoutUnitInput = {
   recipeItems?: Prisma.RecipeItemUncheckedUpdateManyWithoutRawMaterialNestedInput
   purchaseItems?: Prisma.PurchaseItemUncheckedUpdateManyWithoutRawMaterialNestedInput
   stockMovements?: Prisma.StockMovementUncheckedUpdateManyWithoutRawMaterialNestedInput
+  unitConversions?: Prisma.RawMaterialUnitConversionUncheckedUpdateManyWithoutRawMaterialNestedInput
 }
 
 export type RawMaterialUncheckedUpdateManyWithoutUnitInput = {
@@ -1187,12 +1312,14 @@ export type RawMaterialCountOutputType = {
   recipeItems: number
   purchaseItems: number
   stockMovements: number
+  unitConversions: number
 }
 
 export type RawMaterialCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   recipeItems?: boolean | RawMaterialCountOutputTypeCountRecipeItemsArgs
   purchaseItems?: boolean | RawMaterialCountOutputTypeCountPurchaseItemsArgs
   stockMovements?: boolean | RawMaterialCountOutputTypeCountStockMovementsArgs
+  unitConversions?: boolean | RawMaterialCountOutputTypeCountUnitConversionsArgs
 }
 
 /**
@@ -1226,6 +1353,13 @@ export type RawMaterialCountOutputTypeCountStockMovementsArgs<ExtArgs extends ru
   where?: Prisma.StockMovementWhereInput
 }
 
+/**
+ * RawMaterialCountOutputType without action
+ */
+export type RawMaterialCountOutputTypeCountUnitConversionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.RawMaterialUnitConversionWhereInput
+}
+
 
 export type RawMaterialSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1243,6 +1377,7 @@ export type RawMaterialSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   recipeItems?: boolean | Prisma.RawMaterial$recipeItemsArgs<ExtArgs>
   purchaseItems?: boolean | Prisma.RawMaterial$purchaseItemsArgs<ExtArgs>
   stockMovements?: boolean | Prisma.RawMaterial$stockMovementsArgs<ExtArgs>
+  unitConversions?: boolean | Prisma.RawMaterial$unitConversionsArgs<ExtArgs>
   _count?: boolean | Prisma.RawMaterialCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["rawMaterial"]>
 
@@ -1268,6 +1403,7 @@ export type RawMaterialInclude<ExtArgs extends runtime.Types.Extensions.Internal
   recipeItems?: boolean | Prisma.RawMaterial$recipeItemsArgs<ExtArgs>
   purchaseItems?: boolean | Prisma.RawMaterial$purchaseItemsArgs<ExtArgs>
   stockMovements?: boolean | Prisma.RawMaterial$stockMovementsArgs<ExtArgs>
+  unitConversions?: boolean | Prisma.RawMaterial$unitConversionsArgs<ExtArgs>
   _count?: boolean | Prisma.RawMaterialCountOutputTypeDefaultArgs<ExtArgs>
 }
 
@@ -1280,6 +1416,7 @@ export type $RawMaterialPayload<ExtArgs extends runtime.Types.Extensions.Interna
     recipeItems: Prisma.$RecipeItemPayload<ExtArgs>[]
     purchaseItems: Prisma.$PurchaseItemPayload<ExtArgs>[]
     stockMovements: Prisma.$StockMovementPayload<ExtArgs>[]
+    unitConversions: Prisma.$RawMaterialUnitConversionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1637,6 +1774,7 @@ export interface Prisma__RawMaterialClient<T, Null = never, ExtArgs extends runt
   recipeItems<T extends Prisma.RawMaterial$recipeItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RawMaterial$recipeItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RecipeItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   purchaseItems<T extends Prisma.RawMaterial$purchaseItemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RawMaterial$purchaseItemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PurchaseItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   stockMovements<T extends Prisma.RawMaterial$stockMovementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RawMaterial$stockMovementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$StockMovementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  unitConversions<T extends Prisma.RawMaterial$unitConversionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.RawMaterial$unitConversionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RawMaterialUnitConversionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2111,6 +2249,30 @@ export type RawMaterial$stockMovementsArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   distinct?: Prisma.StockMovementScalarFieldEnum | Prisma.StockMovementScalarFieldEnum[]
+}
+
+/**
+ * RawMaterial.unitConversions
+ */
+export type RawMaterial$unitConversionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the RawMaterialUnitConversion
+   */
+  select?: Prisma.RawMaterialUnitConversionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the RawMaterialUnitConversion
+   */
+  omit?: Prisma.RawMaterialUnitConversionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.RawMaterialUnitConversionInclude<ExtArgs> | null
+  where?: Prisma.RawMaterialUnitConversionWhereInput
+  orderBy?: Prisma.RawMaterialUnitConversionOrderByWithRelationInput | Prisma.RawMaterialUnitConversionOrderByWithRelationInput[]
+  cursor?: Prisma.RawMaterialUnitConversionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.RawMaterialUnitConversionScalarFieldEnum | Prisma.RawMaterialUnitConversionScalarFieldEnum[]
 }
 
 /**

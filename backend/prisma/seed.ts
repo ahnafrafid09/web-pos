@@ -4,6 +4,8 @@ import {
   PrismaClient,
   UserRole,
   ProductType,
+  TenantModuleStatus,
+  ModuleCode,
 } from 'src/generated/prisma/client';
 import * as bcrypt from 'bcrypt';
 
@@ -113,30 +115,204 @@ async function main() {
     console.log('ℹ️ OWNER already exists untuk tenant ini');
   }
 
+  const modules = [
+    {
+      code: ModuleCode.SALES,
+      name: 'Sales',
+      description: 'Modul penjualan dan transaksi kasir',
+    },
+    {
+      code: ModuleCode.INVENTORY,
+      name: 'Inventory',
+      description: 'Modul pengelolaan stok dan pergerakan stok',
+    },
+    {
+      code: ModuleCode.PURCHASE,
+      name: 'Purchase',
+      description: 'Modul pembelian dan penerimaan barang',
+    },
+    {
+      code: ModuleCode.RECIPE,
+      name: 'Recipe',
+      description: 'Modul resep dan penggunaan bahan baku',
+    },
+    {
+      code: ModuleCode.REPORTING,
+      name: 'Reporting',
+      description: 'Modul laporan penjualan, pembelian, dan inventory',
+    },
+  ];
+
+  console.log('🌱 Seeding modules...');
+
+  for (const moduleData of modules) {
+    const module = await prisma.module.upsert({
+      where: {
+        code: moduleData.code,
+      },
+      update: {
+        name: moduleData.name,
+        description: moduleData.description,
+        status: true,
+      },
+      create: {
+        code: moduleData.code,
+        name: moduleData.name,
+        description: moduleData.description,
+        status: true,
+      },
+    });
+
+    await prisma.tenantModule.upsert({
+      where: {
+        tenantId_moduleId: {
+          tenantId: tenant.id,
+          moduleId: module.id,
+        },
+      },
+      update: {
+        status: TenantModuleStatus.ACTIVE,
+      },
+      create: {
+        tenantId: tenant.id,
+        moduleId: module.id,
+        status: TenantModuleStatus.ACTIVE,
+        startedAt: new Date(),
+      },
+    });
+
+    console.log(`  ✅ ${module.code} → ACTIVE`);
+  }
+
+  console.log('✅ Modules seeded');
+
   // ==========================================
   // SEED UNIT
   // ==========================================
 
   const units = [
+    // ========================================
+    // BERAT / MASSA
+    // ========================================
+
+    {
+      name: 'Miligram',
+      code: 'mg',
+    },
     {
       name: 'Gram',
       code: 'g',
+    },
+    {
+      name: 'Ons',
+      code: 'ons',
     },
     {
       name: 'Kilogram',
       code: 'kg',
     },
     {
-      name: 'Milliliter',
+      name: 'Kuintal',
+      code: 'kuintal',
+    },
+    {
+      name: 'Ton',
+      code: 'ton',
+    },
+    {
+      name: 'Pound',
+      code: 'lb',
+    },
+
+    // ========================================
+    // VOLUME
+    // ========================================
+
+    {
+      name: 'Mililiter',
       code: 'ml',
+    },
+    {
+      name: 'Centiliter',
+      code: 'cl',
+    },
+    {
+      name: 'Desiliter',
+      code: 'dl',
     },
     {
       name: 'Liter',
       code: 'l',
     },
+
+    // ========================================
+    // JUMLAH
+    // ========================================
+
     {
       name: 'Pieces',
       code: 'pcs',
+    },
+    {
+      name: 'Lusin',
+      code: 'lusin',
+    },
+    {
+      name: 'Gross',
+      code: 'gross',
+    },
+
+    // ========================================
+    // KEMASAN
+    // ========================================
+
+    {
+      name: 'Sachet',
+      code: 'sachet',
+    },
+    {
+      name: 'Renceng',
+      code: 'renceng',
+    },
+    {
+      name: 'Pack',
+      code: 'pack',
+    },
+    {
+      name: 'Dus',
+      code: 'dus',
+    },
+    {
+      name: 'Karton',
+      code: 'karton',
+    },
+    {
+      name: 'Tray',
+      code: 'tray',
+    },
+    {
+      name: 'Botol',
+      code: 'botol',
+    },
+    {
+      name: 'Kaleng',
+      code: 'kaleng',
+    },
+    {
+      name: 'Bungkus',
+      code: 'bungkus',
+    },
+    {
+      name: 'Karung',
+      code: 'karung',
+    },
+    {
+      name: 'Paket',
+      code: 'paket',
+    },
+    {
+      name: 'Box',
+      code: 'box',
     },
   ];
 
@@ -158,63 +334,255 @@ async function main() {
   // SEED UNIT CONVERSION
   // ==========================================
 
+  const mg = await prisma.unit.findUniqueOrThrow({
+    where: { code: 'mg' },
+  });
+
   const gram = await prisma.unit.findUniqueOrThrow({
-    where: {
-      code: 'g',
-    },
+    where: { code: 'g' },
+  });
+
+  const ons = await prisma.unit.findUniqueOrThrow({
+    where: { code: 'ons' },
   });
 
   const kilogram = await prisma.unit.findUniqueOrThrow({
-    where: {
-      code: 'kg',
-    },
+    where: { code: 'kg' },
+  });
+
+  const kuintal = await prisma.unit.findUniqueOrThrow({
+    where: { code: 'kuintal' },
+  });
+
+  const ton = await prisma.unit.findUniqueOrThrow({
+    where: { code: 'ton' },
+  });
+
+  const pound = await prisma.unit.findUniqueOrThrow({
+    where: { code: 'lb' },
   });
 
   const milliliter = await prisma.unit.findUniqueOrThrow({
-    where: {
-      code: 'ml',
-    },
+    where: { code: 'ml' },
+  });
+
+  const centiliter = await prisma.unit.findUniqueOrThrow({
+    where: { code: 'cl' },
+  });
+
+  const desiliter = await prisma.unit.findUniqueOrThrow({
+    where: { code: 'dl' },
   });
 
   const liter = await prisma.unit.findUniqueOrThrow({
-    where: {
-      code: 'l',
-    },
+    where: { code: 'l' },
   });
 
   const pcs = await prisma.unit.findUniqueOrThrow({
-    where: {
-      code: 'pcs',
-    },
+    where: { code: 'pcs' },
+  });
+
+  const lusin = await prisma.unit.findUniqueOrThrow({
+    where: { code: 'lusin' },
+  });
+
+  const gross = await prisma.unit.findUniqueOrThrow({
+    where: { code: 'gross' },
   });
 
   const conversions = [
-    // KG → GRAM
+    // ========================================
+    // BERAT
+    // ========================================
+
+    // 1 gram = 1000 mg
+    {
+      fromUnitId: gram.id,
+      toUnitId: mg.id,
+      factor: 1000,
+    },
+
+    // 1 mg = 0.001 gram
+    {
+      fromUnitId: mg.id,
+      toUnitId: gram.id,
+      factor: 0.001,
+    },
+
+    // 1 ons = 100 gram
+    {
+      fromUnitId: ons.id,
+      toUnitId: gram.id,
+      factor: 100,
+    },
+
+    // 1 gram = 0.01 ons
+    {
+      fromUnitId: gram.id,
+      toUnitId: ons.id,
+      factor: 0.01,
+    },
+
+    // 1 kg = 1000 gram
     {
       fromUnitId: kilogram.id,
       toUnitId: gram.id,
       factor: 1000,
     },
 
-    // GRAM → KG
+    // 1 gram = 0.001 kg
     {
       fromUnitId: gram.id,
       toUnitId: kilogram.id,
       factor: 0.001,
     },
 
-    // LITER → ML
+    // 1 kuintal = 100 kg
+    {
+      fromUnitId: kuintal.id,
+      toUnitId: kilogram.id,
+      factor: 100,
+    },
+
+    // 1 kg = 0.01 kuintal
+    {
+      fromUnitId: kilogram.id,
+      toUnitId: kuintal.id,
+      factor: 0.01,
+    },
+
+    // 1 ton = 1000 kg
+    {
+      fromUnitId: ton.id,
+      toUnitId: kilogram.id,
+      factor: 1000,
+    },
+
+    // 1 kg = 0.001 ton
+    {
+      fromUnitId: kilogram.id,
+      toUnitId: ton.id,
+      factor: 0.001,
+    },
+
+    // 1 ton = 1.000.000 gram
+    {
+      fromUnitId: ton.id,
+      toUnitId: gram.id,
+      factor: 1000000,
+    },
+
+    // 1 gram = 0.000001 ton
+    {
+      fromUnitId: gram.id,
+      toUnitId: ton.id,
+      factor: 0.000001,
+    },
+
+    // 1 lb = 453.592 gram
+    {
+      fromUnitId: pound.id,
+      toUnitId: gram.id,
+      factor: 453.592,
+    },
+
+    // 1 gram ≈ 0.00220462 lb
+    {
+      fromUnitId: gram.id,
+      toUnitId: pound.id,
+      factor: 0.00220462,
+    },
+
+    // ========================================
+    // VOLUME
+    // ========================================
+
+    // 1 cl = 10 ml
+    {
+      fromUnitId: centiliter.id,
+      toUnitId: milliliter.id,
+      factor: 10,
+    },
+
+    // 1 ml = 0.1 cl
+    {
+      fromUnitId: milliliter.id,
+      toUnitId: centiliter.id,
+      factor: 0.1,
+    },
+
+    // 1 dl = 100 ml
+    {
+      fromUnitId: desiliter.id,
+      toUnitId: milliliter.id,
+      factor: 100,
+    },
+
+    // 1 ml = 0.01 dl
+    {
+      fromUnitId: milliliter.id,
+      toUnitId: desiliter.id,
+      factor: 0.01,
+    },
+
+    // 1 liter = 1000 ml
     {
       fromUnitId: liter.id,
       toUnitId: milliliter.id,
       factor: 1000,
     },
 
-    // ML → LITER
+    // 1 ml = 0.001 liter
     {
       fromUnitId: milliliter.id,
       toUnitId: liter.id,
       factor: 0.001,
+    },
+
+    // 1 liter = 100 cl
+    {
+      fromUnitId: liter.id,
+      toUnitId: centiliter.id,
+      factor: 100,
+    },
+
+    // 1 liter = 10 dl
+    {
+      fromUnitId: liter.id,
+      toUnitId: desiliter.id,
+      factor: 10,
+    },
+
+    // ========================================
+    // JUMLAH
+    // ========================================
+
+    // 1 lusin = 12 pcs
+    {
+      fromUnitId: lusin.id,
+      toUnitId: pcs.id,
+      factor: 12,
+    },
+
+    // 1 pcs = 1/12 lusin
+    {
+      fromUnitId: pcs.id,
+      toUnitId: lusin.id,
+      factor: 1 / 12,
+    },
+
+    // 1 gross = 144 pcs
+    {
+      fromUnitId: gross.id,
+      toUnitId: pcs.id,
+      factor: 144,
+    },
+
+    // 1 pcs = 1/144 gross
+    {
+      fromUnitId: pcs.id,
+      toUnitId: gross.id,
+      factor: 1 / 144,
     },
   ];
 
@@ -233,7 +601,7 @@ async function main() {
     });
   }
 
-  console.log('✅ Unit conversion seeded');
+  console.log('✅ Global unit conversion seeded');
 
   // ==========================================
   // SEED CATEGORY
@@ -630,60 +998,174 @@ async function main() {
       sku: 'BB-001',
       unit: 'kg',
       averageCost: 15000,
+
+      conversions: [
+        {
+          unit: 'karung',
+          factor: 25,
+        },
+      ],
     },
+
     {
       name: 'Ayam Mentah',
       sku: 'BB-002',
       unit: 'kg',
       averageCost: 35000,
+
+      conversions: [],
     },
+
     {
       name: 'Telur Ayam',
       sku: 'BB-003',
       unit: 'pcs',
       averageCost: 2500,
+
+      conversions: [
+        {
+          unit: 'tray',
+          factor: 30,
+        },
+      ],
     },
+
     {
       name: 'Minyak Goreng',
       sku: 'BB-004',
       unit: 'l',
       averageCost: 18000,
+
+      conversions: [
+        {
+          unit: 'dus',
+          factor: 12,
+        },
+      ],
     },
+
     {
       name: 'Gula Pasir',
       sku: 'BB-005',
       unit: 'kg',
       averageCost: 18000,
+
+      conversions: [
+        {
+          unit: 'karung',
+          factor: 25,
+        },
+      ],
     },
+
     {
       name: 'Garam',
       sku: 'BB-006',
       unit: 'g',
       averageCost: 5000,
+
+      conversions: [
+        {
+          unit: 'pack',
+          factor: 500,
+        },
+      ],
     },
+
     {
       name: 'Bawang Merah',
       sku: 'BB-007',
       unit: 'g',
       averageCost: 30000,
+
+      conversions: [
+        {
+          unit: 'kg',
+          factor: 1000,
+        },
+      ],
     },
+
     {
       name: 'Bawang Putih',
       sku: 'BB-008',
       unit: 'g',
       averageCost: 35000,
+
+      conversions: [
+        {
+          unit: 'kg',
+          factor: 1000,
+        },
+      ],
     },
+
     {
       name: 'Cabai Merah',
       sku: 'BB-009',
       unit: 'g',
       averageCost: 50000,
+
+      conversions: [
+        {
+          unit: 'kg',
+          factor: 1000,
+        },
+      ],
     },
+
     {
       name: 'Cabai Rawit',
       sku: 'BB-010',
       unit: 'g',
       averageCost: 60000,
+
+      conversions: [
+        {
+          unit: 'kg',
+          factor: 1000,
+        },
+      ],
+    },
+
+    // ========================================
+    // TAMBAHAN CONTOH
+    // ========================================
+
+    {
+      name: 'Indocafe Coffee',
+      sku: 'BB-011',
+      unit: 'sachet',
+      averageCost: 500,
+
+      conversions: [
+        {
+          unit: 'renceng',
+          factor: 10,
+        },
+        {
+          unit: 'dus',
+          factor: 200,
+        },
+      ],
+    },
+
+    {
+      name: 'Susu Sachet',
+      sku: 'BB-012',
+      unit: 'sachet',
+      averageCost: 1000,
+
+      conversions: [
+        {
+          unit: 'renceng',
+          factor: 20,
+        },
+        {
+          unit: 'dus',
+          factor: 400,
+        },
+      ],
     },
   ];
 
@@ -732,6 +1214,40 @@ async function main() {
         minimumStock: 0,
       },
     });
+
+    // ========================================
+    // CREATE RAW MATERIAL UNIT CONVERSION
+    // ========================================
+
+    for (const conversion of item.conversions ?? []) {
+      const conversionUnit = await prisma.unit.findUniqueOrThrow({
+        where: {
+          code: conversion.unit,
+        },
+      });
+
+      // Jangan izinkan base unit menjadi conversion
+      if (conversionUnit.id === unit.id) {
+        continue;
+      }
+
+      await prisma.rawMaterialUnitConversion.upsert({
+        where: {
+          rawMaterialId_unitId: {
+            rawMaterialId: rawMaterial.id,
+            unitId: conversionUnit.id,
+          },
+        },
+        update: {
+          factor: conversion.factor,
+        },
+        create: {
+          rawMaterialId: rawMaterial.id,
+          unitId: conversionUnit.id,
+          factor: conversion.factor,
+        },
+      });
+    }
   }
 
   console.log('✅ Raw materials seeded');

@@ -6,7 +6,6 @@ import type {
   MeResponse,
   RegisterDto,
 } from "@/features/auth/types/auth.types";
-import { authStorage } from "../lib/auth-storage";
 
 export const authService = {
   async register(data: RegisterDto) {
@@ -28,14 +27,8 @@ export const authService = {
   },
 
   async logout() {
-    const refreshToken = authStorage.getRefreshToken();
+    const response = await api.post("/auth/logout");
 
-    if (!refreshToken) {
-      return;
-    }
-
-    await api.post("/auth/logout", {
-      refreshToken,
-    });
+    return response.data;
   },
 };

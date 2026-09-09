@@ -106,74 +106,142 @@ export function DataTable<TData extends RowData>({
   };
 
   return (
-    <div className="space-y-4">
-      <div className="border">
-        <Table>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
-          </TableHeader>
+    <div className="w-full space-y-4">
+      {/* Desktop Table View */}
+      <div className="hidden w-full overflow-hidden rounded-md border sm:block">
+        <div className="w-full overflow-x-auto">
+          <Table className="min-w-[800px]">
+            <TableHeader>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <TableRow key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <TableHead key={header.id} className="whitespace-nowrap">
+                      {header.isPlaceholder
+                        ? null
+                        : flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                    </TableHead>
+                  ))}
+                </TableRow>
+              ))}
+            </TableHeader>
 
-          <TableBody>
-            {loading ? (
-              Array.from({
-                length: pagination.pageSize,
-              }).map((_, rowIndex) => (
-                <TableRow key={`skeleton-${rowIndex}`}>
-                  {columns.map((_, cellIndex) => (
-                    <TableCell key={cellIndex}>
-                      <Skeleton className="h-5 w-full" />
-                    </TableCell>
-                  ))}
+            <TableBody>
+              {loading ? (
+                Array.from({
+                  length: pagination.pageSize,
+                }).map((_, rowIndex) => (
+                  <TableRow key={`skeleton-${rowIndex}`}>
+                    {columns.map((_, cellIndex) => (
+                      <TableCell key={cellIndex}>
+                        <Skeleton className="h-5 w-full" />
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : table.getRowModel().rows.length > 0 ? (
+                table.getRowModel().rows.map((row) => (
+                  <TableRow key={row.id}>
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id} className="whitespace-nowrap">
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={columns.length} className="h-40 p-0">
+                    <div className="flex min-h-40 items-center justify-center px-4 text-center text-muted-foreground">
+                      {emptyMessage}
+                    </div>
+                  </TableCell>
                 </TableRow>
-              ))
-            ) : table.getRowModel().rows.length > 0 ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-40 p-0">
-                  <div className="flex min-h-40 items-center justify-center text-muted-foreground">
-                    {emptyMessage}
-                  </div>
-                </TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
+              )}
+            </TableBody>
+          </Table>
+        </div>
       </div>
 
-      <DataTablePagination
-        table={table}
-        pagination={pagination}
-        pageNumbers={pageNumbers}
-        currentPage={currentPage}
-        total={total}
-        totalLabel={totalLabel}
-        onPageChange={goToPage}
-      />
+      {/* Mobile Card View */}
+      <div className="space-y-3 sm:hidden">
+        {loading ? (
+          Array.from({ length: 5 }).map((_, index) => (
+            <div
+              key={`skeleton-mobile-${index}`}
+              className="rounded-lg border bg-card p-4 shadow-sm"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <Skeleton className="h-5 w-1/2" />
+                  <Skeleton className="h-5 w-20" />
+                </div>
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-3/4" />
+                <div className="flex gap-2">
+                  <Skeleton className="h-8 w-20" />
+                  <Skeleton className="h-8 w-20" />
+                </div>
+              </div>
+            </div>
+          ))
+        ) : table.getRowModel().rows.length > 0 ? (
+          table.getRowModel().rows.map((row) => (
+            <div
+              key={row.id}
+              className="rounded-lg border bg-card p-4 shadow-sm hover:bg-muted/50"
+            >
+              <div className="space-y-2">
+                {row.getVisibleCells().map((cell) => {
+                  const header = cell.column.columnDef.header;
+                  const headerText = typeof header === "string" ? header : "";
+
+                  return (
+                    <div
+                      key={cell.id}
+                      className="flex items-center justify-between gap-2"
+                    >
+                      <span className="text-xs font-medium text-muted-foreground shrink-0">
+                        {headerText}
+                      </span>
+                      <span className="text-sm font-medium text-right truncate max-w-[60%]">
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="flex min-h-[200px] items-center justify-center rounded-lg border bg-card">
+            <p className="text-center text-sm text-muted-foreground p-4">
+              {emptyMessage}
+            </p>
+          </div>
+        )}
+      </div>
+
+      {/* Pagination */}
+      <div className="w-full overflow-x-auto">
+        <DataTablePagination
+          table={table}
+          pagination={pagination}
+          pageNumbers={pageNumbers}
+          currentPage={currentPage}
+          total={total}
+          totalLabel={totalLabel}
+          onPageChange={goToPage}
+        />
+      </div>
     </div>
   );
 }

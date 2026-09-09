@@ -38,8 +38,33 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   // =========================================================
-  // REGISTER TENANT
+  // COOKIE CONFIGURATION
   // =========================================================
+
+  private get isProduction(): boolean {
+    return process.env.NODE_ENV === 'production';
+  }
+
+  /**
+   * Development:
+   * Access token  = 2 jam
+   * Refresh token = 30 hari
+   *
+   * Production:
+   * Access token  = 15 menit
+   * Refresh token = 7 hari
+   */
+  private get accessTokenMaxAge(): number {
+    return this.isProduction
+      ? 15 * 60 * 1000 // 15 menit
+      : 2 * 60 * 60 * 1000; // 2 jam
+  }
+
+  private get refreshTokenMaxAge(): number {
+    return this.isProduction
+      ? 7 * 24 * 60 * 60 * 1000 // 7 hari
+      : 30 * 24 * 60 * 60 * 1000; // 30 hari
+  }
 
   @Post('register-tenant')
   @ApiOperation({
@@ -62,10 +87,6 @@ export class AuthController {
     });
   }
 
-  // =========================================================
-  // LOGIN
-  // =========================================================
-
   @Post('login')
   @ApiOperation({
     summary: 'Login',
@@ -80,63 +101,39 @@ export class AuthController {
   })
   async login(
     @Body() dto: LoginDto,
-
     @Req() req: Request,
-
-    @Res({ passthrough: true })
-    res: Response,
+    @Res({ passthrough: true }) res: Response,
   ) {
-    /**
-     * Kirim informasi request ke AuthService.
-     *
-     * Informasi ini nantinya digunakan
-     * oleh AuditLogService.
-     */
     const result = await this.authService.login(dto, {
       ipAddress: req.ip,
       userAgent: req.headers['user-agent'],
     });
-
-    // Access token
     res.cookie('access_token', result.accessToken, {
       httpOnly: true,
-
-      secure: process.env.NODE_ENV === 'production',
-
-      sameSite: 'lax',
-
-      maxAge: 15 * 60 * 1000,
-
+      secure: this.isProduction,
+      sameSite: this.isProduction ? 'none' : 'lax',
+      maxAge: this.accessTokenMaxAge,
       path: '/',
     });
 
-    // Refresh token
     res.cookie('refresh_token', result.refreshToken, {
       httpOnly: true,
-
-      secure: process.env.NODE_ENV === 'production',
-
-      sameSite: 'lax',
-
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-
+      secure: this.isProduction,
+      sameSite: this.isProduction ? 'none' : 'lax',
+      maxAge: this.refreshTokenMaxAge,
       path: '/',
     });
 
     /**
-     * Jangan kirim token ke response body.
+     * Token tidak dikirim ke response body.
      *
-     * Token sudah disimpan di HTTP-only cookie.
+     * Token disimpan di HTTP-only cookie.
      */
     return {
       message: result.message,
       user: result.user,
     };
   }
-
-  // =========================================================
-  // ME
-  // =========================================================
 
   @Get('me')
   @UseGuards(JwtAuthGuard)
@@ -154,16 +151,9 @@ export class AuthController {
   @ApiUnauthorizedResponse({
     description: 'Access token tidak valid, expired, atau user tidak aktif.',
   })
-  async me(
-    @Req()
-    req: AuthenticatedRequest,
-  ): Promise<AuthMeResponseDto> {
+  async me(@Req() req: AuthenticatedRequest): Promise<AuthMeResponseDto> {
     return this.authService.me(req.user);
   }
-
-  // =========================================================
-  // REFRESH
-  // =========================================================
 
   @Post('refresh')
   @ApiOperation({
@@ -180,9 +170,7 @@ export class AuthController {
   })
   async refresh(
     @Req() req: Request,
-
-    @Res({ passthrough: true })
-    res: Response,
+    @Res({ passthrough: true }) res: Response,
   ) {
     const refreshToken = req.cookies?.refresh_token;
 
@@ -192,20 +180,11 @@ export class AuthController {
 
     const result = await this.authService.refresh(refreshToken);
 
-    /**
-     * Ganti access token lama
-     * dengan access token baru.
-     */
     res.cookie('access_token', result.accessToken, {
       httpOnly: true,
-
-      secure: process.env.NODE_ENV === 'production',
-
-      sameSite: 'lax',
-
+      secure: this.isProduction,
+      sameSite: this.isProduction ? 'none' : 'lax',
       maxAge: 15 * 60 * 1000,
-
-      path: '/',
     });
 
     return {
@@ -213,16 +192,12 @@ export class AuthController {
     };
   }
 
-  // =========================================================
-  // LOGOUT
-  // =========================================================
-
   @Post('logout')
   @UseGuards(JwtAuthGuard)
   @ApiBearerAuth('access-token')
   @ApiOperation({
     summary: 'Logout',
-    description: 'Mencabut refresh token user yang sedang login.',
+    description: 'Logout user dan mencabut refresh token.',
   })
   @ApiResponse({
     status: 200,
@@ -233,51 +208,34 @@ export class AuthController {
   })
   async logout(
     @Req() req: Request,
-
-    @Res({ passthrough: true })
-    res: Response,
-
-    @CurrentUser()
-    user: AuthenticatedUser,
+    @Res({ passthrough: true }) res: Response,
+    @CurrentUser() user: AuthenticatedUser,
   ) {
     const refreshToken = req.cookies?.refresh_token;
 
-    /**
-     * AuthService akan:
-     *
-     * 1. Hash refresh token
-     * 2. Cari token
-     * 3. Revoke token
-     * 4. Membuat audit log LOGOUT
-     */
-    if (refreshToken) {
-      await this.authService.logout(user.userId, refreshToken, {
-        ipAddress: req.ip,
-        userAgent: req.headers['user-agent'],
+    try {
+      if (refreshToken) {
+        await this.authService.logout(user.userId, refreshToken, {
+          ipAddress: req.ip,
+          userAgent: req.headers['user-agent'],
+        });
+      }
+    } finally {
+      // Tetap hapus cookie walaupun revoke gagal
+      res.clearCookie('access_token', {
+        httpOnly: true,
+        secure: this.isProduction,
+        sameSite: 'lax',
+        path: '/',
+      });
+
+      res.clearCookie('refresh_token', {
+        httpOnly: true,
+        secure: this.isProduction,
+        sameSite: 'lax',
+        path: '/',
       });
     }
-
-    // Hapus access token
-    res.clearCookie('access_token', {
-      httpOnly: true,
-
-      secure: process.env.NODE_ENV === 'production',
-
-      sameSite: 'lax',
-
-      path: '/',
-    });
-
-    // Hapus refresh token
-    res.clearCookie('refresh_token', {
-      httpOnly: true,
-
-      secure: process.env.NODE_ENV === 'production',
-
-      sameSite: 'lax',
-
-      path: '/',
-    });
 
     return {
       message: 'Logout berhasil',
