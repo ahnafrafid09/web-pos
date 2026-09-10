@@ -9,6 +9,9 @@ const cookieParser = require('cookie-parser');
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  // =========================
+  // GLOBAL VALIDATION
+  // =========================
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -17,34 +20,86 @@ async function bootstrap() {
     }),
   );
 
+  // =========================
+  // COOKIE PARSER
+  // =========================
   app.use(cookieParser());
+
+  // =========================
+  // CORS
+  // =========================
+  const allowedOrigins = [
+    // Production
+    'https://demo-pos.ahnafrafid.my.id',
+    'https://web-pos-eta-sepia.vercel.app',
+
+    // Development
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+  ];
 
   app.enableCors({
     origin: (
       origin: string | undefined,
       callback: (err: unknown, allow: boolean) => void,
     ) => {
-      // Allow requests with no origin (mobile apps, Postman, curl, etc.)
-      if (!origin) return callback(null, true);
+      // Allow requests without Origin:
+      // Postman, curl, mobile apps, server-to-server, etc.
+      if (!origin) {
+        return callback(null, true);
+      }
 
-      // Allow any localhost/127.0.0.1 with any port
+      // =========================
+      // ALLOWED DOMAIN
+      // =========================
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      // =========================
+      // LOCALHOST
+      // =========================
       const isLocalhost =
-        /^https?:\/\/(?:localhost|127\.0\.0\.1)(?::\d+)?$/.test(origin ?? '');
+        /^https?:\/\/(?:localhost|127\.0\.0\.1)(?::\d+)?$/.test(origin);
 
-      // Allow any local network IP (192.168.x.x, 10.x.x.x, 172.16.x.x-172.31.x.x)
+      if (isLocalhost) {
+        return callback(null, true);
+      }
+
+      // =========================
+      // LOCAL NETWORK
+      // =========================
       const isLocalNetwork =
-        /^https?:\/\/(?:(?:192\.168|10|172\.(?:1[6-9]|2\d|3[01]))\.\d+\.\d+)(?::\d+)?$/.test(
-          origin ?? '',
+        /^https?:\/\/(?:(?:192\.168|10)\.\d+\.\d+|172\.(?:1[6-9]|2\d|3[01])\.\d+)(?::\d+)?$/.test(
+          origin,
         );
 
-      if (isLocalhost || isLocalNetwork) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'), false);
+      if (isLocalNetwork) {
+        return callback(null, true);
       }
+
+      // =========================
+      // BLOCK
+      // =========================
+      console.log('CORS blocked:', origin);
+
+      return callback(
+        new Error(`Origin ${origin} tidak diizinkan oleh CORS`),
+        false,
+      );
     },
+
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+
+    methods: [
+      'GET',
+      'POST',
+      'PUT',
+      'PATCH',
+      'DELETE',
+      'OPTIONS',
+    ],
+
     allowedHeaders: [
       'Content-Type',
       'Authorization',
@@ -52,11 +107,15 @@ async function bootstrap() {
       'Accept',
       'Cookie',
     ],
+
     exposedHeaders: ['Set-Cookie'],
   });
 
+  // =========================
+  // SWAGGER
+  // =========================
   const config = new DocumentBuilder()
-    .setTitle(' POS API')
+    .setTitle('POS API')
     .setDescription('API untuk sistem POS')
     .setVersion('1.0')
     .build();
@@ -65,6 +124,9 @@ async function bootstrap() {
 
   SwaggerModule.setup('docs', app, document);
 
+  // =========================
+  // START SERVER
+  // =========================
   await app.listen(process.env.PORT ?? 3000);
 
   console.log('SERVER SUDAH JALAN');
