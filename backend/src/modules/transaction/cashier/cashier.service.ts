@@ -6,11 +6,11 @@ import {
 } from '@nestjs/common';
 import { CheckoutCashierDto } from './dto/checkout-cashier-dto';
 // import { UpdateCashierDto } from './dto/update-cashier.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
-import { getTenantId } from 'src/common/utils/tenant.util';
+import { PrismaService } from '../../../prisma/prisma.service';
+import { AuthenticatedUser } from '../../../auth/interfaces/authenticated-user.interface';
+import { getTenantId } from '../../../common/utils/tenant.util';
 import { ListProductCashierDto } from './dto/list-product-cashier-dto';
-import { Prisma, Product } from 'src/generated/prisma/client';
+import { Prisma, Product } from '../../../generated/prisma/client';
 
 @Injectable()
 export class CashierService {

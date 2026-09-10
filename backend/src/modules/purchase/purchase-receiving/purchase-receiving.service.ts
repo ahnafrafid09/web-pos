@@ -1,10 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePurchaseReceivingDto } from './dto/create-purchase-receiving.dto';
 import { UpdatePurchaseReceivingDto } from './dto/update-purchase-receiving.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { AuditLogService } from 'src/audit-log/audit-log.service';
-import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
-import { getTenantId } from 'src/common/utils/tenant.util';
+import { PrismaService } from '../../../prisma/prisma.service';
+import { AuditLogService } from '../../../audit-log/audit-log.service';
+import { AuthenticatedUser } from '../../../auth/interfaces/authenticated-user.interface';
+import { getTenantId } from '../../../common/utils/tenant.util';
 import { randomUUID } from 'crypto';
 
 @Injectable()

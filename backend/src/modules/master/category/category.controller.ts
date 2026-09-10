@@ -25,8 +25,8 @@ import { ModuleCode, UserRole } from 'src/generated/prisma/enums';
 import { QueryCategoryDto } from './dto/category-query';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { UpdateCategoryStatus } from './dto/update-category-status';
-import { ModuleAccessGuard } from 'src/module-access/module-access/module-access.guard';
-import { RequireModule } from 'src/module-access/decorators/require-module.decorator';
+import { ModuleAccessGuard } from '../../../module-access/module-access/module-access.guard';
+import { RequireModule } from '../../../module-access/decorators/require-module.decorator';
 
 @ApiTags('Master Data / Category')
 @ApiBearerAuth()

@@ -22,13 +22,13 @@ import { RecipeService } from './recipe.service';
 
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 
-import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
-import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { RequireModule } from 'src/module-access/decorators/require-module.decorator';
-import { ModuleCode } from 'src/generated/prisma/enums';
-import { ModuleAccessGuard } from 'src/module-access/module-access/module-access.guard';
+import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
+import { AuthenticatedUser } from '../../../auth/interfaces/authenticated-user.interface';
+import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../../../auth/guards/roles.guard';
+import { RequireModule } from '../../../module-access/decorators/require-module.decorator';
+import { ModuleCode } from '../../../generated/prisma/enums';
+import { ModuleAccessGuard } from '../../../module-access/module-access/module-access.guard';
 
 @ApiTags('Product / Recipe')
 @ApiBearerAuth()

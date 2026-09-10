@@ -4,16 +4,20 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { AuthenticatedUser } from '../../../auth/interfaces/authenticated-user.interface';
+import { PrismaService } from '../../../prisma/prisma.service';
 import { CreateProductDto } from './dto/create-product.dto';
-import { AuditLogAction, Prisma, Product } from 'src/generated/prisma/client';
+import {
+  AuditLogAction,
+  Prisma,
+  Product,
+} from '../../../generated/prisma/client';
 import { ProductQueryDto } from './dto/product-query.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { UpdateProductStatusDto } from './dto/update-product-status.dto';
-import { getTenantId } from 'src/common/utils/tenant.util';
-import { AuditLogService } from 'src/audit-log/audit-log.service';
-import { StorageService, UploadedFile } from 'src/storage/storage.service';
+import { getTenantId } from '../../../common/utils/tenant.util';
+import { AuditLogService } from '../../../audit-log/audit-log.service';
+import { StorageService, UploadedFile } from '../../../storage/storage.service';
 
 @Injectable()
 export class ProductService {

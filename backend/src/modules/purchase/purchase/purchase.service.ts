@@ -5,26 +5,26 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../../prisma/prisma.service';
 
-import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
+import { AuthenticatedUser } from '../../../auth/interfaces/authenticated-user.interface';
 
-import { getTenantId } from 'src/common/utils/tenant.util';
+import { getTenantId } from '../../../common/utils/tenant.util';
 
 import {
   AdjustmentType,
   AuditLogAction,
   PurchaseStatus,
-} from 'src/generated/prisma/enums';
+} from '../../../generated/prisma/enums';
 
-import { AuditLogService } from 'src/audit-log/audit-log.service';
+import { AuditLogService } from '../../../audit-log/audit-log.service';
 
-import { convertToBaseUnit } from 'src/common/utils/unit-convertion';
+import { convertToBaseUnit } from '../../../common/utils/unit-convertion';
 
 import { CreatePurchaseDto } from './dto/create-purchase.dto';
 import { randomUUID } from 'crypto';
 import { PurchaseQueryDto } from './dto/purchase-query.dto';
-import { Prisma } from 'src/generated/prisma/client';
+import { Prisma } from '../../../generated/prisma/client';
 
 @Injectable()
 export class PurchaseService {

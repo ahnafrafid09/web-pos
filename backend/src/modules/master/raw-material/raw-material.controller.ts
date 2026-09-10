@@ -23,11 +23,11 @@ import { CreateRawMaterialDto } from './dto/create-raw-material.dto';
 import { UpdateRawMaterialDto } from './dto/update-raw-material.dto';
 import { RawMaterialQueryDto } from './dto/raw-material-query.dto';
 
-import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
-import { Roles } from 'src/auth/decorators/roles.decorator';
-import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
+import { Roles } from '../../../auth/decorators/roles.decorator';
+import { AuthenticatedUser } from '../../../auth/interfaces/authenticated-user.interface';
+import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../../../auth/guards/roles.guard';
 
 @ApiTags('Master Data / Raw Material')
 @ApiBearerAuth('access-token')

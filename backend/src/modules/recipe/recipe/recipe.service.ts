@@ -7,15 +7,15 @@ import {
 import { CreateRecipeDto } from './dto/create-recipe.dto';
 import { UpdateRecipeDto } from './dto/update-recipe.dto';
 
-import { PrismaService } from 'src/prisma/prisma.service';
-import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
+import { PrismaService } from '../../../prisma/prisma.service';
+import { AuthenticatedUser } from '../../../auth/interfaces/authenticated-user.interface';
 
-import { getTenantId } from 'src/common/utils/tenant.util';
-import { convertToBaseUnit } from 'src/common/utils/unit-convertion';
+import { getTenantId } from '../../../common/utils/tenant.util';
+import { convertToBaseUnit } from '../../../common/utils/unit-convertion';
 
-import { AuditLogAction, ProductType } from 'src/generated/prisma/enums';
+import { AuditLogAction, ProductType } from '../../../generated/prisma/enums';
 
-import { AuditLogService } from 'src/audit-log/audit-log.service';
+import { AuditLogService } from '../../../audit-log/audit-log.service';
 
 @Injectable()
 export class RecipeService {

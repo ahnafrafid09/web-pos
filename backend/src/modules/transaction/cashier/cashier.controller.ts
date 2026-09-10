@@ -10,13 +10,13 @@ import {
   Query,
 } from '@nestjs/common';
 import { CashierService } from './cashier.service';
-import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
-import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
+import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
+import { AuthenticatedUser } from '../../../auth/interfaces/authenticated-user.interface';
 import { CheckoutCashierDto } from './dto/checkout-cashier-dto';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { Roles } from 'src/auth/decorators/roles.decorator';
+import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../../../auth/guards/roles.guard';
+import { Roles } from '../../../auth/decorators/roles.decorator';
 import { ListProductCashierDto } from './dto/list-product-cashier-dto';
 // import { CreateCashierDto } from './dto/checkout-cashier-dto';
 // import { UpdateCashierDto } from './dto/update-cashier.dto';

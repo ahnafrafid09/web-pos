@@ -19,18 +19,18 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../../../auth/guards/roles.guard';
 import { ProductService } from './product.service';
-import { Roles } from 'src/auth/decorators/roles.decorator';
-import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
+import { Roles } from '../../../auth/decorators/roles.decorator';
+import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
+import { AuthenticatedUser } from '../../../auth/interfaces/authenticated-user.interface';
 import { ProductQueryDto } from './dto/product-query.dto';
 import { UpdateProductStatusDto } from './dto/update-product-status.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { UploadedFile as StorageUploadedFile } from 'src/storage/storage.service';
+import { UploadedFile as StorageUploadedFile } from '../../../storage/storage.service';
 
 @ApiTags('Master Data / Product')
 @ApiBearerAuth()

@@ -13,7 +13,7 @@ import * as crypto from 'crypto';
 import { RegisterTenantDto } from './dto/register-tenant.dto';
 import { LoginDto } from './dto/login.dto';
 
-import { User } from 'src/generated/prisma/client';
+import { User } from '../generated/prisma/client';
 import { AuditLogAction } from '../generated/prisma/enums';
 import { AuditLogService } from '../audit-log/audit-log.service';
 

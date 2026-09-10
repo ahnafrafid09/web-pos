@@ -5,14 +5,18 @@ import { QueryCategoryDto } from './dto/category-query';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { UpdateCategoryStatus } from './dto/update-category-status';
 
-import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
+import { AuthenticatedUser } from '../../../auth/interfaces/authenticated-user.interface';
 
-import { AuditLogAction, Category, Prisma } from 'src/generated/prisma/client';
+import {
+  AuditLogAction,
+  Category,
+  Prisma,
+} from '../../../generated/prisma/client';
 
-import { getTenantId } from 'src/common/utils/tenant.util';
+import { getTenantId } from '../../../common/utils/tenant.util';
 
-import { AuditLogService } from 'src/audit-log/audit-log.service';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { AuditLogService } from '../../../audit-log/audit-log.service';
+import { PrismaService } from '../../../prisma/prisma.service';
 
 @Injectable()
 export class CategoryService {

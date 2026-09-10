@@ -9,9 +9,9 @@ import { CreateRawMaterialDto } from './dto/create-raw-material.dto';
 import { UpdateRawMaterialDto } from './dto/update-raw-material.dto';
 import { RawMaterialQueryDto } from './dto/raw-material-query.dto';
 
-import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
-import { getTenantId } from 'src/common/utils/tenant.util';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { AuthenticatedUser } from '../../../auth/interfaces/authenticated-user.interface';
+import { getTenantId } from '../../../common/utils/tenant.util';
+import { PrismaService } from '../../../prisma/prisma.service';
 
 import {
   AuditLogAction,

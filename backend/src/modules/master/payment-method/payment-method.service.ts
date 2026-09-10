@@ -1,18 +1,18 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
-import { PaymentMethod, Prisma } from 'src/generated/prisma/client';
+import { AuthenticatedUser } from '../../../auth/interfaces/authenticated-user.interface';
+import { PaymentMethod, Prisma } from '../../../generated/prisma/client';
 
-import { getTenantId } from 'src/common/utils/tenant.util';
+import { getTenantId } from '../../../common/utils/tenant.util';
 
 import { CreatePaymentMethodDto } from './dto/create-payment-method.dto';
 import { QueryPaymentMethodDto } from './dto/payment-method-query.dto';
 import { UpdatePaymentMethodDto } from './dto/update-payment-method.dto';
 import { UpdatePaymentMethodStatusDto } from './dto/update-payment-method-status';
 
-import { AuditLogService } from 'src/audit-log/audit-log.service';
-import { AuditLogAction } from 'src/generated/prisma/enums';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { AuditLogService } from '../../../audit-log/audit-log.service';
+import { AuditLogAction } from '../../../generated/prisma/enums';
+import { PrismaService } from '../../../prisma/prisma.service';
 
 @Injectable()
 export class PaymentMethodService {

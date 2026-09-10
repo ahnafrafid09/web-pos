@@ -4,15 +4,19 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../../prisma/prisma.service';
 
-import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
+import { AuthenticatedUser } from '../../../auth/interfaces/authenticated-user.interface';
 
-import { AuditLogAction, Supplier, Prisma } from 'src/generated/prisma/client';
+import {
+  AuditLogAction,
+  Supplier,
+  Prisma,
+} from '../../../generated/prisma/client';
 
-import { getTenantId } from 'src/common/utils/tenant.util';
+import { getTenantId } from '../../../common/utils/tenant.util';
 
-import { AuditLogService } from 'src/audit-log/audit-log.service';
+import { AuditLogService } from '../../../audit-log/audit-log.service';
 import { CreateSupplierDto } from './dto/create-supplier.dto';
 import { SupplierQueryDto } from './dto/supplier-query.dto';
 import { UpdateSupplierDto } from './dto/update-supplier.dto';

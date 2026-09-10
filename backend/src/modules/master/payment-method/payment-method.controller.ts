@@ -14,12 +14,12 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
-import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
-import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
-import { Roles } from 'src/auth/decorators/roles.decorator';
-import { UserRole } from 'src/generated/prisma/enums';
+import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../../../auth/guards/roles.guard';
+import { AuthenticatedUser } from '../../../auth/interfaces/authenticated-user.interface';
+import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
+import { Roles } from '../../../auth/decorators/roles.decorator';
+import { UserRole } from '../../../generated/prisma/enums';
 import { PaymentMethodService } from './payment-method.service';
 import { CreatePaymentMethodDto } from './dto/create-payment-method.dto';
 import { QueryPaymentMethodDto } from './dto/payment-method-query.dto';

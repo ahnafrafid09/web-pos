@@ -6,17 +6,17 @@ import {
 
 import * as bcrypt from 'bcryptjs';
 
-import { PrismaService } from 'src/prisma/prisma.service';
-import { AuditLogAction, Prisma } from 'src/generated/prisma/client';
-import { UserRole } from 'src/generated/prisma/enums';
+import { PrismaService } from '../../../prisma/prisma.service';
+import { AuditLogAction, Prisma } from '../../../generated/prisma/client';
+import { UserRole } from '../../../generated/prisma/enums';
 
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UpdateUserStatusDto } from './dto/update-user-status.dto';
 
 import { UserQueryDto } from './dto/user-query.dto';
-import { AuditLogService } from 'src/audit-log/audit-log.service';
-import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
+import { AuditLogService } from '../../../audit-log/audit-log.service';
+import { AuthenticatedUser } from '../../../auth/interfaces/authenticated-user.interface';
 
 @Injectable()
 export class UsersService {
