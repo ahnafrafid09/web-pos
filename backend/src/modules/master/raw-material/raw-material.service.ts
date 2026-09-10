@@ -17,9 +17,9 @@ import {
   AuditLogAction,
   Prisma,
   RawMaterial,
-} from 'src/generated/prisma/client';
+} from '../../../generated/prisma/client';
 
-import { AuditLogService } from 'src/audit-log/audit-log.service';
+import { AuditLogService } from '../../../audit-log/audit-log.service';
 
 @Injectable()
 export class RawMaterialService {

@@ -15,7 +15,10 @@ import {
 
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
-import { AdjustmentType, PurchaseType } from 'src/generated/prisma/enums';
+import {
+  AdjustmentType,
+  PurchaseType,
+} from '../../../../generated/prisma/enums';
 
 import { CreatePurchaseItemDto } from './create-purchase-item.dto';
 

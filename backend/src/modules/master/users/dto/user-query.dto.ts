@@ -8,7 +8,7 @@ import {
   IsString,
   Min,
 } from 'class-validator';
-import { ProductType, UserRole } from 'src/generated/prisma/client';
+import { ProductType, UserRole } from '../../../../generated/prisma/client';
 
 export class UserQueryDto {
   @ApiPropertyOptional({

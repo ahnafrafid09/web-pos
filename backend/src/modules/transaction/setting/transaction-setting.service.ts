@@ -1,8 +1,8 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { PrismaService } from '../../../prisma/prisma.service';
 import { UpdateTransactionSettingDto } from './dto/update-transaction-setting.dto';
-import { getTenantId } from 'src/common/utils/tenant.util';
-import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
+import { getTenantId } from '../../../common/utils/tenant.util';
+import { AuthenticatedUser } from '../../../auth/interfaces/authenticated-user.interface';
 
 @Injectable()
 export class TransactionSettingService {

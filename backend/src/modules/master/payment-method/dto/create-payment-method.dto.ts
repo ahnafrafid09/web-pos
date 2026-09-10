@@ -8,7 +8,7 @@ import {
   MaxLength,
   Min,
 } from 'class-validator';
-import { PaymentMethodUsage } from 'src/generated/prisma/enums';
+import { PaymentMethodUsage } from '../../../../generated/prisma/enums';
 
 export class CreatePaymentMethodDto {
   @ApiProperty({

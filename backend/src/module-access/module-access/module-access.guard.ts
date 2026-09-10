@@ -9,7 +9,7 @@ import { Reflector } from '@nestjs/core';
 
 import { ModuleAccessService } from './module-access.service';
 import { REQUIRED_MODULE_KEY } from '../decorators/require-module.decorator';
-import { ModuleCode, UserRole } from 'src/generated/prisma/enums';
+import { ModuleCode, UserRole } from '../../generated/prisma/enums';
 
 @Injectable()
 export class ModuleAccessGuard implements CanActivate {

@@ -9,7 +9,7 @@ import {
   Min,
 } from 'class-validator';
 
-import { ProductType } from 'src/generated/prisma/client';
+import { ProductType } from '../../../../generated/prisma/client';
 
 export class UpdateProductDto {
   @ApiPropertyOptional({

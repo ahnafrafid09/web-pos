@@ -9,7 +9,7 @@ import {
   Min,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { ProductType } from 'src/generated/prisma/enums';
+import { ProductType } from '../../../../generated/prisma/enums';
 
 export class CreateProductDto {
   @ApiProperty({

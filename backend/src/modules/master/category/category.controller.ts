@@ -14,14 +14,14 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
-import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { JwtAuthGuard } from '../../../auth/guards/jwt-auth.guard';
+import { RolesGuard } from '../../../auth/guards/roles.guard';
 import { CategoryService } from './category.service';
-import { AuthenticatedUser } from 'src/auth/interfaces/authenticated-user.interface';
-import { CurrentUser } from 'src/auth/decorators/current-user.decorator';
+import { AuthenticatedUser } from '../../../auth/interfaces/authenticated-user.interface';
+import { CurrentUser } from '../../../auth/decorators/current-user.decorator';
 import { CreateCategoryDto } from './dto/create-category.dto';
-import { Roles } from 'src/auth/decorators/roles.decorator';
-import { ModuleCode, UserRole } from 'src/generated/prisma/enums';
+import { Roles } from '../../../auth/decorators/roles.decorator';
+import { ModuleCode, UserRole } from '../../../generated/prisma/enums';
 import { QueryCategoryDto } from './dto/category-query';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { UpdateCategoryStatus } from './dto/update-category-status';

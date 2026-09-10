@@ -10,7 +10,10 @@ import {
   Min,
 } from 'class-validator';
 
-import { PurchaseStatus, PurchaseType } from 'src/generated/prisma/enums';
+import {
+  PurchaseStatus,
+  PurchaseType,
+} from '../../../../generated/prisma/enums';
 
 export class PurchaseQueryDto {
   // =========================================================

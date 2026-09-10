@@ -8,7 +8,7 @@ import {
   IsString,
   Min,
 } from 'class-validator';
-import { ProductType } from 'src/generated/prisma/enums';
+import { ProductType } from '../../../../generated/prisma/enums';
 
 export class ProductQueryDto {
   @ApiPropertyOptional({
