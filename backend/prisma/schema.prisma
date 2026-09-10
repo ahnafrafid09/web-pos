@@ -246,8 +246,8 @@ model Product {
 
   status Boolean @default(true)
 
-  imageUrl String?
-  imageKey String?
+  imageUrl String? @db.Text
+imageKey String? @db.VarChar(500)
 
   recipeItems RecipeItem[]
 

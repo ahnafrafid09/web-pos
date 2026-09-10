@@ -42,6 +42,28 @@ export interface SavedImage {
 export class StorageService {
   private readonly folder = process.env.CLOUDINARY_FOLDER || 'pos_system';
 
+  constructor() {
+    const cloudName = process.env.CLOUDINARY_CLOUD_NAME;
+    const apiKey = process.env.CLOUDINARY_API_KEY;
+    const apiSecret = process.env.CLOUDINARY_API_SECRET;
+
+    console.log('Cloudinary:', {
+      cloudName,
+      apiKey: apiKey ? 'ADA' : 'TIDAK ADA',
+      apiSecret: apiSecret ? 'ADA' : 'TIDAK ADA',
+    });
+
+    if (!cloudName || !apiKey || !apiSecret) {
+      throw new Error('Cloudinary environment variables belum lengkap');
+    }
+
+    cloudinary.config({
+      cloud_name: cloudName,
+      api_key: apiKey,
+      api_secret: apiSecret,
+    });
+  }
+
   async saveProductImage(
     file: UploadedFile,
     options: {
@@ -51,76 +73,62 @@ export class StorageService {
   ): Promise<SavedImage> {
     this.validateImage(file);
 
-    // Convert buffer to Base64 if needed
     const buffer =
       typeof file.buffer === 'string' ? Buffer.from(file.buffer) : file.buffer;
-    const base64Data = buffer.toString('base64');
-    const fileData = `data:${file.mimetype};base64,${base64Data}`;
 
-    // Generate unique public ID
     const uniqueId = crypto.randomUUID();
+
     const publicId = `${this.folder}/products/${options.tenantId}/${options.productId}/${uniqueId}`;
 
     return new Promise<SavedImage>((resolve, reject) => {
-      cloudinary.uploader.upload(
-        fileData,
-        {
-          public_id: publicId,
-          folder: this.folder,
-          resource_type: 'auto',
-          transformation: [
-            { width: 800, height: 800, crop: 'limit' },
-            { quality: 'auto:good' },
-            { format: 'webp' },
-          ],
-          context: `tenant_id=${options.tenantId}|product_id=${options.productId}`,
-          eager: [
-            {
-              width: 800,
-              height: 800,
-              crop: 'limit',
-              format: 'webp',
-              quality: 'auto:good',
-            },
-          ],
-        },
-        ((err: any, result: any) => {
-          if (err) {
-            reject(
-              new BadRequestException(
-                `Gagal upload ke Cloudinary: ${err.message}`,
-              ),
-            );
-            return;
-          }
-          if (!result) {
-            reject(new BadRequestException('Upload gagal tanpa error'));
-            return;
-          }
+      cloudinary.uploader
+        .upload_stream(
+          {
+            public_id: publicId,
+            resource_type: 'image',
 
-          // Get the transformed webp URL
-          const webpResult =
-            result.eager?.find(
-              (e: { format: string }) => e.format === 'webp',
-            ) || result;
+            transformation: [
+              {
+                width: 800,
+                height: 800,
+                crop: 'limit',
+              },
+              {
+                quality: 'auto:good',
+                fetch_format: 'webp',
+              },
+            ],
+          },
+          (err, result) => {
+            if (err) {
+              reject(
+                new BadRequestException(
+                  `Gagal upload ke Cloudinary: ${err.message}`,
+                ),
+              );
+              return;
+            }
 
-          const savedImage: SavedImage = {
-            fileName: `${uniqueId}.webp`,
-            filePath: publicId,
-            imageUrl: webpResult.secure_url || result.secure_url,
-            mimeType: 'image/webp',
-            size: webpResult.bytes || result.bytes,
-            width: webpResult.width || result.width,
-            height: webpResult.height || result.height,
-            publicId: publicId,
-          };
+            if (!result) {
+              reject(new BadRequestException('Upload gagal tanpa error'));
+              return;
+            }
 
-          resolve(savedImage);
-        }) as any,
-      );
+            resolve({
+              fileName: `${uniqueId}.webp`,
+              filePath: publicId,
+              imageUrl: result.secure_url,
+              mimeType: 'image/webp',
+              size: result.bytes,
+              width: result.width,
+              height: result.height,
+              publicId: result.public_id,
+            });
+          },
+        )
+        .end(buffer);
     });
   }
-
   async delete(imageUrl: string): Promise<void> {
     try {
       const publicId = this.extractPublicId(imageUrl);
