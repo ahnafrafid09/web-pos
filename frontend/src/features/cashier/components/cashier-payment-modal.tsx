@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -31,22 +31,32 @@ export function CashierPaymentModal() {
   const isPaymentModalOpen = useCashierStore(
     (state) => state.isPaymentModalOpen,
   );
+
   const closePaymentModal = useCashierStore((state) => state.closePaymentModal);
+
   const openSplitBillModal = useCashierStore(
     (state) => state.openSplitBillModal,
   );
+
   const paymentSplits = useCashierStore((state) => state.paymentSplits);
+
   const setPaymentSplits = useCashierStore((state) => state.setPaymentSplits);
+
   const cart = useCashierStore((state) => state.cart);
+
   const resetTransaction = useCashierStore((state) => state.resetTransaction);
+
   const subtotal = useCashierSubtotal();
 
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethodItem[]>([]);
+
   const [loading, setLoading] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+
   const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
+
   const [splitAmount, setSplitAmount] = useState("");
-  const [cashGiven, setCashGiven] = useState<string>("");
+  const [cashGiven, setCashGiven] = useState("");
 
   useEffect(() => {
     if (isPaymentModalOpen) {
@@ -56,11 +66,13 @@ export function CashierPaymentModal() {
 
   async function fetchPaymentMethods() {
     setLoading(true);
+
     try {
       const response = await paymentMethodService.findAll({
         status: true,
         limit: 100,
       });
+
       setPaymentMethods(
         response.data.filter(
           (pm) =>
@@ -76,33 +88,70 @@ export function CashierPaymentModal() {
     }
   }
 
+  const selectedPaymentMethod = paymentMethods.find(
+    (method) => method.id === selectedMethod,
+  );
+
+  const isCashPayment = selectedPaymentMethod?.code === "CASH";
+
+  const totalFromSplits = paymentSplits.reduce(
+    (sum, split) => sum + split.amount,
+    0,
+  );
+
+  const cashAmount = parseInt(cashGiven.replace(/\D/g, "") || "0");
+
+  const totalPaid = cashAmount + totalFromSplits;
+
+  const remaining = Math.max(0, subtotal - totalPaid);
+
+  const change = cashAmount >= subtotal ? cashAmount - subtotal : 0;
+
+  const hasCash = cashAmount > 0;
+
+  const isPaymentComplete =
+    remaining === 0 && (hasCash || paymentSplits.length > 0);
+
   function handleSelectPaymentMethod(methodId: string) {
     setSelectedMethod(methodId);
-    const remaining =
-      subtotal - paymentSplits.reduce((sum, split) => sum + split.amount, 0);
-    if (remaining <= 0) {
-      setPaymentSplits([]);
-    }
+    setCashGiven("");
+    setSplitAmount("");
+  }
+
+  function handleSetCashAmount(amount: number) {
+    setCashGiven(String(amount));
   }
 
   function handleAddSplit() {
-    if (!selectedMethod || !splitAmount) return;
+    if (!selectedMethod || !splitAmount) {
+      return;
+    }
+
     const amount = parseInt(splitAmount.replace(/\D/g, ""));
-    if (!amount || amount <= 0) return;
+
+    if (!amount || amount <= 0) {
+      toast.error("Nominal pembayaran tidak valid");
+      return;
+    }
 
     const currentTotal = paymentSplits.reduce(
       (sum, split) => sum + split.amount,
       0,
     );
+
     if (currentTotal + amount > subtotal) {
-      toast.error("Jumlah split melebihi subtotal");
+      toast.error("Jumlah pembayaran melebihi subtotal");
       return;
     }
 
     setPaymentSplits([
       ...paymentSplits,
-      { paymentMethodId: selectedMethod, amount },
+      {
+        paymentMethodId: selectedMethod,
+        amount,
+      },
     ]);
+
     setSelectedMethod(null);
     setSplitAmount("");
   }
@@ -112,36 +161,25 @@ export function CashierPaymentModal() {
   }
 
   function handlePayFull() {
-    if (paymentMethods.length > 0) {
-      setPaymentSplits([
-        { paymentMethodId: paymentMethods[0].id, amount: subtotal },
-      ]);
-      setCashGiven(String(subtotal));
+    const cashMethod =
+      paymentMethods.find((method) => method.code === "CASH") ??
+      paymentMethods[0];
+
+    if (!cashMethod) {
+      toast.error("Metode pembayaran tidak tersedia");
+      return;
     }
+
+    setPaymentSplits([
+      {
+        paymentMethodId: cashMethod.id,
+        amount: subtotal,
+      },
+    ]);
+
+    setSelectedMethod(cashMethod.id);
+    setCashGiven(String(subtotal));
   }
-
-  const totalFromSplits = paymentSplits.reduce(
-    (sum, split) => sum + split.amount,
-    0,
-  );
-
-  // Calculate cash amount
-  const cashAmount = parseInt(cashGiven.replace(/\D/g, "") || "0");
-
-  // Total paid: cash + all splits combined
-  const totalPaid = cashAmount + totalFromSplits;
-
-  // Calculate change (only when cash alone covers the subtotal)
-  const change = cashAmount >= subtotal ? cashAmount - subtotal : 0;
-
-  // Check if cash is given
-  const hasCash = cashAmount > 0;
-
-  // Remaining amount to pay
-  const remaining = Math.max(0, subtotal - totalPaid);
-
-  const isPaymentComplete =
-    remaining === 0 && (hasCash || paymentSplits.length > 0);
 
   async function handleCompletePayment() {
     if (cart.length === 0) {
@@ -157,13 +195,21 @@ export function CashierPaymentModal() {
     }
 
     setSubmitting(true);
-    try {
-      const payments: { paymentMethodId: string; amount: number }[] = [];
 
-      // Add cash payment if given
+    try {
+      const payments: {
+        paymentMethodId: string;
+        amount: number;
+      }[] = [];
+
+      /**
+       * CASH
+       */
       if (hasCash && cashAmount > 0) {
         const cashMethod =
-          paymentMethods.find((m) => m.code === "CASH") ?? paymentMethods[0];
+          paymentMethods.find((method) => method.code === "CASH") ??
+          paymentMethods[0];
+
         if (cashMethod) {
           payments.push({
             paymentMethodId: cashMethod.id,
@@ -172,6 +218,9 @@ export function CashierPaymentModal() {
         }
       }
 
+      /**
+       * OTHER PAYMENT METHODS
+       */
       if (paymentSplits.length > 0) {
         paymentSplits.forEach((split) => {
           payments.push({
@@ -191,13 +240,12 @@ export function CashierPaymentModal() {
           productId: item.product.id,
           quantity: item.quantity,
         })),
-        payments: payments,
+        payments,
       };
 
       const response = await cashierService.checkout(payload);
 
       const receipt = response.data;
-      console.log(response);
 
       try {
         await printReceipt(receipt);
@@ -207,7 +255,7 @@ export function CashierPaymentModal() {
 
       toast.success(
         change > 0
-          ? `Pembayaran berhasil! Jangan lupa berikan kembalian ${formatRupiah(change)}.`
+          ? `Pembayaran berhasil! Kembalian ${formatRupiah(change)}.`
           : "Pembayaran berhasil!",
         {
           duration: 5000,
@@ -231,250 +279,549 @@ export function CashierPaymentModal() {
   }
 
   return (
-    <>
-      <Dialog open={isPaymentModalOpen} onOpenChange={closePaymentModal}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
-              <CreditCardIcon className="h-5 w-5" />
-              Pembayaran
-            </DialogTitle>
-            <DialogDescription>
-              Masukkan jumlah uang atau pilih metode pembayaran.
-            </DialogDescription>
-          </DialogHeader>
+    <Dialog open={isPaymentModalOpen} onOpenChange={closePaymentModal}>
+      <DialogContent
+        className="
+          w-[calc(100%-1rem)]
+          max-w-2xl
+          max-h-[90vh]
+          overflow-y-auto
+          p-4
+          sm:p-6
+        "
+      >
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2 text-base sm:text-lg">
+            <CreditCardIcon className="h-5 w-5" />
+            Pembayaran
+          </DialogTitle>
 
-          <div className="space-y-4 mt-4">
-            {/* Total Display */}
-            <div className="bg-muted/50 p-4 rounded-lg flex justify-between items-center">
-              <span className="text-sm font-medium">Total Pembayaran</span>
-              <span className="text-xl font-bold">
+          <DialogDescription className="text-xs sm:text-sm">
+            Pilih metode pembayaran terlebih dahulu, kemudian masukkan nominal
+            pembayaran.
+          </DialogDescription>
+        </DialogHeader>
+
+        <div className="space-y-4">
+          {/* ========================= */}
+          {/* TOTAL */}
+          {/* ========================= */}
+
+          <div
+            className="
+              rounded-xl
+              border
+              bg-muted/40
+              p-4
+              sm:p-5
+            "
+          >
+            <div className="flex items-center justify-between gap-4">
+              <span className="text-sm text-muted-foreground">
+                Total Pembayaran
+              </span>
+
+              <span className="text-xl sm:text-2xl font-bold">
                 {formatRupiah(subtotal)}
               </span>
             </div>
+          </div>
 
-            {/* Cash Input Section */}
-            <div className="p-4 border rounded-lg space-y-3">
-              <div className="flex items-center gap-2">
-                <BanknoteIcon className="h-4 w-4 text-muted-foreground" />
-                <label className="text-sm font-medium">Bayar Tunai</label>
-              </div>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  placeholder="Masukkan jumlah uang"
-                  value={cashGiven}
-                  onChange={(e) => {
-                    const value = e.target.value.replace(/[^0-9]/g, "");
-                    setCashGiven(value);
-                  }}
-                  className="flex-1 h-10 px-3 text-sm rounded-lg border bg-transparent outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
-                />
-                {cashGiven && (
-                  <Button
-                    size="icon-sm"
-                    variant="ghost"
-                    onClick={() => setCashGiven("")}
-                  >
-                    <XIcon className="h-4 w-4" />
-                  </Button>
-                )}
+          {/* ========================= */}
+          {/* PAYMENT METHOD */}
+          {/* ========================= */}
+
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-semibold">Metode Pembayaran</h3>
+
+                <p className="text-xs text-muted-foreground">
+                  Pilih metode pembayaran
+                </p>
               </div>
 
-              {/* Change Display */}
-              {hasCash && (
-                <div
-                  className={`p-3 rounded-lg flex justify-between items-center ${cashAmount >= subtotal ? "bg-green-50 dark:bg-green-950/30" : "bg-red-50 dark:bg-red-950/30"}`}
+              {paymentSplits.length > 0 && (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleReset}
+                  className="text-xs"
                 >
-                  <span className="text-sm font-medium">
-                    {cashAmount >= subtotal ? "Kembalian" : "Kurang"}
-                  </span>
-                  <span
-                    className={`text-lg font-bold ${cashAmount >= subtotal ? "text-green-700 dark:text-green-400" : "text-red-700 dark:text-red-400"}`}
-                  >
-                    {formatRupiah(Math.abs(cashAmount - subtotal))}
-                  </span>
-                </div>
-              )}
-
-              {/* Quick Cash Buttons */}
-              {subtotal > 0 && (
-                <div className="flex flex-wrap gap-1">
-                  {[10000, 20000, 50000, 100000, 150000, 200000, 500000].map(
-                    (amount) => (
-                      <Button
-                        key={amount}
-                        size="xs"
-                        variant={amount === subtotal ? "default" : "outline"}
-                        onClick={() => setCashGiven(String(amount))}
-                        disabled={amount < subtotal}
-                      >
-                        {formatRupiah(amount).replace("Rp ", "")}
-                      </Button>
-                    ),
-                  )}
-                  {/* Exact amount button */}
-                  <Button
-                    size="xs"
-                    variant="default"
-                    onClick={() => setCashGiven(String(subtotal))}
-                  >
-                    Tepat: {formatRupiah(subtotal).replace("Rp ", "")}
-                  </Button>
-                </div>
+                  <RotateCcwIcon className="mr-1 h-3.5 w-3.5" />
+                  Reset
+                </Button>
               )}
             </div>
 
-            {/* Split Payment Section - Only shown if cash is not enough */}
-            {(!hasCash || cashAmount < subtotal) && (
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium flex items-center gap-2">
-                    <SplitIcon className="h-4 w-4" />
-                    Pembayaran Tambahan
-                  </label>
-                  {paymentSplits.length > 0 && (
-                    <button
-                      onClick={handleReset}
-                      className="text-xs text-muted-foreground hover:text-destructive flex items-center gap-1"
-                    >
-                      <RotateCcwIcon className="h-3 w-3" />
-                      Reset
-                    </button>
-                  )}
-                </div>
+            {loading ? (
+              <div className="grid grid-cols-2 gap-2 sm:grid-cols-3">
+                {[1, 2, 3].map((item) => (
+                  <div
+                    key={item}
+                    className="h-16 animate-pulse rounded-xl border bg-muted/40"
+                  />
+                ))}
+              </div>
+            ) : paymentMethods.length === 0 ? (
+              <div className="rounded-xl border border-dashed p-6 text-center">
+                <p className="text-sm text-muted-foreground">
+                  Belum ada metode pembayaran
+                </p>
+              </div>
+            ) : (
+              <div
+                className="
+                  grid
+                  grid-cols-2
+                  gap-2
+                  sm:grid-cols-3
+                "
+              >
+                {paymentMethods.map((method) => {
+                  const isSelected = selectedMethod === method.id;
 
-                {hasCash && cashAmount < subtotal && (
-                  <div className="bg-primary/10 p-2 rounded-lg flex justify-between items-center mb-2">
-                    <span className="text-xs font-medium">Belum Terbayar</span>
-                    <span className="text-sm font-semibold text-primary">
-                      {formatRupiah(remaining)}
-                    </span>
-                  </div>
-                )}
-
-                {!hasCash && remaining > 0 && (
-                  <div className="bg-primary/10 p-2 rounded-lg flex justify-between items-center mb-2">
-                    <span className="text-xs font-medium">
-                      Total Yang Harus Dibayar
-                    </span>
-                    <span className="text-sm font-semibold text-primary">
-                      {formatRupiah(remaining)}
-                    </span>
-                  </div>
-                )}
-
-                {/* Payment Method Selection */}
-                <div className="grid grid-cols-2 gap-2 max-h-32 overflow-y-auto">
-                  {paymentMethods.map((method) => (
+                  return (
                     <button
                       key={method.id}
+                      type="button"
                       onClick={() => handleSelectPaymentMethod(method.id)}
-                      className={`p-2 rounded-lg border text-left transition-all ${
-                        selectedMethod === method.id
-                          ? "border-primary bg-primary/10"
-                          : "hover:border-primary/50"
-                      }`}
+                      className={`
+                        relative
+                        min-h-16
+                        rounded-xl
+                        border
+                        p-3
+                        text-left
+                        transition
+                        hover:border-primary/50
+                        hover:bg-muted/50
+                        ${
+                          isSelected
+                            ? "border-primary bg-primary/10 ring-1 ring-primary"
+                            : "bg-background"
+                        }
+                      `}
                     >
-                      <span className="text-xs font-medium">{method.name}</span>
-                    </button>
-                  ))}
-                </div>
+                      {isSelected && (
+                        <div className="absolute right-2 top-2">
+                          <CheckIcon className="h-4 w-4 text-primary" />
+                        </div>
+                      )}
 
-                {/* Split Input */}
-                {selectedMethod && (
-                  <div className="flex gap-2">
-                    <div className="flex-1">
-                      <input
-                        type="text"
-                        placeholder="Masukkan jumlah"
-                        value={splitAmount}
-                        onChange={(e) => setSplitAmount(e.target.value)}
-                        className="w-full h-8 px-2.5 text-sm rounded-lg border bg-transparent"
-                      />
-                    </div>
-                    <Button size="sm" onClick={handleAddSplit}>
-                      <PlusIcon className="h-4 w-4 mr-1" /> Tambah
-                    </Button>
+                      <div className="flex flex-col gap-1 pr-5">
+                        <span className="text-sm font-semibold">
+                          {method.name}
+                        </span>
+
+                        {method.code && (
+                          <span className="text-[10px] uppercase text-muted-foreground">
+                            {method.code}
+                          </span>
+                        )}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* ========================= */}
+          {/* SELECTED METHOD */}
+          {/* ========================= */}
+
+          {selectedMethod && selectedPaymentMethod && (
+            <div className="space-y-4 rounded-xl border p-4">
+              <div className="flex items-center gap-2">
+                {isCashPayment ? (
+                  <BanknoteIcon className="h-4 w-4 text-muted-foreground" />
+                ) : (
+                  <CreditCardIcon className="h-4 w-4 text-muted-foreground" />
+                )}
+
+                <div>
+                  <p className="text-sm font-semibold">
+                    {selectedPaymentMethod.name}
+                  </p>
+
+                  <p className="text-xs text-muted-foreground">
+                    Masukkan nominal pembayaran
+                  </p>
+                </div>
+              </div>
+
+              {/* ========================= */}
+              {/* NOMINAL */}
+              {/* ========================= */}
+
+              <div className="space-y-2">
+                <label className="text-xs font-medium text-muted-foreground">
+                  Nominal
+                </label>
+
+                <div className="relative">
+                  <input
+                    type="text"
+                    inputMode="numeric"
+                    autoFocus
+                    placeholder="0"
+                    value={isCashPayment ? cashGiven : splitAmount}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/\D/g, "");
+
+                      if (isCashPayment) {
+                        setCashGiven(value);
+                      } else {
+                        setSplitAmount(value);
+                      }
+                    }}
+                    className="
+                      h-14
+                      w-full
+                      rounded-xl
+                      border
+                      bg-background
+                      px-4
+                      text-right
+                      text-xl
+                      font-semibold
+                      outline-none
+                      transition
+                      focus:border-primary
+                      focus:ring-2
+                      focus:ring-primary/20
+                    "
+                  />
+
+                  {(isCashPayment ? cashGiven : splitAmount) && (
                     <Button
-                      size="sm"
-                      variant="outline"
+                      type="button"
+                      size="icon-sm"
+                      variant="ghost"
                       onClick={() => {
-                        setSelectedMethod(null);
-                        setSplitAmount("");
+                        if (isCashPayment) {
+                          setCashGiven("");
+                        } else {
+                          setSplitAmount("");
+                        }
                       }}
+                      className="absolute left-2 top-1/2 -translate-y-1/2"
                     >
                       <XIcon className="h-4 w-4" />
                     </Button>
-                  </div>
-                )}
-
-                {/* Split List */}
-                {paymentSplits.length > 0 && (
-                  <div className="space-y-1 max-h-24 overflow-y-auto">
-                    {paymentSplits.map((split, index) => {
-                      const method = paymentMethods.find(
-                        (pm) => pm.id === split.paymentMethodId,
-                      );
-                      return (
-                        <div
-                          key={index}
-                          className="flex items-center justify-between p-2 rounded-md bg-muted/50"
-                        >
-                          <div className="flex items-center gap-2">
-                            <Badge variant="secondary" className="text-[10px]">
-                              {method?.name || "Unknown"}
-                            </Badge>
-                            <span className="text-xs font-medium">
-                              {formatRupiah(split.amount)}
-                            </span>
-                          </div>
-                          <Button
-                            size="icon-xs"
-                            variant="ghost"
-                            onClick={() => handleRemoveSplit(index)}
-                            className="h-4 w-4 text-muted-foreground hover:text-destructive"
-                          >
-                            <XIcon className="h-3 w-3" />
-                          </Button>
-                        </div>
-                      );
-                    })}
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
-            )}
 
-            {/* Action Buttons */}
-            <div className="flex gap-2 pt-2">
-              <Button
-                variant="outline"
-                className="flex-1"
-                disabled={submitting}
-                onClick={openSplitBillModal}
-              >
-                <SplitIcon className="h-4 w-4 mr-1" /> Split Bill
-              </Button>
-              <Button
-                variant="secondary"
-                className="flex-1"
-                disabled={submitting || paymentMethods.length === 0}
-                onClick={handlePayFull}
-              >
-                Bayar Full
-              </Button>
-              <Button
-                className="flex-[2]"
-                disabled={!isPaymentComplete || submitting}
-                onClick={handleCompletePayment}
-              >
-                <CheckIcon className="h-4 w-4 mr-1" />
-                {submitting ? "Memproses..." : "Selesai Pembayaran"}
-              </Button>
+              {/* ========================= */}
+              {/* QUICK CASH */}
+              {/* ========================= */}
+
+              {isCashPayment && (
+                <div className="space-y-2">
+                  <p className="text-xs font-medium text-muted-foreground">
+                    Nominal cepat
+                  </p>
+
+                  <div className="grid grid-cols-3 gap-2 sm:grid-cols-4">
+                    {[10000, 20000, 50000, 100000].map((amount) => (
+                      <Button
+                        key={amount}
+                        type="button"
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleSetCashAmount(amount)}
+                      >
+                        {formatRupiah(amount).replace("Rp ", "")}
+                      </Button>
+                    ))}
+
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="secondary"
+                      onClick={() => handleSetCashAmount(subtotal)}
+                    >
+                      Uang Pas
+                    </Button>
+
+                    {subtotal < 100000 && (
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleSetCashAmount(100000)}
+                      >
+                        100.000
+                      </Button>
+                    )}
+
+                    {subtotal < 200000 && (
+                      <Button
+                        type="button"
+                        size="sm"
+                        variant="outline"
+                        onClick={() => handleSetCashAmount(200000)}
+                      >
+                        200.000
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* ========================= */}
+              {/* PAYMENT STATUS */}
+              {/* ========================= */}
+
+              {(isCashPayment
+                ? cashAmount > 0
+                : parseInt(splitAmount.replace(/\D/g, "") || "0") > 0) && (
+                <div
+                  className={`
+                    rounded-xl
+                    p-3
+                    ${
+                      isCashPayment
+                        ? cashAmount >= subtotal
+                          ? "bg-green-50 dark:bg-green-950/30"
+                          : "bg-red-50 dark:bg-red-950/30"
+                        : "bg-muted/50"
+                    }
+                  `}
+                >
+                  {isCashPayment ? (
+                    <div className="space-y-2">
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Dibayar</span>
+
+                        <span className="font-medium">
+                          {formatRupiah(cashAmount)}
+                        </span>
+                      </div>
+
+                      <div className="flex justify-between text-sm">
+                        <span className="text-muted-foreground">Total</span>
+
+                        <span className="font-medium">
+                          {formatRupiah(subtotal)}
+                        </span>
+                      </div>
+
+                      <div className="border-t pt-2">
+                        <div className="flex items-center justify-between">
+                          <span className="text-sm font-semibold">
+                            {cashAmount >= subtotal ? "Kembalian" : "Kurang"}
+                          </span>
+
+                          <span
+                            className={`
+                              text-lg
+                              font-bold
+                              ${
+                                cashAmount >= subtotal
+                                  ? "text-green-700 dark:text-green-400"
+                                  : "text-red-700 dark:text-red-400"
+                              }
+                            `}
+                          >
+                            {formatRupiah(
+                              cashAmount >= subtotal ? change : remaining,
+                            )}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">
+                        Nominal Pembayaran
+                      </span>
+
+                      <span className="text-lg font-bold">
+                        {formatRupiah(
+                          parseInt(splitAmount.replace(/\D/g, "") || "0"),
+                        )}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* ========================= */}
+              {/* ADD PAYMENT */}
+              {/* ========================= */}
+
+              {!isCashPayment && (
+                <Button
+                  type="button"
+                  className="w-full"
+                  disabled={
+                    !splitAmount ||
+                    parseInt(splitAmount.replace(/\D/g, "") || "0") <= 0
+                  }
+                  onClick={handleAddSplit}
+                >
+                  <PlusIcon className="mr-2 h-4 w-4" />
+                  Tambahkan Pembayaran
+                </Button>
+              )}
+
+              {isCashPayment && (
+                <Button
+                  type="button"
+                  className="w-full"
+                  disabled={!cashGiven || cashAmount <= 0}
+                  onClick={() => {
+                    if (cashAmount < subtotal) {
+                      toast.error(
+                        `Uang masih kurang ${formatRupiah(
+                          subtotal - cashAmount,
+                        )}`,
+                      );
+                      return;
+                    }
+
+                    toast.success("Pembayaran tunai siap");
+                  }}
+                >
+                  <CheckIcon className="mr-2 h-4 w-4" />
+                  Gunakan Pembayaran
+                </Button>
+              )}
             </div>
+          )}
+
+          {/* ========================= */}
+          {/* PAYMENT SPLITS */}
+          {/* ========================= */}
+
+          {paymentSplits.length > 0 && (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <SplitIcon className="h-4 w-4" />
+
+                  <span className="text-sm font-semibold">Pembayaran</span>
+                </div>
+
+                <span className="text-xs text-muted-foreground">
+                  {formatRupiah(totalFromSplits)}
+                </span>
+              </div>
+
+              <div className="space-y-2">
+                {paymentSplits.map((split, index) => {
+                  const method = paymentMethods.find(
+                    (pm) => pm.id === split.paymentMethodId,
+                  );
+
+                  return (
+                    <div
+                      key={index}
+                      className="
+                          flex
+                          items-center
+                          justify-between
+                          gap-3
+                          rounded-lg
+                          bg-muted/50
+                          p-3
+                        "
+                    >
+                      <div className="flex min-w-0 items-center gap-2">
+                        <Badge
+                          variant="secondary"
+                          className="shrink-0 text-[10px]"
+                        >
+                          {method?.name || "Unknown"}
+                        </Badge>
+
+                        <span className="truncate text-sm font-medium">
+                          {formatRupiah(split.amount)}
+                        </span>
+                      </div>
+
+                      <Button
+                        type="button"
+                        size="icon-xs"
+                        variant="ghost"
+                        onClick={() => handleRemoveSplit(index)}
+                        className="shrink-0 text-muted-foreground hover:text-destructive"
+                      >
+                        <XIcon className="h-3.5 w-3.5" />
+                      </Button>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* ========================= */}
+          {/* REMAINING */}
+          {/* ========================= */}
+
+          {remaining > 0 && totalPaid > 0 && (
+            <div className="flex items-center justify-between rounded-xl bg-primary/10 p-3">
+              <span className="text-sm font-medium">Belum Terbayar</span>
+
+              <span className="font-semibold text-primary">
+                {formatRupiah(remaining)}
+              </span>
+            </div>
+          )}
+
+          {/* ========================= */}
+          {/* FOOTER ACTION */}
+          {/* ========================= */}
+
+          <div
+            className="
+              grid
+              grid-cols-1
+              gap-2
+              border-t
+              pt-4
+              sm:grid-cols-3
+            "
+          >
+            <Button
+              type="button"
+              variant="outline"
+              disabled={submitting}
+              onClick={openSplitBillModal}
+              className="w-full"
+            >
+              <SplitIcon className="mr-2 h-4 w-4" />
+              Split Bill
+            </Button>
+
+            <Button
+              type="button"
+              variant="secondary"
+              disabled={submitting || paymentMethods.length === 0}
+              onClick={handlePayFull}
+              className="w-full"
+            >
+              Bayar Full
+            </Button>
+
+            <Button
+              type="button"
+              disabled={!isPaymentComplete || submitting}
+              onClick={handleCompletePayment}
+              className="w-full sm:col-span-1"
+            >
+              <CheckIcon className="mr-2 h-4 w-4" />
+
+              {submitting ? "Memproses..." : "Selesaikan Pembayaran"}
+            </Button>
           </div>
-        </DialogContent>
-      </Dialog>
-    </>
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
