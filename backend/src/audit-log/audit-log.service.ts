@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from 'src/generated/prisma/client';
 import { AuditLogAction } from 'src/generated/prisma/enums';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 
 interface CreateAuditLogParams {
   tenantId?: string | null;
