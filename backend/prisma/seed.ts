@@ -6,7 +6,7 @@ import {
   ProductType,
   TenantModuleStatus,
   ModuleCode,
-} from 'src/generated/prisma/client';
+} from '../src/generated/prisma/client';
 import * as bcrypt from 'bcrypt';
 
 const adapter = new PrismaMariaDb({

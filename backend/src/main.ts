@@ -65,7 +65,7 @@ async function bootstrap() {
 
   SwaggerModule.setup('docs', app, document);
 
-  await app.listen(8000, '0.0.0.0');
+  await app.listen(process.env.PORT ?? 3000);
 
   console.log('SERVER SUDAH JALAN');
 }
