@@ -14,8 +14,8 @@ import { RegisterTenantDto } from './dto/register-tenant.dto';
 import { LoginDto } from './dto/login.dto';
 
 import { User } from 'src/generated/prisma/client';
-import { AuditLogAction } from 'src/generated/prisma/enums';
-import { AuditLogService } from 'src/audit-log/audit-log.service';
+import { AuditLogAction } from '../generated/prisma/enums';
+import { AuditLogService } from '../audit-log/audit-log.service';
 
 @Injectable()
 export class AuthService {
