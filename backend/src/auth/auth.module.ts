@@ -10,7 +10,7 @@ import { PrismaModule } from '../prisma/prisma.module';
 
 import { JwtStrategy } from './strategies/jwt.strategy';
 
-import { AuditLogModule } from 'src/audit-log/audit-log.module';
+import { AuditLogModule } from '../audit-log/audit-log.module';
 
 @Module({
   imports: [
